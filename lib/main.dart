@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/pages/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 
@@ -10,8 +11,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Food Education App",
-      home: App(),
+      debugShowCheckedModeBanner: false,
+      title: "FoodEdu App",
+      theme: ThemeData(
+        primaryColor: Color(0xFF00A299),
+        //textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
+        //visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: HomeScreen(),
     );
   }
 }
