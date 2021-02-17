@@ -16,21 +16,21 @@ class RecommendedProduct extends StatelessWidget {
           RecommendedProductCard(
             image: "assets/images/product1.jpg",
             title: "Oatly Milk",
-            country: "Oatly",
+            company: "Oatly",
             price: 440,
             press: () {},
           ),
           RecommendedProductCard(
             image: "assets/images/product2.jpg",
             title: "Beyond Meat",
-            country: "Impossible Foods",
+            company: "Impossible Foods",
             price: 440,
             press: () {},
           ),
           RecommendedProductCard(
             image: "assets/images/product3.jpg",
             title: "Whey Protein Powder",
-            country: "Purasana",
+            company: "Purasana",
             price: 440,
             press: () {},
           ),
@@ -45,12 +45,12 @@ class RecommendedProductCard extends StatelessWidget {
     Key key,
     this.image,
     this.title,
-    this.country,
+    this.company,
     this.price,
     this.press,
   }) : super(key: key);
 
-  final String image, title, country;
+  final String image, title, company;
   final int price;
   final Function press;
 
@@ -67,9 +67,13 @@ class RecommendedProductCard extends StatelessWidget {
       child: Column(
         // todo: resize the image and text correctly
         children: <Widget>[
-          Image.asset(
-            image,
-            fit: BoxFit.fitHeight,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(14.0),
+            child: Image.asset(
+              image,
+              height: 150,
+              fit: BoxFit.fitWidth,
+            ),
           ),
           GestureDetector(
             onTap: press,
@@ -95,10 +99,11 @@ class RecommendedProductCard extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                            text: "$title\n".toUpperCase(),
-                            style: Theme.of(context).textTheme.button),
+                          text: "$title\n".toUpperCase(),
+                          style: Theme.of(context).textTheme.button,
+                        ),
                         TextSpan(
-                          text: "$country".toUpperCase(),
+                          text: "$company".toUpperCase(),
                           style: TextStyle(
                             color: kPrimaryColor.withOpacity(0.5),
                           ),
@@ -113,7 +118,7 @@ class RecommendedProductCard extends StatelessWidget {
                         .textTheme
                         .button
                         .copyWith(color: kPrimaryColor),
-                  )
+                  ),
                 ],
               ),
             ),

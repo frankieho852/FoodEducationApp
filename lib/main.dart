@@ -3,6 +3,7 @@ import 'package:food_education_app/pages/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 
+// todo: is the pages.home file structure correct?
 void main() {
   runApp(MyApp());
 }

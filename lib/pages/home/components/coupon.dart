@@ -46,10 +46,10 @@ class CouponCard extends StatelessWidget {
           top: kDefaultPadding / 2,
           bottom: kDefaultPadding / 2,
         ),
-        width: size.width * 0.8,
+        width: size.width * 0.6,
         height: 185,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(14),
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(image),
