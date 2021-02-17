@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 
 class RecommendedProduct extends StatelessWidget {
+  // todo: is the key parameters necessary?
   const RecommendedProduct({
     Key key,
   }) : super(key: key);
@@ -64,8 +65,12 @@ class RecommendedProductCard extends StatelessWidget {
       ),
       width: size.width * 0.4,
       child: Column(
+        // todo: resize the image and text correctly
         children: <Widget>[
-          Image.asset(image),
+          Image.asset(
+            image,
+            fit: BoxFit.fitHeight,
+          ),
           GestureDetector(
             onTap: press,
             child: Container(
@@ -73,14 +78,14 @@ class RecommendedProductCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(14),
+                  bottomRight: Radius.circular(14),
                 ),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 50,
-                    color: kPrimaryColor.withOpacity(0.23),
+                    offset: Offset(0, 4),
+                    blurRadius: 14,
+                    color: Colors.black.withOpacity(0.08),
                   ),
                 ],
               ),

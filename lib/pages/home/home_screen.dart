@@ -14,6 +14,13 @@ class HomeScreen extends StatelessWidget {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
+      title: Text(
+        'Home',
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

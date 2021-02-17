@@ -18,7 +18,10 @@ class MyApp extends StatelessWidget {
         //textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         //visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreen(),
+      initialRoute: 'home',
+      routes: {
+        'home': (context) => HomeScreen(),
+      },
     );
   }
 }
