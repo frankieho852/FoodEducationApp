@@ -60,7 +60,7 @@ class RecommendedProductCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width * 0.4,
-      height: size.height * 0.3,
+      height: size.height * 0.35,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         margin: EdgeInsets.only(
@@ -72,7 +72,6 @@ class RecommendedProductCard extends StatelessWidget {
           splashColor: kPrimaryColor.withAlpha(30),
           onTap: () {},
           child: Column(
-            //mainAxisSize: MainAxisSize.min,
             // todo: resize the image and text correctly
             children: <Widget>[
               Ink.image(
@@ -88,15 +87,26 @@ class RecommendedProductCard extends StatelessWidget {
                     Text(
                       "$title".toUpperCase(),
                       style: Theme.of(context).textTheme.button,
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "$company".toUpperCase(),
-                          style: TextStyle(
-                            color: kPrimaryColor.withOpacity(0.5),
+                        Flexible(
+                          child: Text(
+                            "$company".toUpperCase(),
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                            softWrap: false,
+                            style: TextStyle(
+                              color: kPrimaryColor.withOpacity(0.5),
+                            ),
                           ),
+                        ),
+                        SizedBox(
+                          width: 10,
                         ),
                         Text(
                           '\$$price',
