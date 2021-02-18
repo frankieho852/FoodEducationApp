@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/home/components/body.dart';
 
-//todo: add in the nav bar
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

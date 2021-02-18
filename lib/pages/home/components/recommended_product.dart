@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 
 class RecommendedProduct extends StatelessWidget {
-  // todo: is the key parameters necessary?
+  // const for avoiding rebuilding the widget
   const RecommendedProduct({
     Key key,
   }) : super(key: key);

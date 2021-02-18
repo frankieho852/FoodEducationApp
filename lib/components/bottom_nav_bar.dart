@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:food_education_app/pages/home/home_screen.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 
-class App extends StatefulWidget {
+class BottomNavBar extends StatefulWidget {
   @override
-  _AppState createState() => _AppState();
+  _BottomNavBarState createState() => _BottomNavBarState();
 }
 
-class _AppState extends State<App> {
+class _BottomNavBarState extends State<BottomNavBar> {
   SSBottomBarState _state;
   bool _isVisible = true;
 
-  final _colors = [
-    Colors.white,
-    Colors.white,
-    Colors.white,
-    Colors.white,
-  ];
   final items = [
     SSBottomNavItem(text: 'Home', iconData: Icons.home, iconSize: 20),
     SSBottomNavItem(text: 'Finder', iconData: Icons.search, iconSize: 20),
@@ -33,33 +27,25 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => _state,
-      builder: (context, child) {
-        context.watch<SSBottomBarState>();
-        return Scaffold(
-          body: IndexedStack(
-            index: _state.selected,
-            children: _buildPages(),
-          ),
-          bottomNavigationBar: SSBottomNav(
-            items: items,
-            state: _state,
-            color: Color(0xFF00A299),
-            selectedColor: Colors.white,
-            unselectedColor: Colors.grey[700],
-            visible: _isVisible,
-            bottomSheetWidget: _bottomSheet(),
-            showBottomSheetAt: 1,
-          ),
-        );
-      },
+    return Scaffold(
+      body: IndexedStack(
+        index: _state.selected,
+        children: <Widget>[
+          HomeScreen(),
+        ],
+      ),
+      bottomNavigationBar: SSBottomNav(
+        items: items,
+        state: _state,
+        color: Color(0xFF00A299),
+        selectedColor: Colors.white,
+        unselectedColor: Colors.grey[700],
+        visible: _isVisible,
+        bottomSheetWidget: _bottomSheet(),
+        showBottomSheetAt: 1,
+      ),
     );
   }
-
-  Widget _page(Color color) => Container(color: color);
-
-  List<Widget> _buildPages() => _colors.map((color) => _page(color)).toList();
 
   Widget _bottomSheet() => Container(
         color: Colors.white,

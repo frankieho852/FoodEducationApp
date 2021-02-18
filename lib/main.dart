@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/home/home_screen.dart';
 
+import 'components/bottom_nav_bar.dart';
+
 // todo: is the pages.home file structure correct?
 void main() {
   runApp(MyApp());
@@ -17,9 +19,10 @@ class MyApp extends StatelessWidget {
         //textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
         //visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: 'home',
+      initialRoute: 'bottom_nav_bar',
       routes: {
         'home': (context) => HomeScreen(),
+        'bottom_nav_bar': (context) => BottomNavBar(),
       },
     );
   }

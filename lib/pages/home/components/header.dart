@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
             padding: EdgeInsets.only(
               left: kDefaultPadding,
               right: kDefaultPadding,
-              // todo: what is this bottom padding for?
+              // Bottom padding not affecting the UI
               bottom: 36 + kDefaultPadding,
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
