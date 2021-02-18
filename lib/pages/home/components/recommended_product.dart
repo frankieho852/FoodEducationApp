@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 
@@ -58,72 +59,60 @@ class RecommendedProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(
-        left: kDefaultPadding,
-        top: kDefaultPadding / 2,
-        bottom: kDefaultPadding * 2.5,
-      ),
       width: size.width * 0.4,
-      child: Column(
-        // todo: resize the image and text correctly
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(14.0),
-            child: Image.asset(
-              image,
-              height: 150,
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-          GestureDetector(
-            onTap: press,
-            child: Container(
-              padding: EdgeInsets.all(kDefaultPadding / 2),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(14),
-                  bottomRight: Radius.circular(14),
+      height: size.height * 0.3,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        margin: EdgeInsets.only(
+          left: kDefaultPadding,
+          top: kDefaultPadding / 2,
+          bottom: kDefaultPadding * 2.5,
+        ),
+        child: InkWell(
+          splashColor: kPrimaryColor.withAlpha(30),
+          onTap: () {},
+          child: Column(
+            //mainAxisSize: MainAxisSize.min,
+            // todo: resize the image and text correctly
+            children: <Widget>[
+              Ink.image(
+                image: AssetImage(
+                  image,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 4),
-                    blurRadius: 14,
-                    color: Colors.black.withOpacity(0.08),
-                  ),
-                ],
               ),
-              child: Row(
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
+              Padding(
+                padding: EdgeInsets.all(kDefaultPadding / 2),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "$title".toUpperCase(),
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextSpan(
-                          text: "$title\n".toUpperCase(),
-                          style: Theme.of(context).textTheme.button,
-                        ),
-                        TextSpan(
-                          text: "$company".toUpperCase(),
+                        Text(
+                          "$company".toUpperCase(),
                           style: TextStyle(
                             color: kPrimaryColor.withOpacity(0.5),
                           ),
                         ),
+                        Text(
+                          '\$$price',
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(color: kPrimaryColor),
+                        ),
                       ],
                     ),
-                  ),
-                  Spacer(),
-                  Text(
-                    '\$$price',
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        .copyWith(color: kPrimaryColor),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }
