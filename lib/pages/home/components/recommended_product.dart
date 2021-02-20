@@ -69,16 +69,11 @@ class RecommendedProductCard extends StatelessWidget {
           bottom: kDefaultPadding * 2.5,
         ),
         child: InkWell(
-          splashColor: kPrimaryColor.withAlpha(30),
           onTap: () {},
           child: Column(
-            // todo: resize the image and text correctly
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Ink.image(
-                image: AssetImage(
-                  image,
-                ),
-              ),
+              Expanded(child: Image.asset(image)),
               Padding(
                 padding: EdgeInsets.all(kDefaultPadding / 2),
                 child: Column(
