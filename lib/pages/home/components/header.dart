@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
+import 'package:food_education_app/pages/home/components/daily_target_graph.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -60,16 +61,10 @@ class Header extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: TextField(
-                      onChanged: (value) {},
-                      decoration: InputDecoration(
-                        hintText: "Daily Target",
-                        hintStyle: TextStyle(
-                          color: kPrimaryColor.withOpacity(0.5),
-                        ),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
+                    child: Row(
+                      children: [
+                        DailyTargetGraph(),
+                      ],
                     ),
                   ),
                 ],
