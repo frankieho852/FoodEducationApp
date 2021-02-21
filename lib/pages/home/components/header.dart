@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/home/components/daily_target_graph.dart';
@@ -64,6 +65,60 @@ class Header extends StatelessWidget {
                     child: Row(
                       children: [
                         DailyTargetGraph(),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Daily Target",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Container(
+                                margin: EdgeInsets.all(kDefaultPadding / 4),
+                                padding: EdgeInsets.all(kDefaultPadding / 4),
+                                height: 110,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6FAF9),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("160g"),
+                                          SizedBox(height: 5.0),
+                                          Text("Carbs")
+                                        ]),
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("94g"),
+                                          SizedBox(height: 5.0),
+                                          Text("Protein")
+                                        ]),
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("86g"),
+                                          SizedBox(height: 5.0),
+                                          Text("Fat")
+                                        ]),
+                                  ],
+                                ),
+                              )
+                            ]),
                       ],
                     ),
                   ),

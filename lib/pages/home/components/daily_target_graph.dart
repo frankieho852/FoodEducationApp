@@ -44,6 +44,16 @@ class _DailyTargetGraphState extends State<DailyTargetGraph>
 
         height: 100,
         width: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "2384",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Text("kcal", style: TextStyle(fontSize: 15, color: Colors.grey)),
+          ],
+        ),
       ),
       painter: DonutPainter(carbDegree, proteinDegree, fatDegree),
     );
