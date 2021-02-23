@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/DetailResult/foodproduct.dart';
 import 'package:food_education_app/pages/DetailResult/components/body.dart';
 
-class DetailResult extends StatelessWidget {
+class DetailedNutrition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FoodProduct tempfood= FoodProduct(name:"Quick Serve Macaroni",protein: 1,totalFat: 2,totalCarbonhydrates: 12,energy: 210);
@@ -18,7 +18,7 @@ class DetailResult extends StatelessWidget {
     return AppBar(
       elevation: 0,
       title: Text(
-        '$title',
+        'temp nutrition',
         style: TextStyle(
           fontSize: 25,
           fontWeight: FontWeight.bold,
