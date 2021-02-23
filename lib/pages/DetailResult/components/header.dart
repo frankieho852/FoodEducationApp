@@ -44,36 +44,39 @@ class Header extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Card(
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(14))
-              ),
-              child: InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context)=> DetailedNutrition()
-                    )),
-                child: Row(
-                  children: [
-                    Image.asset('assets/images/coupon1.jpg',height:getProportionateScreenHeight(150),width: getProportionateScreenWidth(150),),
-                    Flexible(
-                      child:Card(
-                        child: Column(
-                          children: [
-                            Text("is this product good for you?"),
-                            Row(
-                              children: [
-                                Text("3 Checks "),//temp use
-                                Text("2 Cautions"),//temp use
-                              ],
-                            )
-                          ],
-                        ),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Card(
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(14))
+                ),
+                child: InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context)=> DetailedNutrition()
+                      )),
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/bread.jpg',height:getProportionateScreenHeight(150),width: getProportionateScreenWidth(150),),
+                      Flexible(
+                        child:Card(
+                          child: Column(
+                            children: [
+                              Text("is this product good for you ?"),
+                              Row(
+                                children: [
+                                  Text("3 Checks "),//temp use
+                                  Text("2 Cautions"),//temp use
+                                ],
+                              )
+                            ],
+                          ),
+                        )
                       )
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )
