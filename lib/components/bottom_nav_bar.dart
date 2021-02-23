@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/home/home_screen.dart';
+import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -58,6 +59,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ListTile(
               leading: Icon(Icons.title),
               title: Text('Text Input'),
+              onTap: () => Navigator.push(//temp location for editing detail result page (figo)
+                context,
+                MaterialPageRoute(builder: (context)=> DetailResult())
+              ),
             ),
           ],
         ),
