@@ -38,20 +38,22 @@ class _DailyTargetGraphState extends State<DailyTargetGraph>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;//add this line for using dynamic size for daily target graph(change by figo 25/2)
     return CustomPaint(
       child: Container(
         // todo: doesn't container by default take up the max space of its parent? why do we have to specify width and height here?
 
-        height: 100,
-        width: 100,
+        height: size.height*0.18,//(change by figo 25/2)
+        width: size.width*0.18,//(change by figo 25/2)
+        //color: Colors.yellow,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               "2384",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: size.width*0.04, fontWeight: FontWeight.bold),
             ),
-            Text("kcal", style: TextStyle(fontSize: 15, color: Colors.grey)),
+            Text("kcal", style: TextStyle(fontSize: size.width*0.04, color: Colors.grey)),
           ],
         ),
       ),
