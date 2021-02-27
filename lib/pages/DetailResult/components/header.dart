@@ -46,36 +46,40 @@ class Header extends StatelessWidget {
             right: 0,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(14))
-                ),
-                child: InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context)=> DetailedNutrition()
-                      )),
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/bread.jpg',height:getProportionateScreenHeight(150),width: getProportionateScreenWidth(150),),
-                      Flexible(
-                        child:Card(
-                          child: Column(
-                            children: [
-                              Text("is this product good for you ?"),
-                              Row(
-                                children: [
-                                  Text("3 Checks "),//temp use
-                                  Text("2 Cautions"),//temp use
-                                ],
-                              )
-                            ],
-                          ),
+              child: Container(
+                height: size.height * 0.2,
+                width: size.width * 0.2,
+                child: Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: const BorderRadius.all(Radius.circular(14))
+                  ),
+                  child: InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context)=> DetailedNutrition()
+                        )),
+                    child: Row(
+                      children: [
+                        Image.asset('assets/images/bread.jpg',height:size.height * 0.2,width: size.width * 0.25,),
+                        Flexible(
+                          child:Card(
+                            child: Column(
+                              children: [
+                                Text("is this product good for you ?"),
+                                Row(
+                                  children: [
+                                    Text("3 Checks "),//temp use
+                                    Text("2 Cautions"),//temp use
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
                         )
-                      )
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
