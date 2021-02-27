@@ -33,6 +33,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         index: _state.selected,
         children: <Widget>[
           HomeScreen(),
+          HomeScreen(),
+          HomeScreen(),
+          HomeScreen(),
+          HomeScreen(),
         ],
       ),
       bottomNavigationBar: SSBottomNav(
