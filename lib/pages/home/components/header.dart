@@ -40,19 +40,18 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
-            top:0,
+            top: 10,//added by figo(avoid the box show behind the appbar (by figo 27/2/2021)
             bottom: 0,
             left: 0,
             right: 0,
             child: Container(
-              //alignment: Alignment.center,
-              margin: EdgeInsets.all(8),
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
               // explanation: the height of the daily target card
               height: size.height*0.18,//use dynamic value(change by figo 25/2)
-              width: size.width*0.04,
               decoration: BoxDecoration(
-                color: Colors.purple,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(
@@ -73,56 +72,60 @@ class Header extends StatelessWidget {
                       SizedBox(
                         width: size.width*0.05,
                       ),
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Daily Target",//leave this non dynamic to fit section title size(not change by figo 25/2)
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Daily Target",//leave this non dynamic to fit section title size(not change by figo 25/2)
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Container(
-                              //margin: EdgeInsets.all(kDefaultPadding / 8),
-                              padding: EdgeInsets.symmetric(horizontal:kDefaultPadding /20),
-                              height: size.height*0.12,//use dynamic value(change by figo 25/2)
-                              width: size.width*0.6,//use dynamic value(change by figo 25/2)
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6FAF9),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Text("160g"),
-                                        SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
-                                        Text("Carbs")
-                                      ]),
-                                  Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Text("94g"),
-                                        SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
-                                        Text("Protein")
-                                      ]),
-                                  Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.center,
-                                      children: [
-                                        Text("86g"),
-                                        SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
-                                        Text("Fat")
-                                      ]),
-                                ],
-                              ),
-                            )
-                          ]),
+                              SizedBox(height: size.height*0.01),
+                              Container(
+                                //margin: EdgeInsets.all(kDefaultPadding / 8),
+                                padding: EdgeInsets.symmetric(horizontal:kDefaultPadding /20),
+                                height: size.height*0.12,//use dynamic value(change by figo 25/2)
+                                width: size.width*0.5,//use dynamic value(change by figo 25/2)
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6FAF9),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("160g"),
+                                          SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
+                                          Text("Carbs")
+                                        ]),
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("94g"),
+                                          SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
+                                          Text("Protein")
+                                        ]),
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text("86g"),
+                                          SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
+                                          Text("Fat")
+                                        ]),
+                                  ],
+                                ),
+                              )
+                            ]),
+                      ),
                     ],
                   ),
                 ],

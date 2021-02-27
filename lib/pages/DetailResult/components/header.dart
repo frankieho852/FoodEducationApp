@@ -1,6 +1,7 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
+import 'package:food_education_app/size_config.dart';
 import 'package:food_education_app/pages/DetialNutrition/detail_nutrition_screen.dart';
 
 class Header extends StatelessWidget {
@@ -13,12 +14,12 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //SizeConfig().init(context);// this is important for using proportionatescreen function
+    SizeConfig().init(context);// this is important for using proportionatescreen function
     return Container(
       // explanation: margin between this container and "Recommended section title
-      margin: EdgeInsets.only(bottom: kDefaultPadding * 2),
+      margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
       // explanation: height of the wrapping container, including the daily target card
-      height: size.height * 0.2,
+      height: size.height * 0.24,
       child: Stack(
         children: <Widget>[
           Container(
@@ -40,16 +41,12 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 0,
+            top:10,
             bottom: 0,
             left: 0,
             right: 0,
-            child: Container(
-              margin: EdgeInsets.all(8),
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-              height: size.height * 0.18,
-              //width: size.width * 0.2, width have no effect, size is controled by position widget
-              color: Colors.green,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
               child: Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
@@ -63,7 +60,7 @@ class Header extends StatelessWidget {
                       )),
                   child: Row(
                     children: [
-                      Image.asset('assets/images/bread.jpg',height:size.height * 0.2,width: size.width * 0.2,),
+                      Image.asset('assets/images/bread.jpg',height:getProportionateScreenHeight(150),width: getProportionateScreenWidth(150),),
                       Flexible(
                         child:Card(
                           child: Column(
