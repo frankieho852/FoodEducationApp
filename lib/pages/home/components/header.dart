@@ -40,17 +40,19 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
+            top:0,
             bottom: 0,
             left: 0,
             right: 0,
             child: Container(
-              alignment: Alignment.center,
+              //alignment: Alignment.center,
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
               // explanation: the height of the daily target card
               height: size.height*0.18,//use dynamic value(change by figo 25/2)
+              width: size.width*0.04,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.purple,
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(
@@ -95,7 +97,7 @@ class Header extends StatelessWidget {
                                 children: [
                                   Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text("160g"),
                                         SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
@@ -103,7 +105,7 @@ class Header extends StatelessWidget {
                                       ]),
                                   Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text("94g"),
                                         SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
@@ -111,7 +113,7 @@ class Header extends StatelessWidget {
                                       ]),
                                   Column(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text("86g"),
                                         SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
