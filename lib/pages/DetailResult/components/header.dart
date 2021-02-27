@@ -14,12 +14,12 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);// this is important for using proportionatescreen function
+    //SizeConfig().init(context);// this is important for using proportionatescreen function
     return Container(
       // explanation: margin between this container and "Recommended section title
-      margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
+
       // explanation: height of the wrapping container, including the daily target card
-      height: size.height * 0.24,
+      height: size.height * 0.2,
       child: Stack(
         children: <Widget>[
           Container(
@@ -45,39 +45,47 @@ class Header extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(14))
-                ),
-                child: InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context)=> DetailedNutrition()
-                      )),
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/bread.jpg',height:getProportionateScreenHeight(150),width: getProportionateScreenWidth(150),),
-                      Flexible(
-                        child:Card(
-                          child: Column(
-                            children: [
-                              Text("is this product good for you ?"),
-                              Row(
-                                children: [
-                                  Text("3 Checks "),//temp use
-                                  Text("2 Cautions"),//temp use
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      )
-                    ],
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
+              height: size.height*0.18,//use dynamic value(change by figo 25/2)
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, 3.7),
+                    blurRadius: 14,
+                    color: Colors.black.withOpacity(0.08),
                   ),
+                ],
+              ),
+              child: InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context)=> DetailedNutrition()
+                    )),
+                child: Row(
+                  children: [
+                    Image.asset('assets/images/bread.jpg',height:size.height*0.1,width: size.height*0.1,),
+                    Flexible(
+                      child:Card(
+                        child: Column(
+                          children: [
+                            Text("is this product good for you ?"),
+                            Row(
+                              children: [
+                                Text("3 Checks "),//temp use
+                                Text("2 Cautions"),//temp use
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    )
+                  ],
                 ),
               ),
             )

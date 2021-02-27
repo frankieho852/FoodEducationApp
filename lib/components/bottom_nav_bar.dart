@@ -34,9 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         children: <Widget>[
           HomeScreen(),
           HomeScreen(),
-          HomeScreen(),
-          HomeScreen(),
-          HomeScreen(),
+
         ],
       ),
       bottomNavigationBar: SSBottomNav(
