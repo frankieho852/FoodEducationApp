@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_education_app/pages/DetailResult/foodproduct.dart';
+import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
 class NutritionBox extends StatelessWidget {
   const NutritionBox({
@@ -25,9 +25,9 @@ class NutritionBox extends StatelessWidget {
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
           padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-          height: size.height*0.18,//use dynamic value(change by figo 25/2)
+          height: size.height*0.25,//use dynamic value(change by figo 25/2)
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: Colors.yellow,
             borderRadius: BorderRadius.circular(14),
             boxShadow: [
               BoxShadow(

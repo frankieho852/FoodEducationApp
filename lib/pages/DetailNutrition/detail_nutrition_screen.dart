@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_education_app/pages/DetailResult/foodproduct.dart';
+import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailResult/components/body.dart';
 
 class DetailedNutrition extends StatelessWidget {

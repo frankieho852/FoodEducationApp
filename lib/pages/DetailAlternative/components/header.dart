@@ -1,8 +1,10 @@
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
-//import 'package:food_education_app/size_config.dart';
-import 'package:food_education_app/pages/DetailNutrition/detail_nutrition_screen.dart';
+import 'package:food_education_app/size_config.dart';
+//import 'package:fyp_app/page2/DetailAlternative/detail_alternative_screen.dart';
+import 'package:food_education_app/pages/DetailAlternative/components/AlternativeCard.dart';
+import 'package:food_education_app/AlternativeProduct.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -14,12 +16,12 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //SizeConfig().init(context);// this is important for using proportionatescreen function
+    SizeConfig().init(context);// this is important for using proportionatescreen function
     return Container(
       // explanation: margin between this container and "Recommended section title
-
+      margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
       // explanation: height of the wrapping container, including the daily target card
-      height: size.height * 0.2,
+      height: size.height * 0.8,
       child: Stack(
         children: <Widget>[
           Container(
@@ -30,9 +32,9 @@ class Header extends StatelessWidget {
               bottom: 36 + kDefaultPadding,
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
-            height: size.height * 0.2 - 27,
+            height: size.height * 0.2 - 67,//here not -27,space is used for "Alternative title"
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: kPrimaryColor,
               // location: the bottom corner of the teal header block
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(14),
@@ -49,7 +51,6 @@ class Header extends StatelessWidget {
               alignment: Alignment.center,
               margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
               padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-              height: size.height*0.18,//use dynamic value(change by figo 25/2)
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(14),
@@ -61,31 +62,17 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              child: InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context)=> DetailedNutrition()
-                    )),
-                child: Row(
-                  children: [
-                    Image.asset('assets/images/bread.jpg',height:size.height*0.1,width: size.height*0.1,),
-                    Flexible(
-                      child:Card(
-                        child: Column(
-                          children: [
-                            Text("is this product good for you ?"),
-                            Row(
-                              children: [
-                                Text("3 Checks "),//temp use
-                                Text("2 Cautions"),//temp use
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    )
-                  ],
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(3, 3, 3, 3),
+                child: ListView.builder(
+                  physics: ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: altproducts.length,
+                  itemBuilder: (BuildContext context,int index)=>AlternativeCard(
+                      product:altproducts[index]
+
+                  ),
                 ),
               ),
             )

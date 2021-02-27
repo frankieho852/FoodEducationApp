@@ -1,7 +1,6 @@
 
 //this class is just used for building up the searching page without backend, in later stage after we link the app with AWS backend
 //we will directly call the http request to get the resources needed
-//need to add catogories and ingredients(string list) (23/2/2021 by figo)
 class FoodProduct {
   String name;
   double energy=0;
