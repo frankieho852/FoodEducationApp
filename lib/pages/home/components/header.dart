@@ -40,7 +40,7 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 0,//added by figo(avoid the box show behind the appbar (by figo 27/2/2021)
+            top: 10,//added by figo(avoid the box show behind the appbar (by figo 27/2/2021)
             bottom: 0,
             left: 0,
             right: 0,
