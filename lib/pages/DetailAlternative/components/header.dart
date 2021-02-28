@@ -63,7 +63,7 @@ class Header extends StatelessWidget {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(3, 3, 3, 3),
+                padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
