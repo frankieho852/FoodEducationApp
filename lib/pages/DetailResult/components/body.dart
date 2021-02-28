@@ -10,21 +10,28 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     FoodProduct tempfood = FoodProduct(
-        name: "Quick Serve Macaroni",
+        name: "Vita Lemon Tea",
         protein: 1,
         totalFat: 2,
         totalCarbonhydrates: 12,
-        energy: 210);
+        energy: 210,
+        ingredients: ["bad ingredient", "good ingredient"]);
     // it enable scrolling on small device
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Header(size: size),
-          SizedBox(height:size.height*0.02),
-          NutritionBox(size: size,product: tempfood,),
-          SizedBox(height:size.height*0.02),
-          Triplebox(size: size,product: tempfood,),
+          SizedBox(height: size.height * 0.02),
+          NutritionBox(
+            size: size,
+            product: tempfood,
+          ),
+          SizedBox(height: size.height * 0.02),
+          Triplebox(
+            size: size,
+            product: tempfood,
+          ),
         ],
       ),
     );

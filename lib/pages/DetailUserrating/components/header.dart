@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/size_config.dart';
 //import 'package:fyp_app/page2/DetailAlternative/detail_userrating_screen.dart';
-import 'package:food_education_app/pages/DetailAlternative/components/AlternativeCard.dart';
-import 'package:food_education_app/AlternativeProduct.dart';
+import 'package:food_education_app/pages/DetailUserrating/components/UserratingCard.dart';
+import 'package:food_education_app/Userratting.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
       // explanation: height of the wrapping container, including the daily target card
-      height: size.height * 0.8,
+      height: size.height * 0.7,
       child: Stack(
         children: <Widget>[
           Container(
@@ -62,18 +62,26 @@ class Header extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-                child: ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: altproducts.length,
-                  itemBuilder: (BuildContext context,int index)=>AlternativeCard(
-                      product:altproducts[index]
+              child: Column(
+                children: [
+                  SizedBox(height: size.height*0.25,),
+                  SizedBox(height: size.height*0.05,),
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+                      child:ListView.builder(
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: ratinglist.length,
+                        itemBuilder: (BuildContext context,int index)=>UserratingCard(
+                            rating:ratinglist[index]
 
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             )
           ),

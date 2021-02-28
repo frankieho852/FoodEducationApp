@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
-import 'package:food_education_app/pages/DetailAlternative/components/body.dart';
+import 'package:food_education_app/pages/DetailUserrating/components/body.dart';
 
-class DetailAlternative extends StatelessWidget {
-  final FoodProduct altproduct;
-  DetailAlternative({Key key,@required this.altproduct}) : super(key:key);
+class DetailUserrating extends StatelessWidget {
+  final FoodProduct product;
+  DetailUserrating({Key key,@required this.product}) : super(key:key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(altproduct.name),
+      appBar: buildAppBar(product.name),
       body: Body(),
 
       //bottomNavigationBar: MyBottomNavBar(),

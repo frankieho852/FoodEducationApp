@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailAlternative/detail_alternative_screen.dart';
+import 'package:food_education_app/pages/DetailUserrating/detail_userrating_screen.dart';
 
 class Triplebox extends StatelessWidget {
   const Triplebox({
@@ -37,14 +38,14 @@ class Triplebox extends StatelessWidget {
             onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => DetailedAlternative(
+                    builder: (context) => DetailAlternative(
                           altproduct: product,
                         ))),
             child: Container(
               height: size.height * 0.25,
               width: size.width * 0.6-kDefaultPadding,//ensure enough space
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.yellow,
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(
@@ -62,7 +63,7 @@ class Triplebox extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 0.5,
-                    width: size.width * 0.2,
+                    width: size.width * 0.5-kDefaultPadding,
                     child: const DecoratedBox(
                       decoration: const BoxDecoration(color: Colors.grey),
                     ),
@@ -93,11 +94,13 @@ class Triplebox extends StatelessWidget {
                       ],
                     ),
                     child: InkWell(
-                      // onTap: () =>Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => DetailedUserrating()
-                      //     )),
+                      onTap: () =>Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailUserrating(
+                                product: product,
+                              )
+                          )),
                       child: Column(
                         children: [
                           Padding(
@@ -106,7 +109,7 @@ class Triplebox extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 0.5,
-                            width: size.width * 0.2,
+                            width: size.width * 0.30-kDefaultPadding,
                             child: const DecoratedBox(
                                 decoration:
                                     const BoxDecoration(color: Colors.grey)),
@@ -146,7 +149,7 @@ class Triplebox extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 0.5,
-                            width: size.width * 0.2,
+                            width: size.width * 0.30-kDefaultPadding,
                             child: const DecoratedBox(
                                 decoration:
                                     const BoxDecoration(color: Colors.grey)),
