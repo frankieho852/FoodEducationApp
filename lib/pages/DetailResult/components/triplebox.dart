@@ -43,7 +43,7 @@ class Triplebox extends StatelessWidget {
                         ))),
             child: Container(
               height: size.height * 0.25,
-              width: size.width * 0.6-kDefaultPadding,//ensure enough space
+              width: size.width * 0.6 - kDefaultPadding, //ensure enough space
               decoration: BoxDecoration(
                 color: Colors.yellow,
                 borderRadius: BorderRadius.circular(14),
@@ -63,7 +63,7 @@ class Triplebox extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 0.5,
-                    width: size.width * 0.5-kDefaultPadding,
+                    width: size.width * 0.5 - kDefaultPadding,
                     child: const DecoratedBox(
                       decoration: const BoxDecoration(color: Colors.grey),
                     ),
@@ -72,7 +72,9 @@ class Triplebox extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 8,),
+          SizedBox(
+            width: 8,
+          ),
           Expanded(
             child: Container(
               height: size.height * 0.3,
@@ -94,13 +96,12 @@ class Triplebox extends StatelessWidget {
                       ],
                     ),
                     child: InkWell(
-                      onTap: () =>Navigator.push(
+                      onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DetailUserrating(
-                                product: product,
-                              )
-                          )),
+                                    product: product,
+                                  ))),
                       child: Column(
                         children: [
                           Padding(
@@ -109,11 +110,61 @@ class Triplebox extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 0.5,
-                            width: size.width * 0.30-kDefaultPadding,
+                            width: size.width * 0.30 - kDefaultPadding,
                             child: const DecoratedBox(
                                 decoration:
                                     const BoxDecoration(color: Colors.grey)),
                           ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          Container(
+                            height: size.height * 0.06,
+                            width: size.width * 0.2, //ensure enough space
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF6FAF9), //Color(0xFFF6FAF9)
+                              borderRadius: BorderRadius.circular(14),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: Offset(0, 3.7),
+                                  blurRadius: 14,
+                                  color: Colors.black.withOpacity(0.08),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  //color: Colors.red,
+                                  height: size.height * 0.04,
+                                  width: size.width * 0.06,
+                                  child: Icon(
+                                    Icons.star,
+                                    color: kPrimaryColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.01,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                      //color: Colors.red,
+                                      height: size.height * 0.04,
+                                      width: size.width * 0.12,
+                                      child: FittedBox(
+                                          child:
+                                              Text(product.star.toString()))),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -149,19 +200,30 @@ class Triplebox extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 0.5,
-                            width: size.width * 0.30-kDefaultPadding,
+                            width: size.width * 0.30 - kDefaultPadding,
                             child: const DecoratedBox(
                                 decoration:
                                     const BoxDecoration(color: Colors.grey)),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            // child: Image.asset(
-                            //   'assets/image/A-minus.jpg',
-                            //   height: size.height * 0.11,
-                            //   width: size.width * 0.11,
-                            // ),
-                          ) //temp use
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.08,
+                              width: size.height * 0.08, // ensure the circle is in a squared box
+                              //color: Colors.green,
+                              decoration: new BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.green,
+                                  image: DecorationImage(
+                                      image: AssetImage(product.grade),
+                                      fit: BoxFit.cover)),
+                            ),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
                         ],
                       ),
                     ),

@@ -12,9 +12,12 @@ class FoodProduct {
   double sugars=0;
   double sodium=0;
   String image;
+  String grade;
   List <String> ingredients;
+  final int calories;
+  final double star;
 
   FoodProduct({this.name,this.category,this.energy,this.protein,this.totalFat,this.saturatetedFat,this.transFat,this.totalCarbonhydrates,
-  this.dietarytFibre,this.sugars,this.sodium,this.image,this.ingredients});
+  this.dietarytFibre,this.sugars,this.sodium,this.image,this.ingredients,this.grade,this.star,this.calories});
 
 }

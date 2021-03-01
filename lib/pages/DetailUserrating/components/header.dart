@@ -16,11 +16,8 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);// this is important for using proportionatescreen function
+    //SizeConfig().init(context);// this is important for using proportionatescreen function
     return Container(
-      // explanation: margin between this container and "Recommended section title
-      margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
-      // explanation: height of the wrapping container, including the daily target card
       height: size.height * 0.7,
       child: Stack(
         children: <Widget>[
