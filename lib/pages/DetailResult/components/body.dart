@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Header(size: size),
+          Header(size: size,product:product),
           SizedBox(height: size.height * 0.02),
           NutritionBox(
             size: size,

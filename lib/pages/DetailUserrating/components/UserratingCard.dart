@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 //import 'package:flutter/cupertino.dart';
-import 'package:food_education_app/AlternativeProduct.dart';
+import 'package:food_education_app/alternativeproduct.dart';
 import 'package:food_education_app/Userratting.dart';
 
 class UserratingCard extends StatelessWidget {

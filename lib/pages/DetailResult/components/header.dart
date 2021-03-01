@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 //import 'package:food_education_app/size_config.dart';
 import 'package:food_education_app/pages/DetailNutrition/detail_nutrition_screen.dart';
+import 'package:food_education_app/foodproduct.dart';
 
 class Header extends StatelessWidget {
   const Header({
     Key key,
     @required this.size,
+    @required this.product,
   }) : super(key: key);
 
   final Size size;
+  final FoodProduct product;
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +65,23 @@ class Header extends StatelessWidget {
                 ],
               ),
               child: InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context)=> DetailedNutrition()
-                    )),
+                // onTap: () => Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context)=>
+                //     )),
                 child: Row(
                   children: [
-                    Image.asset('assets/images/bread.jpg',height:size.height*0.1,width: size.height*0.1,),
+                    Container(
+                      height: size.height * 0.1,
+                      width: size.width * 0.15,// ensure the circle is in a squared box
+                      //color: Colors.green,
+                      decoration: new BoxDecoration(
+                          color: Colors.transparent,
+                          image: DecorationImage(
+                              image: AssetImage(product.image),
+                              fit: BoxFit.cover)),
+                    ),
                     Flexible(
                       child:Card(
                         child: Column(
