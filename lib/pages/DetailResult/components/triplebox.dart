@@ -39,7 +39,7 @@ class Triplebox extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => DetailAlternative(
-                          altproduct: product,
+                          product: product,
                         ))),
             child: Container(
               height: size.height * 0.25,
@@ -62,7 +62,7 @@ class Triplebox extends StatelessWidget {
                     child: Text("Alternatives"),
                   ),
                   SizedBox(
-                    height: 0.5,
+                    height: 1,
                     width: size.width * 0.5 - kDefaultPadding,
                     child: const DecoratedBox(
                       decoration: const BoxDecoration(color: Colors.grey),
@@ -109,7 +109,7 @@ class Triplebox extends StatelessWidget {
                             child: Text("User Rating"),
                           ),
                           SizedBox(
-                            height: 0.5,
+                            height: 1,
                             width: size.width * 0.30 - kDefaultPadding,
                             child: const DecoratedBox(
                                 decoration:
@@ -199,7 +199,7 @@ class Triplebox extends StatelessWidget {
                             child: Text("Score"),
                           ),
                           SizedBox(
-                            height: 0.5,
+                            height: 1,
                             width: size.width * 0.30 - kDefaultPadding,
                             child: const DecoratedBox(
                                 decoration:

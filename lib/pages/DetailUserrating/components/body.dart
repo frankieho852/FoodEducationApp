@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'header.dart';
-
+import 'package:food_education_app/Userrating.dart';
 class Body extends StatelessWidget {
+  Body({
+    Key key,
+    @required this.ratinglist,
+    @required this.image,
+  }) : super(key: key);
+
+  List<Userrating> ratinglist;
+  String image;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -21,7 +29,7 @@ class Body extends StatelessWidget {
               )
             ),
           ),
-          Header(size: size),
+          Header(image:image,size: size,ratinglist:ratinglist),
         ],
       ),
     );

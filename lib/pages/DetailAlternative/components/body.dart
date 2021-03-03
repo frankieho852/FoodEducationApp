@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailAlternative/components/header.dart';
+import 'package:food_education_app/alternativeproduct.dart';
 
 class Body extends StatelessWidget {
+  Body({
+    Key key,
+    @required this.altproductslist,
+  }) : super(key: key);
+
+  List<AlternativeProduct> altproductslist;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -21,7 +29,7 @@ class Body extends StatelessWidget {
               )
             ),
           ),
-          Header(size: size),
+          Header(size: size,altproductslist:altproductslist),
         ],
       ),
     );

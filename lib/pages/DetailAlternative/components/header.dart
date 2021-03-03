@@ -7,12 +7,14 @@ import 'package:food_education_app/pages/DetailAlternative/components/alternativ
 import 'package:food_education_app/alternativeproduct.dart';
 
 class Header extends StatelessWidget {
-  const Header({
+  Header({
     Key key,
     @required this.size,
+    @required this.altproductslist,
   }) : super(key: key);
 
   final Size size;
+  List<AlternativeProduct> altproductslist;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +70,9 @@ class Header extends StatelessWidget {
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: altproducts.length,
+                  itemCount: altproductslist.length,
                   itemBuilder: (BuildContext context,int index)=>AlternativeCard(
-                      product:altproducts[index]
+                      product:altproductslist[index]
 
                   ),
                 ),
