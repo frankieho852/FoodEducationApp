@@ -7,10 +7,12 @@ class Body extends StatelessWidget {
     Key key,
     @required this.ratinglist,
     @required this.image,
+    @required this.star,
   }) : super(key: key);
 
   List<Userrating> ratinglist;
   String image;
+  double star;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +31,7 @@ class Body extends StatelessWidget {
               )
             ),
           ),
-          Header(image:image,size: size,ratinglist:ratinglist),
+          Header(image:image,size: size,ratinglist:ratinglist,star:star),
         ],
       ),
     );

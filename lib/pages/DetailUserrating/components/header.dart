@@ -11,11 +11,13 @@ class Header extends StatelessWidget {
     @required this.size,
     @required this.ratinglist,
     @required this.image,
+    @required this.star,
   }) : super(key: key);
 
   final Size size;
   List<Userrating> ratinglist;
   String image;
+  double star;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class Header extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 10),
                 decoration: BoxDecoration(
-                  color: Colors.purple,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
                   boxShadow: [
                     BoxShadow(
@@ -66,19 +68,19 @@ class Header extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.fromLTRB(kDefaultPadding / 5,
-                          kDefaultPadding / 2, kDefaultPadding / 5, 0),
+                      margin: const EdgeInsets.fromLTRB(kDefaultPadding / 2,
+                          kDefaultPadding / 2, kDefaultPadding / 2, kDefaultPadding / 4),
                       height: size.height * 0.25,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           image: DecorationImage(
                               image: AssetImage(image), fit: BoxFit.cover)),
                     ),
-                    Commentbox(size: size),
+                    Commentbox(size: size,commentlength:ratinglist.length,star:star),
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.fromLTRB(kDefaultPadding / 5,
-                            kDefaultPadding / 2, kDefaultPadding / 5, 0),
+                        padding: const EdgeInsets.fromLTRB(kDefaultPadding / 2,
+                            kDefaultPadding / 4, kDefaultPadding / 2, 0),
                         child: ListView.builder(
                           physics: ClampingScrollPhysics(),
                           shrinkWrap: true,
@@ -89,6 +91,7 @@ class Header extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: size.height * 0.01)
                   ],
                 ),
               )),

@@ -23,7 +23,7 @@ class DetailUserrating extends StatelessWidget {
     ];
     return Scaffold(
       appBar: buildAppBar(product.name),
-      body: Body(image:product.image,ratinglist:ratinglist),
+      body: Body(image:product.image,ratinglist:ratinglist,star:product.star),
 
       //bottomNavigationBar: MyBottomNavBar(),
     );

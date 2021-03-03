@@ -24,8 +24,8 @@ class FoodProduct {
   String image;
   String grade;
   List<String> ingredients;
-  final int calories;
-  final double star;
+  int calories;
+  double star=0; //average rating by users
 
   FoodProduct(
       {this.name,

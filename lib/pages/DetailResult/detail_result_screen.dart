@@ -13,7 +13,7 @@ class DetailResult extends StatelessWidget {
         totalCarbonhydrates: 5,
         energy: 20,
         sodium: 20,
-        star: 4.0,
+        star: 3.5,
         grade: "assets/images/A-minus.jpg",
         image: "assets/images/Vitalemontea.jpg",
         ingredients: ["bad ingredient", "good ingredient"],);
