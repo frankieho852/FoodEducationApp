@@ -12,6 +12,7 @@ class FoodProduct {
   double dietarytFibre = 0;
   double sugars = 0;
   double sodium = 0;
+
   double energy_100 = 0;
   double protein_100 = 0;
   double totalFat_100 = 0;
@@ -21,10 +22,11 @@ class FoodProduct {
   double dietarytFibre_100 = 0;
   double sugars_100 = 0;
   double sodium_100 = 0;
+
   String image;
   String grade;
   List<String> ingredients;
-  int calories;
+
   double star=0; //average rating by users
 
   FoodProduct(
@@ -52,5 +54,5 @@ class FoodProduct {
       this.ingredients,
       this.grade,
       this.star,
-      this.calories});
+     });
 }

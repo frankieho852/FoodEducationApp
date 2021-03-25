@@ -3,16 +3,20 @@ import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailAlternative/detail_alternative_screen.dart';
 import 'package:food_education_app/pages/DetailUserrating/detail_userrating_screen.dart';
+import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
+import 'package:food_education_app/calculategrade.dart';
 
 class Triplebox extends StatelessWidget {
   const Triplebox({
     Key key,
     @required this.size,
     @required this.product,
+    @required this.scoreArray,
   }) : super(key: key);
 
   final Size size;
   final FoodProduct product;
+  final ScoreArray scoreArray;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -187,11 +191,14 @@ class Triplebox extends StatelessWidget {
                       ],
                     ),
                     child: InkWell(
-                      // onTap: () =>Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => DetailedScore()
-                      //     )),
+                      onTap: () =>Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DetailedScore(
+                                product: product,
+                                scoreArray: scoreArray,
+                              )
+                          )),
                       child: Column(
                         children: [
                           Padding(
