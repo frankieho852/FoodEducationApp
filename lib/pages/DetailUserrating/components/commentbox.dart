@@ -107,29 +107,16 @@ class Commentbox extends StatelessWidget {
                       SizedBox(
                         width: kDefaultPadding / 10,
                       ),
-                      RatingBar(
-                        initialRating: star,
-                        ratingWidget: RatingWidget(
-                            full: Icon(
-                              Icons.star,
-                              color: kPrimaryColor,
-                            ),
-                            half: Icon(
-                              Icons.star_half,
-                              color: kPrimaryColor,
-                            ),
-                            empty: Icon(
-                              Icons.star_border,
-                              color: kPrimaryColor,
-                            )),
-                        itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                        allowHalfRating: true,
-                        itemSize:
-                            size.height * 0.025, //slightly larger than star
-                        onRatingUpdate: (rating) {
-                          print(rating);
-                        },
-                      ),
+                      RatingBarIndicator(
+                        rating: star,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: kPrimaryColor,
+                        ),
+                        itemCount: 5,
+                        itemSize: size.height * 0.025,
+                        direction: Axis.horizontal,),
+
                     ],
                   ),
                   Row(
