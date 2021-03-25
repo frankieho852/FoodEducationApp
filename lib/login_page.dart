@@ -46,9 +46,14 @@ class _LoginPageState extends State<LoginPage> {
                 // Sign Up Button
                 Container(
                   alignment: Alignment.bottomCenter,
-                  child: FlatButton(
+                  child: TextButton(
                       onPressed: widget.shouldShowSignUp,
-                      child: Text('Don\'t have an account? Sign up.')),
+                      child: Text('Don\'t have an account? Sign up.'),
+                      style: TextButton.styleFrom(
+                        primary: Colors.grey[800],
+                      ),
+                  ),
+
                 ),
               ])),
     );
@@ -86,25 +91,27 @@ class _LoginPageState extends State<LoginPage> {
                   return null;
                 }),
 
+            SizedBox(height: 10),
+
             // Login Button
-            TextButton(
+            ElevatedButton (
                 onPressed: () {
                   if (_formKeyLogin.currentState.validate()) {
                     _emailLogin();
                   }
                 },
                 child: Text('Login'),
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Colors.blue,
-                  onSurface: Colors.grey,
-                )),
 
-            FlatButton(
+            ),
+
+            TextButton(
               onPressed: () {
                 widget.showForgotPW();
               },
               child: Text('Forgot password?'),
+                style: TextButton.styleFrom(
+                   primary: Colors.grey[700],
+                )
             ),
 
             Row(children: <Widget>[
@@ -132,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                 splashColor: Colors.white,
                 borderRadius: 10),
 
-            SizedBox(height: 20),
+            SizedBox(height: 12),
 
             GoogleSignInButton(
                 onPressed: _googleLogin,

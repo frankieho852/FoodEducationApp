@@ -53,10 +53,19 @@ class GalleryPage extends StatelessWidget {
           );
         }
 
-
         return new ListView(
 
           children: snapshot.data.docs.map((DocumentSnapshot document) {
+            print("Finding: "+ document.data()["name"]);
+            print("Finding: "+ document.data()["category"]);
+            /*
+            for(DocumentSnapshot x in document){
+              print(x.id);
+              print(x.data()['comment']);
+              print(x.data()['star']);
+            }
+
+          //  document.get(field)
 
             document.reference.collection('commentSet').get().then((snapshot) {
               print(snapshot.docs);
@@ -67,6 +76,7 @@ class GalleryPage extends StatelessWidget {
               }
             });
 
+             */
             return new ListTile(
             //  title: new Text(document.data()['name']), //document.data()['name']
              // subtitle: new Text(document.data()['category']), //document.data()['category']

@@ -1,3 +1,4 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,17 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Title: User Profile"),
+
+
+            CircularProfileAvatar(
+              "https://i.pravatar.cc/300",  //temp link only
+              borderWidth: 4,
+              radius: 60.0,
+              elevation: 8,
+              animateFromOldImageOnUrlChange: true,
+              onTap: _chooseProfileAvatar,
+            ),
+
             TextFormField(
                 controller: _nicknameController,
                 textInputAction: TextInputAction.next,
@@ -204,5 +216,9 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
     setState(() {
       _genderRadioBtnVal = value;
     });
+  }
+
+  void _chooseProfileAvatar(){
+
   }
 }
