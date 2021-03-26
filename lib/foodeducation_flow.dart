@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:fyp_firebase_login/storage_service.dart';
 
 import 'camera_page.dart';
 import 'gallery_page.dart';

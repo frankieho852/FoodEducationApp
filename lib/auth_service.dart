@@ -62,8 +62,10 @@ class AuthService {
         authStateController.add(state);
   }
 
-  void signUpWithCredentials(String email) async {
-
+  void signUpWithCredentials() async {
+    final state = AuthState(authFlowStatus: AuthFlowStatus.verificationEmail);
+    authStateController.add(state);
+    /*
     User user = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance
         .collection('userprofile')
@@ -96,6 +98,8 @@ class AuthService {
           backgroundColor: Colors.red,
           textColor: Colors.white);
     }
+
+     */
   }
 
   void verifyCodeViaPhoneNum(String verificationCode) async {
@@ -105,9 +109,9 @@ class AuthService {
     }
   }
 
-  void logOut() {
+  void logOut() async{
     try {
-      FirebaseAuth.instance.signOut();
+      await FirebaseAuth.instance.signOut();
       GoogleSignIn().signOut();
       GoogleSignIn().disconnect();
       FacebookAuth.instance.logOut();
@@ -157,7 +161,7 @@ class AuthService {
         });
 
       } else {
-        FirebaseAuth.instance.signOut();
+        await FirebaseAuth.instance.signOut();
         GoogleSignIn().signOut();
         GoogleSignIn().disconnect();
         FacebookAuth.instance.logOut();
@@ -184,9 +188,9 @@ class AuthService {
 
           if (deepLink != null) {
             print("1. Here's the deep link URL:\n" + deepLink.toString());
-            String code = deepLink.queryParameters['modecode'].toString();
+            String code = deepLink.queryParameters['mode'].toString();
             print("code" + code);
-            if (code == "verifyemail") {
+            if (code == "verifyEmail") {
               print('verifyemail');
               logOut();
               Fluttertoast.showToast(
@@ -211,8 +215,8 @@ class AuthService {
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
-      String code = deepLink.queryParameters['modecode'].toString();
-      if (code == "verifyemail") {
+      String code = deepLink.queryParameters['mode'].toString();
+      if (code == "verifyEmail") {
         logOut();
         Fluttertoast.showToast(
             msg: "Email Address Verified",

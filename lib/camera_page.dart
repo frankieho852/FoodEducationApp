@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 //import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
+
+// testing page only
 class CameraPage extends StatefulWidget {
 
   final CameraDescription camera;

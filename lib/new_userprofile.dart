@@ -14,6 +14,7 @@ class newUserProfilePage extends StatefulWidget {
   State<StatefulWidget> createState() => _newUserProfilePageState();
 }
 
+//  todo: new user page UI
 class _newUserProfilePageState extends State<newUserProfilePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _nicknameController = TextEditingController();
@@ -217,6 +218,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
       _genderRadioBtnVal = value;
     });
   }
+
 
   void _chooseProfileAvatar(){
 

@@ -13,6 +13,7 @@ class forgotPW extends StatefulWidget {
   State<StatefulWidget> createState() => _forgotPWState();
 }
 
+//  todo: forgot Password UI
 class _forgotPWState extends State<forgotPW> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -87,61 +88,37 @@ class _forgotPWState extends State<forgotPW> {
 
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email, actionCodeSettings: actionCodeSettings);
-      showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Reset password'),
-              content: Text("Please check your inbox and follow the instructions."),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          });
+
+      _showErrorDialog('Reset password', "Please check your inbox and follow the instructions.");
+
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'user-not-found') {
-        showDialog<void>(
-            context: context,
-            barrierDismissible: false, // user must tap button!
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Email Issue'),
-                content: Text("This email is not registered."),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text('Retry'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            });
+        _showErrorDialog('Email Issue', "This email is not registered.");
+
       } else {
-        showDialog<void>(
-            context: context,
-            barrierDismissible: false, // user must tap button!
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Error'),
-                content: Text("Error code: ${authError.code}"),
-                actions: <Widget>[
-                  TextButton(
-                    child: Text('Retry'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            });
+        _showErrorDialog("Error", "Error code: ${authError.code}");
       }
     }
+  }
+
+  // todo: forgotPW page dialog
+  void _showErrorDialog(String title, String content) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Retry'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

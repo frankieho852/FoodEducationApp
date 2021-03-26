@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-//unused for now
+//  unused for now
+// Current plan: If verify successful, auto redirect to login page.
+// todo: If you want to make it better or design some new widget, I can redirect to here.
+
 class VerificationPageSucceed extends StatefulWidget {
   final VoidCallback shouldShowLogin;
 

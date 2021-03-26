@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpPage extends StatefulWidget {
-  final ValueChanged<String> didProvideEmail;
+  final VoidCallback didProvideEmail;
   final VoidCallback shouldShowLogin;
 
   SignUpPage(
@@ -15,6 +17,7 @@ class SignUpPage extends StatefulWidget {
   State<StatefulWidget> createState() => _SignUpPageState();
 }
 
+//  todo: Sign-up page UI
 class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -174,14 +177,43 @@ class _SignUpPageState extends State<SignUpPage> {
         _loading = true;
       });
 
-      UserCredential userCredential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      widget.didProvideEmail(email);
+
+      User _user = FirebaseAuth.instance.currentUser;
+      FirebaseFirestore.instance
+          .collection('userprofile')
+          .doc(_user.uid)
+          .set({'done': false
+      }).then((userInfoValue) {
+      });
+
+      if (!_user.emailVerified) {
+        var actionCodeSettings = ActionCodeSettings(
+            url: 'https://fyptest1.page.link/verifyemail/?email=${_user.email}',
+            dynamicLinkDomain: "fyptest1.page.link",
+            androidPackageName: "com.example.fyp_firebase_login",
+            androidInstallApp: true,
+            handleCodeInApp: false,
+            iOSBundleId: "com.example.fyp_firebase_login"
+        );
+
+        await _user.sendEmailVerification(actionCodeSettings);
+        widget.didProvideEmail();
+
+      } else {
+        Fluttertoast.showToast(
+            msg: "Fail to send email.",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.TOP,
+            backgroundColor: Colors.red,
+            textColor: Colors.white);
+      }
 
     } on FirebaseAuthException catch (authError) {
-      //alertdialog
+
       if (authError.code == 'weak-password') {
-        print('The password provided is too weak.');
+        // might remove this statement later
         _showDialog('Weak Password', "The password provided is too weak.");
 
       } else if (authError.code == 'email-already-in-use') {
@@ -201,9 +233,11 @@ class _SignUpPageState extends State<SignUpPage> {
       setState(() {
         _loading = false;
       });
+
     }
   }
 
+  // todo: sign_up_page dialog
   void _showDialog(String title, String content){
     showDialog<void>(
         context: context,

@@ -26,6 +26,9 @@ class LoginPage extends StatefulWidget {
   State<StatefulWidget> createState() => _LoginPageState();
 }
 
+//  todo: Login page UI
+// todo: Support email & FB & google now. If you want to support phone number, you can design related UI to login page and sign up page
+
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -288,9 +291,23 @@ class _LoginPageState extends State<LoginPage> {
           widget.showNewUserProfile();
         }
       } else {
+        var actionCodeSettings = ActionCodeSettings(
+            url: 'https://fyptest1.page.link/verifyemail/?email=${_user.email}',
+            dynamicLinkDomain: "fyptest1.page.link",
+            androidPackageName: "com.example.fyp_firebase_login",
+            androidInstallApp: true,
+            handleCodeInApp: false,
+            iOSBundleId: "com.example.fyp_firebase_login"
+        );
+        //await _user.sendEmailVerification();
+
+        await _user.sendEmailVerification(actionCodeSettings);
         _showErrorDialog(
             "Email Verification", "Please check your inbox and verify email");
+
+        await FirebaseAuth.instance.signOut();
       }
+
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'user-not-found' ||
           authError.code == 'wrong-password') {
@@ -308,6 +325,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // todo: login Page dialog
   void _showErrorDialog(String title, String content) {
     showDialog<void>(
         context: context,
