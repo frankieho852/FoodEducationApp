@@ -4,6 +4,8 @@ import 'package:food_education_app/pages/DetailResult/components/body.dart';
 import 'package:food_education_app/dailyintake.dart';
 
 class DetailResult extends StatelessWidget {
+  final String searchname;
+  DetailResult({Key key,@required this.searchname}) : super(key:key);
   @override
   Widget build(BuildContext context) {
     FoodProduct tempfood = FoodProduct(
