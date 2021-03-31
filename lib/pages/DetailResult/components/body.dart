@@ -4,7 +4,6 @@ import 'package:food_education_app/pages/DetailResult/components/triplebox.dart'
 import 'header.dart';
 import 'Nutritionbox.dart';
 import 'package:food_education_app/foodproduct.dart';
-import'../../../calculategrade.dart';
 
 class Body extends StatelessWidget {
   const Body({
@@ -15,9 +14,9 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    ScoreArray scoreArray= calculateGrade(product);
-    print(scoreArray.cautions);
-    print(scoreArray.grade);
+    ScoreArray scoreArray= this.product.calculateGrade();
+    // print(scoreArray.cautions);
+    // print(scoreArray.grade);
 
     // it enable scrolling on small device
     return SingleChildScrollView(

@@ -4,7 +4,7 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailAlternative/detail_alternative_screen.dart';
 import 'package:food_education_app/pages/DetailUserrating/detail_userrating_screen.dart';
 import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
-import 'package:food_education_app/calculategrade.dart';
+
 
 class Triplebox extends StatelessWidget {
   const Triplebox({
@@ -224,7 +224,7 @@ class Triplebox extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   color: Colors.green,
                                   image: DecorationImage(
-                                      image: AssetImage(product.grade),
+                                      image: AssetImage(product.getGradeImage()),
                                       fit: BoxFit.cover)),
                             ),
                           ),

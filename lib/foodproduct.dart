@@ -55,4 +55,48 @@ class FoodProduct {
       this.grade,
       this.star,
      });
+
+  ScoreArray calculateGrade() {
+    ScoreArray scoreArray= new ScoreArray();
+    if (this.sugars_100 >= 5) {
+      scoreArray.score=scoreArray.score-1;
+      scoreArray.cautions.add("Too Sweet: This product contains too much sugar");
+    }
+    if (this.sugars_100 == 0) {
+      scoreArray.score=scoreArray.score+2;
+      scoreArray.checks.add("Unsweetened");
+    }
+
+    this.grade=scoreArray.scoreToGrade();
+    return scoreArray;
+  }
+
+  String getGradeImage(){
+    String gradeimage;
+    print(grade);//testing
+    if (grade=="A"){gradeimage="assets/images/A-minus.jpg";}
+    if (grade=="B"){gradeimage="assets/images/B.jpg";}
+    if (grade=="C"){gradeimage="assets/images/A-minus.jpg";}
+    if (grade=="D"){gradeimage="assets/images/D.jpg";}
+    return gradeimage;
+  }
+}
+
+
+
+class ScoreArray {
+  //this is a simple class to store all required information in scorepage
+  String grade="C+";
+  int score=6;
+  List<String> checks=[];
+  List<String> cautions=[];
+
+  String scoreToGrade(){
+    print(score);
+    if (score<3){grade="D";}
+    if (score>3){grade="C";}
+    if (score>6){grade="B";}
+    if (score>9){grade="A";}
+    return grade;
+  }
 }

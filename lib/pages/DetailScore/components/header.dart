@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/size_config.dart';
-import 'package:food_education_app/calculategrade.dart';
+
 class Header extends StatelessWidget {
   Header({
     Key key,

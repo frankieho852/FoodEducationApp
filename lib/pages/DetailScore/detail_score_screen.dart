@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailScore/components/body.dart';
-import 'package:food_education_app/calculategrade.dart';
+
 
 class DetailedScore extends StatelessWidget {
   final FoodProduct product;

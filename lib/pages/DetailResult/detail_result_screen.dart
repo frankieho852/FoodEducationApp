@@ -21,7 +21,7 @@ class DetailResult extends StatelessWidget {
       sodium_100: 0,
 
       image: "assets/images/Vitalemontea.jpg",
-      grade: "assets/images/A-minus.jpg",
+      grade: "A",
       ingredients: [
         "water",
         "sugar",
