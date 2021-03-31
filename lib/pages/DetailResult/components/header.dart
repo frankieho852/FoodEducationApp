@@ -1,19 +1,19 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
-//import 'package:food_education_app/size_config.dart';
-import 'package:food_education_app/pages/DetailNutrition/detail_nutrition_screen.dart';
 import 'package:food_education_app/foodproduct.dart';
+import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
 
 class Header extends StatelessWidget {
   const Header({
     Key key,
     @required this.size,
     @required this.product,
+    @required this.scoreArray,
   }) : super(key: key);
 
   final Size size;
   final FoodProduct product;
+  final ScoreArray scoreArray;
 
   @override
   Widget build(BuildContext context) {
@@ -44,64 +44,197 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
-            top:10,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-              height: size.height*0.18,//use dynamic value(change by figo 25/2)
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 3.7),
-                    blurRadius: 14,
-                    color: Colors.black.withOpacity(0.08),
-                  ),
-                ],
-              ),
-              child: InkWell(
-                // onTap: () => Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context)=>
-                //     )),
-                child: Row(
-                  children: [
-                    Container(
-                      height: size.height * 0.1,
-                      width: size.width * 0.15,// ensure the circle is in a squared box
-                      //color: Colors.green,
-                      decoration: new BoxDecoration(
-                          color: Colors.transparent,
-                          image: DecorationImage(
-                              image: AssetImage(product.image),
-                              fit: BoxFit.cover)),
+              top: 10,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 10),
+                height:
+                    size.height * 0.18, //use dynamic value(change by figo 25/2)
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 3.7),
+                      blurRadius: 14,
+                      color: Colors.black.withOpacity(0.08),
                     ),
-                    Flexible(
-                      child:Card(
-                        child: Column(
-                          children: [
-                            Text("is this product good for you ?"),
-                            Row(
-                              children: [
-                                Text("3 Checks "),//temp use
-                                Text("2 Cautions"),//temp use
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    )
                   ],
                 ),
-              ),
-            )
-          ),
+                child: InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => DetailedScore(
+                                product: product,
+                                scoreArray: scoreArray,
+                              ))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: size.height * 0.2,
+                          width: size.width * 0.4,
+                          //color: Colors.green,
+                          decoration: new BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(14),
+                              image: DecorationImage(
+                                  image: AssetImage(product.image),
+                                  fit: BoxFit.cover)),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Container(
+                            //color: Colors.red,
+                            padding: const EdgeInsets.only(left:8.0,right:8.0),
+                            decoration: new BoxDecoration(
+                              color: Color(0xFFF6FAF9),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(height: 8.0,),
+                                Container(
+                                  height: size.height*0.03,
+                                  child: FittedBox(
+                                    child: Text(
+                                      "Is this product good for you?",
+                                      style: TextStyle(
+                                        fontSize: size.height * 0.02,
+                                        //fontWeight: FontWeight.bold,
+                                        color: kPrimaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 8.0,
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    width: double.infinity,
+                                    color: Colors.transparent,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            height: double.infinity,
+                                            decoration: new BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      height: size.height * 0.03,
+                                                      child: FittedBox(
+                                                        child: Text(
+                                                          scoreArray.checks.length
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color: kPrimaryColor,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width:2),
+                                                    Icon(
+                                                      Icons.check,
+                                                      color: kPrimaryColor,
+                                                      size: size.height * 0.03,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height:4),
+                                                FittedBox(
+                                                    child: Text(
+                                                  "Checks",
+                                                  style: TextStyle(
+                                                    color: kPrimaryColor,
+                                                  ),
+                                                )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 8,),
+                                        Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            height: double.infinity,
+                                            decoration: new BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                              BorderRadius.circular(14),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      height: size.height * 0.03,
+                                                      child: FittedBox(
+                                                        child: Text(
+                                                          scoreArray.cautions.length
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            color: Colors.orange,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width:2),
+                                                    Icon(
+                                                      Icons.dangerous,
+                                                      color: Colors.orange,
+                                                      size: size.height * 0.03,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height:4),
+                                                FittedBox(
+                                                    child: Text(
+                                                      "Cautions",
+                                                      style: TextStyle(
+                                                        color: Colors.orange,
+                                                      ),
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 8.0,),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
         ],
       ),
     );

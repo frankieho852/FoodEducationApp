@@ -5,7 +5,6 @@ import 'package:food_education_app/pages/DetailAlternative/detail_alternative_sc
 import 'package:food_education_app/pages/DetailUserrating/detail_userrating_screen.dart';
 import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
 
-
 class Triplebox extends StatelessWidget {
   const Triplebox({
     Key key,
@@ -191,14 +190,13 @@ class Triplebox extends StatelessWidget {
                       ],
                     ),
                     child: InkWell(
-                      onTap: () =>Navigator.push(
+                      onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => DetailedScore(
-                                product: product,
-                                scoreArray: scoreArray,
-                              )
-                          )),
+                                    product: product,
+                                    scoreArray: scoreArray,
+                                  ))),
                       child: Column(
                         children: [
                           Padding(
@@ -218,13 +216,15 @@ class Triplebox extends StatelessWidget {
                           Expanded(
                             child: Container(
                               height: size.height * 0.08,
-                              width: size.height * 0.08, // ensure the circle is in a squared box
+                              width: size.height *
+                                  0.08, // ensure the circle is in a squared box
                               //color: Colors.green,
                               decoration: new BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.green,
                                   image: DecorationImage(
-                                      image: AssetImage(product.getGradeImage()),
+                                      image:
+                                          AssetImage(product.getGradeImage()),
                                       fit: BoxFit.cover)),
                             ),
                           ),
