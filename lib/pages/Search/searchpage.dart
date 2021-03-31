@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 
@@ -10,7 +11,7 @@ class _SearchpageState extends State<Searchpage> {
   final TextEditingController _filter = new TextEditingController();
   String _searchText = "";
   List names;
-  List filteredNames;
+  List filteredNames = [];
   Icon _searchIcon = new Icon(Icons.search);
   Widget _appBarTitle = new Text('Search a food');
 
@@ -24,6 +25,7 @@ class _SearchpageState extends State<Searchpage> {
       } else {
         setState(() {
           _searchText = _filter.text;
+          _searchProductByName();
         });
       }
     });
@@ -31,7 +33,7 @@ class _SearchpageState extends State<Searchpage> {
 
   @override
   void initState() {
-    this._getNames();
+    //this._getNames();
     super.initState();
   }
 
@@ -56,7 +58,8 @@ class _SearchpageState extends State<Searchpage> {
   }
 
   Widget _buildList() {
-    if (!(_searchText.isEmpty)) {
+    /*
+    if (_searchText.isNotEmpty) {
       List tempList= [];
       for (int i = 0; i < names.length; i++) {
         if (names[i]
@@ -67,6 +70,9 @@ class _SearchpageState extends State<Searchpage> {
       }
       filteredNames = tempList;
     }
+
+     */
+
     return ListView.builder(
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {
@@ -104,13 +110,41 @@ class _SearchpageState extends State<Searchpage> {
     });
   }
 
-  void _getNames() async {
+  void _searchProductByName() async {
     //todo: get all name of all products in firestore and store in templist
-    List tempList = ["water", "noodle", "apple", "banana", "vita lemon tea","temp","temp","temp","temp","temp","temp"];
+
+    List tempList;
+
+    CollectionReference foodProductCollection =
+    FirebaseFirestore.instance.collection('foodProduct');
+
+    // old method:
+    /*
+    foodProductCollection.get().then((snapshot) {
+      for(DocumentSnapshot product in snapshot.docs){  // snapshot.docs is set of products
+      //  print("Test:" + product.data()['name']);
+        tempList.add(product.data()['name']);
+      }
+    });
+     */
+
+    // method 2
+    foodProductCollection.orderBy('name').startAt([_searchText]).get().then((value) {
+      //print(value.docsd);
+      for(DocumentSnapshot product in value.docs){
+        print("Finding: " + product.data()["name"]);  //debug
+        tempList.add(product.data()['name']);
+      }
+    });
+
+    names = tempList;
+    // tempList = ["water", "noodle", "apple", "banana", "vita lemon tea","temp","temp","temp","temp","temp","temp"];
+    /*
     setState(() {
       names = tempList;
-      names.sort();
-      filteredNames = [];// not showing any result when initstate
+      //filteredNames = [];// not showing any result when initstate
     });
+
+     */
   }
 }

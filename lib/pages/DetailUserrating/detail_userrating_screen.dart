@@ -1,3 +1,5 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailUserrating/components/body.dart';
@@ -8,24 +10,75 @@ class DetailUserrating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // todo: a function to search database by product.name -> create a list object with all comments
-    List<Userrating> ratinglist = [
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/tempUserpicture.jpg",star:5.0,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu2 very long nammmmmmmmmmmmmmmmmmmme",image:"assets/images/tempUserpicture.jpg",star:1,comment:"It taste shit"),
-      Userrating(productname:product.name,name:"Figo Liu3",image:"assets/images/tempUserpicture.jpg",star:3.5,comment:"It taste ok"),
-      Userrating(productname:product.name,name:"Figo Liu4",image:"assets/images/tempUserpicture.jpg",star:1.5,comment:"Long commentIt taste sweet ddkfsdfl sdljfkdj ldd k l sljsfksjf ks kjk j ljf lkfskjslkjiwo weojejfwjfo jwjejfijfef  foefijwifwiefefifjw  wfojfw"),
-      Userrating(productname:product.name,name:"Figo Liu5",image:"assets/images/bread.jpg",star:4.1,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-      Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-    ];
-    return Scaffold(
-      appBar: buildAppBar(product.name),
-      body: Body(image:product.image,ratinglist:ratinglist,star:product.star),
 
-      //bottomNavigationBar: MyBottomNavBar(),
+    CollectionReference foodProductCollection =
+    FirebaseFirestore.instance.collection('foodProduct');
+
+    return StreamBuilder<QuerySnapshot>(
+      stream: foodProductCollection
+          .where('name', isEqualTo: product.name)
+          .snapshots(),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Container(
+            alignment: Alignment.center,
+            child: Text('Error'),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            alignment: Alignment.center,
+            child: CircularProgressIndicator(),
+          );
+          //Text("Loading");
+        }
+
+        List<Userrating> ratinglist;
+        snapshot.data.docs.map((DocumentSnapshot productDoc) {
+
+          productDoc.reference.collection('commentSet').get().then((snapshot) {
+            for (DocumentSnapshot commentData in snapshot.docs) {
+              DocumentReference userProfile = FirebaseFirestore.instance
+                  .collection('userProfile')
+                  .doc(commentData.id);
+
+              userProfile.get().then((userData) {
+
+                ratinglist.add(Userrating(
+                    productname: productDoc.data()['name'],
+                    name: userData.get("nicknanme"),
+                    image: userData.get("photoURL"),
+                    star: commentData.data()['star'],
+                    comment: commentData.data()['comment']));
+              });
+            }
+          });
+        });
+
+        /*
+        List<Userrating> ratinglist = [
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/tempUserpicture.jpg",star:5.0,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu2 very long nammmmmmmmmmmmmmmmmmmme",image:"assets/images/tempUserpicture.jpg",star:1,comment:"It taste shit"),
+          Userrating(productname:product.name,name:"Figo Liu3",image:"assets/images/tempUserpicture.jpg",star:3.5,comment:"It taste ok"),
+          Userrating(productname:product.name,name:"Figo Liu4",image:"assets/images/tempUserpicture.jpg",star:1.5,comment:"Long commentIt taste sweet ddkfsdfl sdljfkdj ldd k l sljsfksjf ks kjk j ljf lkfskjslkjiwo weojejfwjfo jwjejfijfef  foefijwifwiefefifjw  wfojfw"),
+          Userrating(productname:product.name,name:"Figo Liu5",image:"assets/images/bread.jpg",star:4.1,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
+        ];
+         */
+
+        return new Scaffold(
+          appBar: buildAppBar(product.name),
+          body: Body(
+              image: product.image, ratinglist: ratinglist, star: product.star),
+          //bottomNavigationBar: MyBottomNavBar(),
+        );
+      },
     );
   }
 
