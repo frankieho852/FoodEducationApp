@@ -68,7 +68,7 @@ class FoodProduct {
     }
     if (this.totalFat_100 > -1) {
       scoreArray.score=scoreArray.score+2;
-      scoreArray.checks.add("Temp +1 check");
+      scoreArray.checks.add("Temp +1 check xxxsxsxsxsxscjsadhckjsdhfksjdfjlasdsfjdshfjklshfdsjkfhdslfshdflskjhfd");
     }
     if (this.totalFat_100 > -1) {
       scoreArray.score=scoreArray.score+2;
@@ -77,6 +77,10 @@ class FoodProduct {
     if (this.totalFat_100 > -1) {
       scoreArray.score=scoreArray.score+2;
       scoreArray.cautions.add("Temp +1 caution");
+    }
+    if (this.totalFat_100 > -1) {
+      scoreArray.score=scoreArray.score+2;
+      scoreArray.cautions.add("Temp +2 caution");
     }
     this.grade=scoreArray.scoreToGrade();
     return scoreArray;

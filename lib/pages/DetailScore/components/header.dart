@@ -84,21 +84,176 @@ class Header extends StatelessWidget {
                               fit: BoxFit.cover)),
                     ),
                     Container(
-                      height: size.height * 0.15,
-                      color: Colors.red,
-                      child: Text("Tempuse:" +
-                          scoreArray.grade +
-                          scoreArray.cautions.first),
+                      height: size.height * 0.12,
+                      color: Colors.white,
+                      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: double.infinity,
+                              color: Colors.transparent,
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      height: double.infinity,
+                                      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                      decoration: new BoxDecoration(
+                                        color: Color(0xFFF6FAF9),
+                                        borderRadius:
+                                        BorderRadius.circular(14),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.check,
+                                                color: kPrimaryColor,
+                                                size: size.height * 0.03,
+                                              ),
+                                              SizedBox(width:2),
+                                              Container(
+                                                height: size.height * 0.03,
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    scoreArray.checks.length
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+                                            ],
+                                          ),
+                                          SizedBox(height:4),
+                                          FittedBox(
+                                              child: Text(
+                                                "Checks",
+                                                style: TextStyle(
+                                                  color: kPrimaryColor,
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: double.infinity,
+                                    width: size.width*0.2,
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            height: size.height * 0.08,
+                                            width: size.height * 0.08,
+                                            decoration: new BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image:
+                                                    AssetImage(product.getGradeImage()),
+                                                    fit: BoxFit.cover)),
+                                          ),
+
+                                        ),
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Container(
+                                          height: size.height * 0.03,
+                                          child: FittedBox(
+                                            child: Text(
+                                              "Score",
+                                              style: TextStyle(
+                                                color: kPrimaryColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      height: double.infinity,
+                                      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                      decoration: new BoxDecoration(
+                                        color: Color(0xFFF6FAF9),
+                                        borderRadius:
+                                        BorderRadius.circular(14),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.dangerous,
+                                                color: Colors.orange,
+                                                size: size.height * 0.03,
+                                              ),
+                                              SizedBox(width:2),
+                                              Container(
+                                                height: size.height * 0.03,
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    scoreArray.cautions.length
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      color: Colors.orange,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
+
+                                            ],
+                                          ),
+                                          SizedBox(height:4),
+                                          FittedBox(
+                                              child: Text(
+                                                "Cautions",
+                                                style: TextStyle(
+                                                  color: Colors.orange,
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+
+                      ),
                     ),
 
                     //gradebox(),
-                    ListView.builder(
-                      physics: ClampingScrollPhysics(),
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: combine.length,
-                      itemBuilder: (BuildContext context, int index) =>
-                          ScoreCard(description: combine[index]),
+                    Container(
+                      height: size.height*0.35,
+                      padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                      child: ListView.builder(
+                        physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: combine.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            ScoreCard(description: combine[index],type:"check"),
+                      ),
                     ),
                   ],
                 ),
