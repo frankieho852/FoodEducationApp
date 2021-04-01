@@ -101,15 +101,12 @@ class Header extends StatelessWidget {
                               children: [
                                 SizedBox(height: 8.0,),
                                 Container(
-                                  height: size.height*0.03,
-                                  child: FittedBox(
-                                    child: Text(
-                                      "Is this product good for you?",
-                                      style: TextStyle(
-                                        fontSize: size.height * 0.02,
-                                        //fontWeight: FontWeight.bold,
-                                        color: kPrimaryColor,
-                                      ),
+                                  child: Text(
+                                    "Is this product good for you?",
+                                    style: TextStyle(
+                                      //fontWeight: FontWeight.bold,
+                                      fontSize: size.width*0.04,
+                                      color: kPrimaryColor,
                                     ),
                                   ),
                                 ),
