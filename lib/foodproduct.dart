@@ -66,7 +66,18 @@ class FoodProduct {
       scoreArray.score=scoreArray.score+2;
       scoreArray.checks.add("Unsweetened");
     }
-
+    if (this.totalFat_100 > -1) {
+      scoreArray.score=scoreArray.score+2;
+      scoreArray.checks.add("Temp +1 check");
+    }
+    if (this.totalFat_100 > -1) {
+      scoreArray.score=scoreArray.score+2;
+      scoreArray.checks.add("Temp +2 check");
+    }
+    if (this.totalFat_100 > -1) {
+      scoreArray.score=scoreArray.score+2;
+      scoreArray.cautions.add("Temp +1 caution");
+    }
     this.grade=scoreArray.scoreToGrade();
     return scoreArray;
   }

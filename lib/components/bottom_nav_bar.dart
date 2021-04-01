@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/foodproduct.dart';
+import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 import 'package:food_education_app/pages/home/home_screen.dart';
 
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
@@ -58,6 +60,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ListTile(
               leading: Icon(Icons.camera_alt),
               title: Text('Barcode Scanner'),
+              onTap: () => Navigator.push(//temp location for editing detail result page (figo)
+                  context,
+                  MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
+              ),
             ),
             ListTile(
               leading: Icon(Icons.title),

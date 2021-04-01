@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/size_config.dart';
-
+import 'package:food_education_app/pages/DetailScore/components/scorecard.dart';
 class Header extends StatelessWidget {
   Header({
     Key key,
@@ -17,7 +17,11 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);// this is important for using proportionatescreen function
+    SizeConfig().init(
+        context); // this is important for using proportionatescreen function
+    List<String> caution = scoreArray.cautions;
+    List<String> checks = scoreArray.checks;
+    List<String> combine=scoreArray.checks+scoreArray.cautions;
     return Container(
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
@@ -33,7 +37,8 @@ class Header extends StatelessWidget {
               bottom: 36 + kDefaultPadding,
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
-            height: size.height * 0.2 - 67,//here not -27,space is used for "Alternative title"
+            height: size.height * 0.2 -
+                67, //here not -27,space is used for "Alternative title"
             decoration: BoxDecoration(
               color: kPrimaryColor,
               // location: the bottom corner of the teal header block
@@ -44,52 +49,60 @@ class Header extends StatelessWidget {
             ),
           ),
           Positioned(
-            top:10,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 3.7),
-                    blurRadius: 14,
-                    color: Colors.black.withOpacity(0.08),
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(kDefaultPadding / 2,
-                        kDefaultPadding / 2, kDefaultPadding / 2, kDefaultPadding / 4),
-                    height: size.height * 0.25,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        image: DecorationImage(
-                            image: AssetImage(product.image), fit: BoxFit.cover)),
-                  ),
-                  Container(
-                    height: size.height * 0.15,
-                    color: Colors.red,
-                    child: Text("Tempuse:"+scoreArray.grade+scoreArray.cautions.first),
-                  ),
+              top: 10,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 3.7),
+                      blurRadius: 14,
+                      color: Colors.black.withOpacity(0.08),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(
+                          kDefaultPadding / 2,
+                          kDefaultPadding / 2,
+                          kDefaultPadding / 2,
+                          kDefaultPadding / 4),
+                      height: size.height * 0.25,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          image: DecorationImage(
+                              image: AssetImage(product.image),
+                              fit: BoxFit.cover)),
+                    ),
+                    Container(
+                      height: size.height * 0.15,
+                      color: Colors.red,
+                      child: Text("Tempuse:" +
+                          scoreArray.grade +
+                          scoreArray.cautions.first),
+                    ),
 
-                  //gradebox(),
-                  //ListView.builder(),
-
-
-
-                ],
-              ),
-
-            )
-          ),
+                    //gradebox(),
+                    ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: combine.length,
+                      itemBuilder: (BuildContext context, int index) =>
+                          ScoreCard(description: combine[index]),
+                    ),
+                  ],
+                ),
+              )),
         ],
       ),
     );

@@ -1,8 +1,6 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/size_config.dart';
-//import 'package:fyp_app/page2/DetailAlternative/detail_userrating_screen.dart';
 import 'package:food_education_app/pages/DetailAlternative/components/alternativecard.dart';
 import 'package:food_education_app/alternativeproduct.dart';
 
