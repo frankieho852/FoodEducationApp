@@ -32,6 +32,7 @@ class FoodProduct {
   FoodProduct(
       {this.name,
       this.category,
+
       this.energy,
       this.protein,
       this.totalFat,
@@ -41,6 +42,7 @@ class FoodProduct {
       this.dietarytFibre,
       this.sugars,
       this.sodium,
+
       this.energy_100,
       this.protein_100,
       this.totalFat_100,

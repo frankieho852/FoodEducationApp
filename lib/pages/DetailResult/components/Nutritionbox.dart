@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/dailyintake.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
+import 'package:food_education_app/pages/DetailNutrition/components/nutritionbar.dart';
+
 class NutritionBox extends StatelessWidget {
   const NutritionBox({
     Key key,
     @required this.size,
     @required this.product,
+    @required this.daily,
   }) : super(key: key);
 
   final Size size;
   final FoodProduct product;
+  final List<DailyIntake> daily;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.3,
-      width: size.width ,
+      height: size.height * 0.35,
+      width: size.width,
       child: InkWell(
         // onTap: () =>Navigator.push(
         //     context,
@@ -24,8 +29,7 @@ class NutritionBox extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-          height: size.height*0.25,//use dynamic value(change by figo 25/2)
+          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 10),
           decoration: BoxDecoration(
             color: Colors.yellow,
             borderRadius: BorderRadius.circular(14),
@@ -37,18 +41,36 @@ class NutritionBox extends StatelessWidget {
               ),
             ],
           ),
-          child: Column(
-            children: [
-              Text("Nutritional Value"),
-              Text("Calories:" + product.energy.toString()),
-              Text("A bar is here"),
-              Text("Protein:" + product.protein.toString()),
-              Text("A bar is here"),
-              Text("Fat:" + product.totalFat.toString()),
-              Text("A bar is here"),
-              Text("Carbs:" + product.totalCarbonhydrates.toString()),
-              Text("A bar is here"),
-            ],
+          child: Container(
+            margin: const EdgeInsets.all(8.0),
+            height: double.infinity,
+            width: double.infinity,
+            color: Colors.orange,
+            child: Column(
+              children: [
+               Text("NUTRITIONAL VALUE"),
+                SizedBox(
+                  height: 1,
+                  width: double.infinity,
+                  child: const DecoratedBox(
+                      decoration:
+                      const BoxDecoration(color: Colors.grey)),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(bottom: 1),
+                    child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: 4,
+                      itemBuilder: (BuildContext context, int index) =>
+                          Nutritionbar(daily: daily[index],size: size,),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

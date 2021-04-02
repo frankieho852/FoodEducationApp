@@ -42,11 +42,22 @@ class DetailResult extends StatelessWidget {
           maxSametype: 40,
           minSametype: 10,
           recDaily: 100),
-      DailyIntake()
+      DailyIntake(nutrient: "protein",
+      maxSametype: 40,
+    minSametype: 0,
+    recDaily: 1000),
+      DailyIntake(nutrient: "fat",
+          maxSametype: 40,
+          minSametype: 0,
+          recDaily: 1000),
+      DailyIntake(nutrient: "sodium",
+          maxSametype: 40,
+          minSametype: 0,
+          recDaily: 1000),
     ];
     return Scaffold(
       appBar: buildAppBar(tempfood.name),
-      body: Body(product: tempfood),
+      body: Body(product: tempfood,daily:tempDaily),
 
       //bottomNavigationBar: MyBottomNavBar(),
     );

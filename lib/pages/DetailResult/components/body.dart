@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailResult/components/triplebox.dart';
 import 'header.dart';
 import 'Nutritionbox.dart';
 import 'package:food_education_app/foodproduct.dart';
+import 'package:food_education_app/dailyintake.dart';
 
 class Body extends StatelessWidget {
   const Body({
     Key key,
     @required this.product,
+    @required this.daily,
   }) : super(key: key);
   final FoodProduct product;
+  final  List<DailyIntake> daily;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,6 +30,7 @@ class Body extends StatelessWidget {
           NutritionBox(
             size: size,
             product: product,
+            daily:daily,
           ),
           SizedBox(height: size.height * 0.02),
           Triplebox(
