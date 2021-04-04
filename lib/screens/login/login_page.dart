@@ -50,6 +50,19 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextButton(
                     onPressed: widget.shouldShowSignUp,
                     child: Text('Don\'t have an account? Sign up.'),
+                    // RichText(
+                    //   text:
+                    //
+                    //   TextSpan(
+                    //     text: 'Don\'t have an account? ',
+                    //     children: <TextSpan>[
+                    //       TextSpan(
+                    //         text: 'Sign up.',
+                    //         style: TextStyle(fontWeight: FontWeight.bold),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     style: TextButton.styleFrom(
                       primary: Colors.grey[800],
                     ),

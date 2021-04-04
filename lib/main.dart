@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:fyp_firebase_login/Verification_page_phone.dart';
@@ -9,7 +8,7 @@ import 'Verification_page_email.dart';
 import 'Verification_page_succeed.dart';
 import 'auth_service.dart';
 import 'foodeducation_Flow.dart';
-import 'login_page.dart';
+import 'screens/login/login_page.dart';
 import 'new_userprofile.dart';
 
 void main() {
@@ -23,7 +22,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   final _authService = AuthService();
 
   @override
@@ -52,41 +50,38 @@ class _MyAppState extends State<MyApp> {
                                 _authService.loginWithCredentials,
                             shouldShowSignUp: _authService.showSignUp,
                             showForgotPW: _authService.showForgotPW,
-                            showNewUserProfile: _authService.showNewUserProfile
-                            )),
+                            showNewUserProfile:
+                                _authService.showNewUserProfile)),
 
                   // Show Sign Up Page
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.signUp)
                     MaterialPage(
                         child: SignUpPage(
-                          didProvideEmail:
-                                _authService.signUpWithCredentials,
-                            shouldShowLogin: _authService.showLogin,
-                            )),
+                      didProvideEmail: _authService.signUpWithCredentials,
+                      shouldShowLogin: _authService.showLogin,
+                    )),
 
                   if (snapshot.data.authFlowStatus ==
                       AuthFlowStatus.verificationEmail)
                     MaterialPage(
                         child: VerificationPageEmail(
                             backButton: _authService.showSignUp,
-                            shouldShowLogin: _authService.showLogin
-                    )),
+                            shouldShowLogin: _authService.showLogin)),
 
                   if (snapshot.data.authFlowStatus ==
                       AuthFlowStatus.verificationPhone)
                     MaterialPage(
                         child: VerificationPagePhone(
-                            didProvideVerificationCode:
-                                _authService.verifyCodeViaPhoneNum,
-                            backButton: _authService.showSignUp,
-                            )),
+                      didProvideVerificationCode:
+                          _authService.verifyCodeViaPhoneNum,
+                      backButton: _authService.showSignUp,
+                    )),
 
-                  if (snapshot.data.authFlowStatus ==
-                      AuthFlowStatus.verified)
+                  if (snapshot.data.authFlowStatus == AuthFlowStatus.verified)
                     MaterialPage(
                         child: VerificationPageSucceed(
-                          shouldShowLogin: _authService.showLogin,
-                        )),
+                      shouldShowLogin: _authService.showLogin,
+                    )),
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.resetPW)
                     MaterialPage(
@@ -94,12 +89,16 @@ class _MyAppState extends State<MyApp> {
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.newUser)
                     MaterialPage(
-                        child: newUserProfilePage(logOutBtn: _authService.logOut, showFoodEducation: _authService.loginWithCredentials)),
-                  
+                        child: newUserProfilePage(
+                            logOutBtn: _authService.logOut,
+                            showFoodEducation:
+                                _authService.loginWithCredentials)),
+
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
                     MaterialPage(
-                        child: FoodEducationFlow(shouldLogOut: _authService.logOut, showFoodEducation: _authService.showFoodEducation)),
-
+                        child: FoodEducationFlow(
+                            shouldLogOut: _authService.logOut,
+                            showFoodEducation: _authService.showFoodEducation)),
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );
