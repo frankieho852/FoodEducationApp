@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,13 +48,12 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   alignment: Alignment.bottomCenter,
                   child: TextButton(
-                      onPressed: widget.shouldShowSignUp,
-                      child: Text('Don\'t have an account? Sign up.'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.grey[800],
-                      ),
+                    onPressed: widget.shouldShowSignUp,
+                    child: Text('Don\'t have an account? Sign up.'),
+                    style: TextButton.styleFrom(
+                      primary: Colors.grey[800],
+                    ),
                   ),
-
                 ),
               ])),
     );
@@ -97,25 +94,23 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 10),
 
             // Login Button
-            ElevatedButton (
-                onPressed: () {
-                  if (_formKeyLogin.currentState.validate()) {
-                    _emailLogin();
-                  }
-                },
-                child: Text('Login'),
-
+            ElevatedButton(
+              onPressed: () {
+                if (_formKeyLogin.currentState.validate()) {
+                  _emailLogin();
+                }
+              },
+              child: Text('Login'),
             ),
 
             TextButton(
-              onPressed: () {
-                widget.showForgotPW();
-              },
-              child: Text('Forgot password?'),
+                onPressed: () {
+                  widget.showForgotPW();
+                },
+                child: Text('Forgot password?'),
                 style: TextButton.styleFrom(
-                   primary: Colors.grey[700],
-                )
-            ),
+                  primary: Colors.grey[700],
+                )),
 
             Row(children: <Widget>[
               Expanded(
@@ -297,8 +292,7 @@ class _LoginPageState extends State<LoginPage> {
             androidPackageName: "com.example.fyp_firebase_login",
             androidInstallApp: true,
             handleCodeInApp: false,
-            iOSBundleId: "com.example.fyp_firebase_login"
-        );
+            iOSBundleId: "com.example.fyp_firebase_login");
         //await _user.sendEmailVerification();
 
         await _user.sendEmailVerification(actionCodeSettings);
@@ -307,7 +301,6 @@ class _LoginPageState extends State<LoginPage> {
 
         await FirebaseAuth.instance.signOut();
       }
-
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'user-not-found' ||
           authError.code == 'wrong-password') {
