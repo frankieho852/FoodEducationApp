@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fyp_firebase_login/constants.dart';
+import 'package:fyp_firebase_login/constants.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback loginWithCredentials;
@@ -40,125 +43,227 @@ class _LoginPageState extends State<LoginPage> {
       body: _loading
           ? Center(child: CircularProgressIndicator())
           : SafeArea(
-              minimum: EdgeInsets.symmetric(horizontal: 40),
               child: Stack(children: [
-                // Login Form
-                _loginForm(),
-                // Sign Up Button
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: TextButton(
-                    onPressed: widget.shouldShowSignUp,
-                    child: Text('Don\'t have an account? Sign up.'),
-                    // RichText(
-                    //   text:
-                    //
-                    //   TextSpan(
-                    //     text: 'Don\'t have an account? ',
-                    //     children: <TextSpan>[
-                    //       TextSpan(
-                    //         text: 'Sign up.',
-                    //         style: TextStyle(fontWeight: FontWeight.bold),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    style: TextButton.styleFrom(
-                      primary: Colors.grey[800],
-                    ),
+              // Login Form
+              _loginForm(),
+              // Sign Up Button
+              Container(
+                alignment: Alignment.bottomCenter,
+                child: TextButton(
+                  onPressed: widget.shouldShowSignUp,
+                  child: Text('Don\'t have an account? Sign up.'),
+                  // RichText(
+                  //   text:
+                  //
+                  //   TextSpan(
+                  //     text: 'Don\'t have an account? ',
+                  //     children: <TextSpan>[
+                  //       TextSpan(
+                  //         text: 'Sign up.',
+                  //         style: TextStyle(fontWeight: FontWeight.bold),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  style: TextButton.styleFrom(
+                    primary: Colors.grey[800],
                   ),
                 ),
-              ])),
+              ),
+            ])),
     );
   }
 
   Widget _loginForm() {
+    Size size = MediaQuery.of(context).size;
     return Form(
-        key: _formKeyLogin,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
+      key: _formKeyLogin,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: kPrimaryColor.withAlpha(100),
+              borderRadius: BorderRadius.circular(29.0),
+            ),
+            margin: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            width: size.width * 0.9,
+            child: TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration:
-                    InputDecoration(icon: Icon(Icons.mail), labelText: 'Email'),
+                cursorColor: kPrimaryColor,
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.mail,
+                    color: kPrimaryColor,
+                  ),
+                  hintText: 'Email',
+                  hintStyle: TextStyle(
+                    color: kPrimaryColor,
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor),
+                  ),
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: kPrimaryColor),
+                  ),
+                ),
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter your Email';
                   }
                   return null;
                 }),
-
-            // Password TextField
-            TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                    icon: Icon(Icons.lock_open), labelText: 'Password'),
-                obscureText: true,
-                keyboardType: TextInputType.visiblePassword,
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter your Password';
-                  }
-                  return null;
-                }),
-
-            SizedBox(height: 10),
-
-            // Login Button
-            ElevatedButton(
-              onPressed: () {
-                if (_formKeyLogin.currentState.validate()) {
-                  _emailLogin();
-                }
-              },
-              child: Text('Login'),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: kPrimaryColor.withAlpha(100),
+              borderRadius: BorderRadius.circular(29.0),
             ),
-
-            TextButton(
-                onPressed: () {
-                  widget.showForgotPW();
-                },
-                child: Text('Forgot password?'),
+            margin: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            width: size.width * 0.9,
+            child: TextFormField(
+              controller: _passwordController,
+              keyboardType: TextInputType.visiblePassword,
+              cursorColor: kPrimaryColor,
+              obscureText: true,
+              decoration: InputDecoration(
+                icon: Icon(
+                  Icons.lock_open,
+                  color: kPrimaryColor,
+                ),
+                hintText: 'Password',
+                hintStyle: TextStyle(
+                  color: kPrimaryColor,
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
+              ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter your Password';
+                }
+                return null;
+              },
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            width: size.width * 0.9,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(29),
+              child: TextButton(
                 style: TextButton.styleFrom(
-                  primary: Colors.grey[700],
-                )),
-
-            Row(children: <Widget>[
-              Expanded(
-                child: new Container(
-                    margin: const EdgeInsets.only(left: 10.0, right: 15.0),
-                    child: Divider(
-                      color: Colors.black,
-                      height: 50,
-                    )),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  backgroundColor: kPrimaryColor,
+                ),
+                onPressed: () {
+                  if (_formKeyLogin.currentState.validate()) {
+                    _emailLogin();
+                  }
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-              Text("OR"),
-              Expanded(
-                child: new Container(
-                    margin: const EdgeInsets.only(left: 15.0, right: 10.0),
-                    child: Divider(
-                      color: Colors.black,
-                      height: 50,
-                    )),
+            ),
+          ),
+          TextButton(
+              onPressed: () {
+                widget.showForgotPW();
+              },
+              child: Text('Forgot password?'),
+              style: TextButton.styleFrom(
+                primary: Colors.grey[700],
+              )),
+          Row(children: <Widget>[
+            Expanded(
+              child: new Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 50,
+                  )),
+            ),
+            Text("OR"),
+            Expanded(
+              child: new Container(
+                  margin: const EdgeInsets.only(left: 15.0, right: 10.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 50,
+                  )),
+            ),
+          ]),
+          // FacebookSignInButton(
+          //     onPressed: _fbLogin, splashColor: Colors.white, borderRadius: 10),
+          // SizedBox(height: 12),
+          // GoogleSignInButton(
+          //     onPressed: _googleLogin,
+          //     darkMode: true,
+          //     splashColor: Colors.white,
+          //     borderRadius: 10),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: _googleLogin,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: kPrimaryColor,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: SvgPicture.asset(
+                    'assets/icons/icons8-google.svg',
+                    height: 20,
+                    width: 20,
+                  ),
+                ),
               ),
-            ]),
-
-            FacebookSignInButton(
-                onPressed: _fbLogin,
-                splashColor: Colors.white,
-                borderRadius: 10),
-
-            SizedBox(height: 12),
-
-            GoogleSignInButton(
-                onPressed: _googleLogin,
-                darkMode: true,
-                splashColor: Colors.white,
-                borderRadius: 10),
-          ],
-        ));
+              GestureDetector(
+                onTap: _fbLogin,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 2,
+                      color: kPrimaryColor,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  //todo: svg images not showing
+                  child: SvgPicture.asset(
+                    'assets/icons/icons8-facebook-f.svg',
+                    height: 20,
+                    width: 20,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   void _fbLogin() async {
