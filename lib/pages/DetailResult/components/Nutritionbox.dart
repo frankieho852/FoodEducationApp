@@ -3,7 +3,7 @@ import 'package:food_education_app/dailyintake.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailNutrition/components/nutritionbar.dart';
-
+import 'package:food_education_app/pages/DetailNutrition/detail_nutrition_screen.dart';
 class NutritionBox extends StatelessWidget {
   const NutritionBox({
     Key key,
@@ -21,17 +21,17 @@ class NutritionBox extends StatelessWidget {
       height: size.height * 0.35,
       width: size.width,
       child: InkWell(
-        // onTap: () =>Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => DetailedNutrition()
-        //     )),
+        onTap: () =>Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailedNutrition(product: product,size: size,daily: daily,)
+            )),
         child: Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
           padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 10),
           decoration: BoxDecoration(
-            color: Colors.yellow,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(14),
             boxShadow: [
               BoxShadow(
@@ -45,7 +45,7 @@ class NutritionBox extends StatelessWidget {
             margin: const EdgeInsets.all(8.0),
             height: double.infinity,
             width: double.infinity,
-            color: Colors.orange,
+            color: Colors.white,
             child: Column(
               children: [
                Text("NUTRITIONAL VALUE"),
@@ -55,6 +55,9 @@ class NutritionBox extends StatelessWidget {
                   child: const DecoratedBox(
                       decoration:
                       const BoxDecoration(color: Colors.grey)),
+                ),
+                SizedBox(
+                  height: 5,
                 ),
                 Expanded(
                   child: Container(

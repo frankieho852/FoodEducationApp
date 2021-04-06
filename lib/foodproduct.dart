@@ -3,7 +3,7 @@
 class FoodProduct {
   String name;
   String category;
-  double volume;
+  double volumeOrweight;
 
   double energy = 0;
   double protein = 0;
@@ -34,7 +34,7 @@ class FoodProduct {
   FoodProduct({
     this.name,
     this.category,
-    this.volume,
+    this.volumeOrweight,
     this.energy,
     this.protein,
     this.totalFat,
@@ -110,19 +110,41 @@ class FoodProduct {
   }
 
   void calculateTotalNutrient() {
-    this.energy = this.energy_100 * this.volume/100;
-    this.protein = this.protein_100 * this.volume/100;
-    this.totalFat = this.totalFat_100 * this.volume/100;
-    this.saturatetedFat = this.saturatetedFat_100 * this.volume/100;
-    this.transFat = this.transFat_100 * this.volume/100;
-    this.totalCarbonhydrates = this.totalCarbonhydrates_100 * this.volume/100;
-    this.dietarytFibre = this.dietarytFibre_100 * this.volume/100;
-    this.sugars = this.sugars_100 * this.volume/100;
-    this.sodium = this.sodium_100 * this.volume/100;
+    this.energy = this.energy_100 * this.volumeOrweight/100;
+    this.protein = this.protein_100 * this.volumeOrweight/100;
+    this.totalFat = this.totalFat_100 * this.volumeOrweight/100;
+    this.saturatetedFat = this.saturatetedFat_100 * this.volumeOrweight/100;
+    this.transFat = this.transFat_100 * this.volumeOrweight/100;
+    this.totalCarbonhydrates = this.totalCarbonhydrates_100 * this.volumeOrweight/100;
+    this.dietarytFibre = this.dietarytFibre_100 * this.volumeOrweight/100;
+    this.sugars = this.sugars_100 * this.volumeOrweight/100;
+    this.sodium = this.sodium_100 * this.volumeOrweight/100;
   }
 
-  String getnutrient() {
-    return "xd";
+  double getNutrientDouble(String temp){
+    double result=-1;
+    if(temp=="Energy"){result=this.energy;}
+    if(temp=="Protein"){result=this.protein;}
+    if(temp=="Total fat"){result=this.totalFat;}
+    if(temp=="Saturated fat"){result=this.saturatetedFat;}
+    if(temp=="Trans fat"){result=this.transFat;}
+    if(temp=="Carbohydrates"){result=this.totalCarbonhydrates;}
+    if(temp=="Sugars"){result=this.sugars;}
+    if(temp=="Sodium"){result=this.sodium;}
+    return result;
+  }
+
+  String getNutrientImage(String temp){
+    String result="not found";
+    if(temp=="Energy"){result="assets/images/caloriesicon.jpg";}
+    if(temp=="Protein"){result="assets/images/proteinicon.jpg";}
+    if(temp=="Total fat"){result="assets/images/caloriesicon.jpg";}
+    if(temp=="Saturated fat"){result="assets/images/caloriesicon.jpg";}
+    if(temp=="Trans fat"){result="assets/images/caloriesicon.jpg";}
+    if(temp=="Carbohydrates"){result="assets/images/caloriesicon.jpg";}
+    if(temp=="Sugars"){result="assets/images/caloriesicon.jpg";}
+    if(temp=="Sodium"){result="assets/images/caloriesicon.jpg";}
+    return result;
   }
 }
 
