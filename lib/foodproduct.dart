@@ -3,6 +3,8 @@
 class FoodProduct {
   String name;
   String category;
+  double volume;
+
   double energy = 0;
   double protein = 0;
   double totalFat = 0;
@@ -97,6 +99,20 @@ class FoodProduct {
     if (grade=="D"){gradeimage="assets/images/D.jpg";}
     return gradeimage;
   }
+  void calculateTotalNutrient(){
+    this.energy=this.energy_100*this.volume;
+    this.protein=this.protein_100*this.volume;
+    this.totalFat=this.totalFat_100*this.volume;
+    this.saturatetedFat=this.saturatetedFat_100*this.volume;
+    this.transFat=this.transFat_100*this.volume;
+    this.totalCarbonhydrates=this.totalCarbonhydrates_100*this.volume;
+    this.dietarytFibre=this.dietarytFibre_100*this.volume;
+    this.sugars=this.sugars_100*this.volume;
+    this.sodium=this.sodium_100*this.volume;
+
+  }
+
+  String getnutrient(){return "xd";}
 }
 
 

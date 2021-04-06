@@ -65,7 +65,7 @@ class NutritionBox extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       itemCount: 4,
                       itemBuilder: (BuildContext context, int index) =>
-                          Nutritionbar(daily: daily[index],size: size,),
+                          Nutritionbar(daily: daily[index],size: size,product: product),
                     ),
                   ),
                 ),
