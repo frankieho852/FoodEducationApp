@@ -10,6 +10,7 @@ class DetailResult extends StatelessWidget {
   Widget build(BuildContext context) {
     FoodProduct tempfood = FoodProduct(
       name: "Vita Lemon Tea",
+      volume:400,
       energy_100: 20,
       protein_100: 0,
       totalFat_100: 0,
@@ -19,6 +20,7 @@ class DetailResult extends StatelessWidget {
       dietarytFibre_100: 0,
       sugars_100: 5,
       sodium_100: 0,
+
 
       image: "assets/images/Vitalemontea.jpg",
       grade: "A",
@@ -35,6 +37,7 @@ class DetailResult extends StatelessWidget {
       ],
       star: 3.5,
     );
+    tempfood.calculateTotalNutrient();
     // need a List <AlternativeProduct> with 2 element to fill in alternativebox
     List<DailyIntake> tempDaily = [
       DailyIntake(
