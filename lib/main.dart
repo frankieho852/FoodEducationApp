@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fyp_firebase_login/Verification_page_phone.dart';
 import 'package:fyp_firebase_login/forgotPW.dart';
+import 'package:fyp_firebase_login/services/service_locator.dart';
 
 import 'SignUpPage sign_up_page.dart';
 import 'Verification_page_email.dart';
@@ -12,6 +13,7 @@ import 'screens/login/login_page.dart';
 import 'new_userprofile.dart';
 
 void main() {
+  setup();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
@@ -26,6 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     _authService.initDynamicLinks();
     _authService.checkAuthStatus();
@@ -45,13 +48,8 @@ class _MyAppState extends State<MyApp> {
                   // Show Login Page
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.login)
                     MaterialPage(
-                        child: LoginPage(
-                            loginWithCredentials:
-                                _authService.loginWithCredentials,
-                            shouldShowSignUp: _authService.showSignUp,
-                            showForgotPW: _authService.showForgotPW,
-                            showNewUserProfile:
-                                _authService.showNewUserProfile)),
+                      child: LoginPage(authService: _authService),
+                    ),
 
                   // Show Sign Up Page
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.signUp)

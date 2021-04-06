@@ -6,22 +6,20 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fyp_firebase_login/constants.dart';
 import 'package:fyp_firebase_login/constants.dart';
+import 'package:fyp_firebase_login/screens/login/login_page_logic.dart';
+import 'package:fyp_firebase_login/services/service_locator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginPage extends StatefulWidget {
-  final VoidCallback loginWithCredentials;
-  final VoidCallback shouldShowSignUp;
-  final VoidCallback showForgotPW;
-  final VoidCallback showNewUserProfile;
+import '../../auth_service.dart';
 
-  LoginPage(
-      {Key key,
-      this.loginWithCredentials,
-      this.shouldShowSignUp,
-      this.showForgotPW,
-      this.showNewUserProfile})
-      : super(key: key);
+class LoginPage extends StatefulWidget {
+  final AuthService authService;
+
+  LoginPage({
+    Key key,
+    @required this.authService,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _LoginPageState();
@@ -31,51 +29,86 @@ class LoginPage extends StatefulWidget {
 // todo: Support email & FB & google now. If you want to support phone number, you can design related UI to login page and sign up page
 
 class _LoginPageState extends State<LoginPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _completedUserProfile = false;
-  final _formKeyLogin = GlobalKey<FormState>();
   bool _loading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final loginLogic = getIt<LoginPageLogic>();
+    loginLogic.setup(widget.authService);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loading
-          ? Center(child: CircularProgressIndicator())
-          : SafeArea(
-              child: Stack(children: [
-              // Login Form
-              _loginForm(),
-              // Sign Up Button
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: TextButton(
-                  onPressed: widget.shouldShowSignUp,
-                  child: Text('Don\'t have an account? Sign up.'),
-                  // RichText(
-                  //   text:
-                  //
-                  //   TextSpan(
-                  //     text: 'Don\'t have an account? ',
-                  //     children: <TextSpan>[
-                  //       TextSpan(
-                  //         text: 'Sign up.',
-                  //         style: TextStyle(fontWeight: FontWeight.bold),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  style: TextButton.styleFrom(
-                    primary: Colors.grey[800],
-                  ),
-                ),
-              ),
-            ])),
+      body: _loading ? LoadingScreen() : LoginScreen(),
     );
   }
 
-  Widget _loginForm() {
+  // todo: login Page dialog
+  void _showErrorDialog(String title, String content) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Retry'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+}
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Stack(children: [
+      // Login Form
+      LoginForm(),
+      // Sign Up Button
+      SignUpButton(),
+    ]));
+  }
+}
+
+class LoadingScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
+class LoginForm extends StatefulWidget {
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  final _formKeyLogin = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Form(
       key: _formKeyLogin,
       child: Column(
@@ -208,15 +241,6 @@ class _LoginPageState extends State<LoginPage> {
                   )),
             ),
           ]),
-          // FacebookSignInButton(
-          //     onPressed: _fbLogin, splashColor: Colors.white, borderRadius: 10),
-          // SizedBox(height: 12),
-          // GoogleSignInButton(
-          //     onPressed: _googleLogin,
-          //     darkMode: true,
-          //     splashColor: Colors.white,
-          //     borderRadius: 10),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -265,195 +289,25 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
 
-  void _fbLogin() async {
-    try {
-      setState(() {
-        _loading = true;
-      });
+class SignUpButton extends StatelessWidget {
+  const SignUpButton({
+    Key key,
+  }) : super(key: key);
 
-      // Trigger the sign-in flow
-      final AccessToken accessToken = await FacebookAuth.instance.login();
-
-      // Create a credential from the access token
-      final OAuthCredential credential = FacebookAuthProvider.credential(
-        accessToken.token,
-      );
-      // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-      final User _user = FirebaseAuth.instance.currentUser;
-
-      CollectionReference userprofile =
-          FirebaseFirestore.instance.collection('userprofile');
-      DocumentReference documentReference = userprofile.doc(_user.uid);
-
-      try {
-        await documentReference.get().then((snapshot) {
-          _completedUserProfile = snapshot.get('done');
-        });
-      } on StateError catch (e) {
-        //"done - not exist"
-        // set done
-        FirebaseFirestore.instance
-            .collection('userprofile')
-            .doc(_user.uid)
-            .set({'done': false});
-      }
-
-      // Google sign-in: email auto verified
-      if (_completedUserProfile) {
-        widget.loginWithCredentials();
-      } else {
-        widget.showNewUserProfile();
-      }
-    } on FacebookAuthException catch (fbAuthError) {
-      _showErrorDialog("Facebook Error",
-          "Error code: ${fbAuthError.errorCode}\nError message: ${fbAuthError.message}");
-    } on FirebaseAuthException catch (authError) {
-      _showErrorDialog("Login Error",
-          "Error code: ${authError.code}\nError message: ${authError.message}");
-    } finally {
-      setState(() {
-        _loading = false;
-      });
-    }
-  }
-
-  void _googleLogin() async {
-    try {
-      setState(() {
-        _loading = true;
-      });
-
-      // Trigger the authentication flow
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      // Create a new credential
-      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-      final User _user = FirebaseAuth.instance.currentUser;
-
-      CollectionReference userprofile =
-          FirebaseFirestore.instance.collection('userprofile');
-      DocumentReference documentReference = userprofile.doc(_user.uid);
-
-      try {
-        await documentReference.get().then((snapshot) {
-          _completedUserProfile = snapshot.get('done');
-        });
-      } on StateError catch (e) {
-        //"done - not exist"
-        // set done
-        FirebaseFirestore.instance
-            .collection('userprofile')
-            .doc(_user.uid)
-            .set({'done': false});
-      }
-
-      // Google sign-in: email auto verified
-      if (_completedUserProfile) {
-        widget.loginWithCredentials();
-      } else {
-        widget.showNewUserProfile();
-      }
-    } on FirebaseAuthException catch (authError) {
-      _showErrorDialog("Login Error",
-          "Error code: ${authError.code}\nError message: ${authError.message}");
-    } finally {
-      setState(() {
-        _loading = false;
-      });
-    }
-  }
-
-  void _emailLogin() async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
-    try {
-      setState(() {
-        _loading = true;
-      });
-
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      final User _user = FirebaseAuth.instance.currentUser;
-      if (_user.emailVerified) {
-        CollectionReference userprofile =
-            FirebaseFirestore.instance.collection('userprofile');
-
-        DocumentReference documentReference = userprofile.doc(_user.uid);
-        await documentReference.get().then((snapshot) {
-          _completedUserProfile = snapshot.get('done');
-        });
-
-        if (_completedUserProfile) {
-          widget.loginWithCredentials();
-        } else {
-          widget.showNewUserProfile();
-        }
-      } else {
-        var actionCodeSettings = ActionCodeSettings(
-            url: 'https://fyptest1.page.link/verifyemail/?email=${_user.email}',
-            dynamicLinkDomain: "fyptest1.page.link",
-            androidPackageName: "com.example.fyp_firebase_login",
-            androidInstallApp: true,
-            handleCodeInApp: false,
-            iOSBundleId: "com.example.fyp_firebase_login");
-        //await _user.sendEmailVerification();
-
-        await _user.sendEmailVerification(actionCodeSettings);
-        _showErrorDialog(
-            "Email Verification", "Please check your inbox and verify email");
-
-        await FirebaseAuth.instance.signOut();
-      }
-    } on FirebaseAuthException catch (authError) {
-      if (authError.code == 'user-not-found' ||
-          authError.code == 'wrong-password') {
-        _showErrorDialog("Login Failed", "Invalid email or password.");
-      } else {
-        _showErrorDialog("Unknown Error",
-            "Error code: ${authError.code}\nError message: ${authError.message}");
-      }
-    } finally {
-      setState(() {
-        _emailController.clear();
-        _passwordController.clear();
-        _loading = false;
-      });
-    }
-  }
-
-  // todo: login Page dialog
-  void _showErrorDialog(String title, String content) {
-    showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(title),
-            content: Text(content),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Retry'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
+  @override
+  Widget build(BuildContext context) {
+    final logicClass = getIt<LoginPageLogic>();
+    return Container(
+      alignment: Alignment.bottomCenter,
+      child: TextButton(
+        onPressed: logicClass.shouldShowSignUp,
+        child: Text('Don\'t have an account? Sign up.'),
+        style: TextButton.styleFrom(
+          primary: Colors.grey[800],
+        ),
+      ),
+    );
   }
 }
