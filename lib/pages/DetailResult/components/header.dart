@@ -98,15 +98,21 @@ class Header extends StatelessWidget {
                               borderRadius: BorderRadius.circular(14),
                             ),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 SizedBox(height: 8.0,),
-                                Container(
-                                  child: Text(
-                                    "Is this product good for you?",
-                                    style: TextStyle(
-                                      //fontWeight: FontWeight.bold,
-                                      fontSize: size.width*0.04,
-                                      color: kPrimaryColor,
+                                Flexible(
+                                  child: Container(
+                                    height: size.height*0.05,
+                                    child: FittedBox(
+                                      child: Text(
+                                        "Is this product"+"\n"+"good for you?",
+                                        style: TextStyle(
+                                          //fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: kPrimaryColor,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -115,6 +121,7 @@ class Header extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
+                                    height: size.height*0.07,
                                     width: double.infinity,
                                     color: Colors.transparent,
                                     child: Row(
@@ -130,46 +137,56 @@ class Header extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(14),
                                             ),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      height: size.height * 0.03,
-                                                      child: FittedBox(
-                                                        child: Text(
-                                                          scoreArray.checks.length
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                            color: kPrimaryColor,
+                                            child: Container(
+                                              margin: EdgeInsets.only(left: 4,right: 4),
+                                              color: Colors.transparent,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: [
+                                                      Container(
+                                                        height: size.height * 0.025,
+                                                        child: FittedBox(
+                                                          fit: BoxFit.fitHeight,
+                                                          child: Text(
+                                                            scoreArray.checks.length
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              color: kPrimaryColor,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    SizedBox(width:2),
-                                                    Icon(
-                                                      Icons.check,
-                                                      color: kPrimaryColor,
-                                                      size: size.height * 0.03,
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height:4),
-                                                FittedBox(
-                                                    child: Text(
-                                                  "Checks",
-                                                  style: TextStyle(
-                                                    color: kPrimaryColor,
+                                                      SizedBox(width:2),
+                                                      Icon(
+                                                        Icons.check,
+                                                        color: kPrimaryColor,
+                                                        size: size.height * 0.025,
+                                                      ),
+                                                    ],
                                                   ),
-                                                )),
-                                              ],
+                                                  Flexible(child:SizedBox(height:4)),
+                                                  Container(
+                                                    height: size.height*0.025,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitHeight,
+                                                      child: Text(
+                                                        "Checks",
+                                                        style: TextStyle(
+                                                      color: kPrimaryColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 8,),
+                                        SizedBox(width: 4,),
                                         Expanded(
                                           flex: 2,
                                           child: Container(
@@ -179,42 +196,52 @@ class Header extends StatelessWidget {
                                               borderRadius:
                                               BorderRadius.circular(14),
                                             ),
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      height: size.height * 0.03,
-                                                      child: FittedBox(
-                                                        child: Text(
-                                                          scoreArray.cautions.length
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                            color: Colors.orange,
+                                            child: Container(
+                                              margin: EdgeInsets.only(left: 4,right: 4),
+                                              color: Colors.transparent,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: [
+                                                      Container(
+                                                        height: size.height * 0.025,
+                                                        child: FittedBox(
+                                                          fit: BoxFit.fitHeight,
+                                                          child: Text(
+                                                            scoreArray.cautions.length
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                              color: Colors.orange,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    SizedBox(width:2),
-                                                    Icon(
-                                                      Icons.dangerous,
-                                                      color: Colors.orange,
-                                                      size: size.height * 0.03,
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height:4),
-                                                FittedBox(
-                                                    child: Text(
-                                                      "Cautions",
-                                                      style: TextStyle(
+                                                      SizedBox(width:2),
+                                                      Icon(
+                                                        Icons.dangerous,
                                                         color: Colors.orange,
+                                                        size: size.height * 0.025,
                                                       ),
-                                                    )),
-                                              ],
+                                                    ],
+                                                  ),
+                                                  Flexible(child:SizedBox(height:4)),
+                                                  Container(
+                                                    height: size.height*0.025,
+                                                    child: FittedBox(
+                                                      fit: BoxFit.fitHeight,
+                                                      child: Text(
+                                                        "Cautions",
+                                                        style: TextStyle(
+                                                          color: Colors.orange,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),

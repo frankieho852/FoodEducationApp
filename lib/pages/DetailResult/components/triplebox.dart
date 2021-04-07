@@ -109,7 +109,7 @@ class Triplebox extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(3.0),
-                            child: Text("User Rating"),
+                            child: Text("User Rating",style: TextStyle(fontSize: 14),),
                           ),
                           SizedBox(
                             height: 1,

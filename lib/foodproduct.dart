@@ -93,7 +93,7 @@ class FoodProduct {
 
   String getGradeImage() {
     String gradeimage;
-    print(grade); //testing
+    print("calling getGradeImage() "+grade); //testing
     if (grade == "A") {
       gradeimage = "assets/images/A-minus.jpg";
     }
@@ -110,53 +110,122 @@ class FoodProduct {
   }
 
   void calculateTotalNutrient() {
-    this.energy = this.energy_100 * this.volumeOrweight/100;
-    this.protein = this.protein_100 * this.volumeOrweight/100;
-    this.totalFat = this.totalFat_100 * this.volumeOrweight/100;
-    this.saturatetedFat = this.saturatetedFat_100 * this.volumeOrweight/100;
-    this.transFat = this.transFat_100 * this.volumeOrweight/100;
-    this.totalCarbonhydrates = this.totalCarbonhydrates_100 * this.volumeOrweight/100;
-    this.dietarytFibre = this.dietarytFibre_100 * this.volumeOrweight/100;
-    this.sugars = this.sugars_100 * this.volumeOrweight/100;
-    this.sodium = this.sodium_100 * this.volumeOrweight/100;
+    if (this.energy == null) {
+      this.energy = this.energy_100 * this.volumeOrweight / 100;
+      this.protein = this.protein_100 * this.volumeOrweight / 100;
+      this.totalFat = this.totalFat_100 * this.volumeOrweight / 100;
+      this.saturatetedFat = this.saturatetedFat_100 * this.volumeOrweight / 100;
+      this.transFat = this.transFat_100 * this.volumeOrweight / 100;
+      this.totalCarbonhydrates = this.totalCarbonhydrates_100 * this.volumeOrweight / 100;
+      this.dietarytFibre = this.dietarytFibre_100 * this.volumeOrweight / 100;
+      this.sugars = this.sugars_100 * this.volumeOrweight / 100;
+      this.sodium = this.sodium_100 * this.volumeOrweight / 100;
+    }
+    if (this.energy_100 == null) {
+      this.energy_100 = this.energy/this.volumeOrweight;
+      this.protein_100 = this.protein / this.volumeOrweight;
+      this.totalFat_100 = this.totalFat / this.volumeOrweight;
+      this.saturatetedFat_100 = this.saturatetedFat / this.volumeOrweight;
+      this.transFat_100 = this.transFat / this.volumeOrweight;
+      this.totalCarbonhydrates_100 = this.totalCarbonhydrates / this.volumeOrweight;
+      this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
+      this.sugars_100 = this.sugars / this.volumeOrweight;
+      this.sodium_100 = this.sodium/ this.volumeOrweight;
+    }
   }
 
-  double getNutrientDouble(String temp){
-    double result=-1;
-    if(temp=="Energy"){result=this.energy;}
-    if(temp=="Protein"){result=this.protein;}
-    if(temp=="Total fat"){result=this.totalFat;}
-    if(temp=="Saturated fat"){result=this.saturatetedFat;}
-    if(temp=="Trans fat"){result=this.transFat;}
-    if(temp=="Carbohydrates"){result=this.totalCarbonhydrates;}
-    if(temp=="Sugars"){result=this.sugars;}
-    if(temp=="Sodium"){result=this.sodium;}
+  double getNutrientDouble(String temp) {
+    double result = -1;
+    if (temp == "Energy") {
+      result = this.energy;
+    }
+    if (temp == "Protein") {
+      result = this.protein;
+    }
+    if (temp == "Total fat") {
+      result = this.totalFat;
+    }
+    if (temp == "Saturated fat") {
+      result = this.saturatetedFat;
+    }
+    if (temp == "Trans fat") {
+      result = this.transFat;
+    }
+    if (temp == "Carbohydrates") {
+      result = this.totalCarbonhydrates;
+    }
+    if (temp == "Sugars") {
+      result = this.sugars;
+    }
+    if (temp == "Sodium") {
+      result = this.sodium;
+    }
     return result;
   }
 
-  String getNutrientImage(String temp){
-    String result="not found";
-    if(temp=="Energy"){result="assets/images/caloriesicon.jpg";}
-    if(temp=="Protein"){result="assets/images/proteinicon.jpg";}
-    if(temp=="Total fat"){result="assets/images/caloriesicon.jpg";}
-    if(temp=="Saturated fat"){result="assets/images/caloriesicon.jpg";}
-    if(temp=="Trans fat"){result="assets/images/caloriesicon.jpg";}
-    if(temp=="Carbohydrates"){result="assets/images/caloriesicon.jpg";}
-    if(temp=="Sugars"){result="assets/images/caloriesicon.jpg";}
-    if(temp=="Sodium"){result="assets/images/caloriesicon.jpg";}
+  String getNutrientImage(String temp) {
+    String result = "not found";
+    if (temp == "Energy") {
+      result = "assets/images/caloriesicon.jpg";
+    }
+    if (temp == "Protein") {
+      result = "assets/images/proteinicon.jpg";
+    }
+    if (temp == "Total fat") {
+      result = "assets/images/caloriesicon.jpg";
+    }
+    if (temp == "Saturated fat") {
+      result = "assets/images/caloriesicon.jpg";
+    }
+    if (temp == "Trans fat") {
+      result = "assets/images/caloriesicon.jpg";
+    }
+    if (temp == "Carbohydrates") {
+      result = "assets/images/caloriesicon.jpg";
+    }
+    if (temp == "Sugars") {
+      result = "assets/images/caloriesicon.jpg";
+    }
+    if (temp == "Sodium") {
+      result = "assets/images/caloriesicon.jpg";
+    }
     return result;
+  }
+
+  void printproduct(){
+    print("printing "+ this.name + '\n');
+
+    print(this.energy.toString()+'\n');
+    print(this.protein.toString()+'\n');
+    print(this.totalFat.toString()+'\n');
+    print(this.saturatetedFat.toString()+'\n');
+    print(this.transFat.toString()+'\n');
+    print(this.totalCarbonhydrates.toString()+'\n');
+    print(this.dietarytFibre.toString()+'\n');
+    print(this.sugars.toString()+'\n');
+    print(this.sodium.toString()+'\n');
+    print("printing 100: "+ this.name + '\n');
+    print(this.energy_100.toString()+'\n');
+    print(this.protein_100.toString()+'\n');
+    print(this.totalFat_100.toString()+'\n');
+    print(this.saturatetedFat_100.toString()+'\n');
+    print(this.transFat_100.toString()+'\n') ;
+    print(this.totalCarbonhydrates_100.toString()+'\n');
+    print(this.dietarytFibre_100.toString()+'\n');
+    print(this.sugars_100.toString()+'\n');
+    print(this.sodium_100.toString()+'\n');
   }
 }
 
 class ScoreArray {
   //this is a simple class to store all required information in scorepage
-  String grade = "C+";
+  String grade = "C";
   int score = 6;
   List<String> checks = [];
   List<String> cautions = [];
 
   String scoreToGrade() {
-    print(score);
+    print("calling scoreToGrade score="+score.toString());
     if (score < 3) {
       grade = "D";
     }

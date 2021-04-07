@@ -63,7 +63,7 @@ class Nutritionbar extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(
                       style: TextStyle(
-                        fontSize: 13.0,
+                        fontSize: 12.0,
                         color: Colors.black,
                       ),
                       children: <TextSpan>[

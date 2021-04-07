@@ -37,6 +37,7 @@ class DetailResult extends StatelessWidget {
       star: 3.5,
     );
     tempfood.calculateTotalNutrient();
+    tempfood.printproduct();
     // todo:need a List <AlternativeProduct> with 2 element to fill in alternativebox
     //todo: get current user height weight sex->calculate recDaily
     //todo: get maxSametype,minSametype by category

@@ -48,7 +48,7 @@ class NutritionBox extends StatelessWidget {
             color: Colors.white,
             child: Column(
               children: [
-               Text("NUTRITIONAL VALUE"),
+               Text("NUTRITIONAL VALUE",style: TextStyle(fontSize: 14),),
                 SizedBox(
                   height: 1,
                   width: double.infinity,
