@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/DetailResult/components/triplebox.dart';
 import 'header.dart';
-import 'Nutritionbox.dart';
+import 'nutritionbox.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/dailyintake.dart';
 

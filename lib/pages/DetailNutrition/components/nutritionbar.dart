@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/dailyintake.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
-
+import 'package:food_education_app/pages/DetailNutrition/components/minmaxbar.dart';
 class Nutritionbar extends StatelessWidget {
   const Nutritionbar({
     Key key,
@@ -78,7 +78,14 @@ class Nutritionbar extends StatelessWidget {
 
               ],
             ),
-            Text("barhere"),
+            Expanded(
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: Colors.yellow,
+                child: Minmaxbar(daily: daily,),
+              ),
+            )
           ],
         ));
   }
