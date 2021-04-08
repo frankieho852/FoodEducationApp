@@ -14,7 +14,7 @@ class DetailedNutrition extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(product.name),
-      body: Body(product: product),
+      body: Body(product: product,daily: daily,),
     );
   }
 

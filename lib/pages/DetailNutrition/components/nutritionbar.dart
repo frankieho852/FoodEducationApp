@@ -24,8 +24,8 @@ class Nutritionbar extends StatelessWidget {
     Color percentageColor=getcolor(recommendPercentage);
 
     return Container(
-        height: size.height * 0.07,
-        color: Colors.white,
+        height: size.height * 0.065,
+        color: Colors.transparent,
         child: Column(
           children: [
             Row(
@@ -43,36 +43,44 @@ class Nutritionbar extends StatelessWidget {
                               product.getNutrientImage(daily.nutrient)),
                           fit: BoxFit.cover)),
                 ),
-                FittedBox(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.black,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(text: " " + daily.nutrient + ": "),
-                        TextSpan(
-                            text: totalnutrient.toString()+" "+unit,
-                            style: TextStyle(fontWeight: FontWeight.bold,color: kPrimaryColor)),
-                      ],
+                RichText(
+                  text: TextSpan(
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black,
                     ),
+                    children: <TextSpan>[
+                      TextSpan(text: " " + daily.nutrient + ": "),
+                      TextSpan(
+                          text: totalnutrient.toString()+" "+unit,
+                          style: TextStyle(fontWeight: FontWeight.bold,color: kPrimaryColor)),
+                    ],
                   ),
                 ),
-                Expanded(child: SizedBox(width: size.width*0.9,)),
-                FittedBox(
-                  child: RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        color: Colors.black,
+                Flexible(
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      height: size.height * 0.02,
+                      width: size.width*0.35,
+                      color: Colors.transparent,
+                      child: FittedBox(
+                        alignment: Alignment.centerRight,
+                        child: RichText(
+                          text: TextSpan(
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: Colors.black,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(text: 'Rec. Daily Intake: '),
+                              TextSpan(
+                                  text: recommendPercentage.toInt().toString() + "%",
+                                  style: TextStyle(fontWeight: FontWeight.bold,color:percentageColor)),
+                            ],
+                          ),
+                        ),
                       ),
-                      children: <TextSpan>[
-                        TextSpan(text: 'Rec. Daily Intake: '),
-                        TextSpan(
-                            text: recommendPercentage.toInt().toString() + "%",
-                            style: TextStyle(fontWeight: FontWeight.bold,color:percentageColor)),
-                      ],
                     ),
                   ),
                 ),
@@ -82,14 +90,13 @@ class Nutritionbar extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  height:size.height * 0.035 ,
+                  height:size.height * 0.025 ,
                   width: size.width * 0.08,
                   color: Colors.transparent,
                   child: Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     child: FittedBox(
                       child: Column(
-
                         children: [
                           Text("min:"),
                           Text(daily.minSametype.toInt().toString())
@@ -100,18 +107,18 @@ class Nutritionbar extends StatelessWidget {
                 ),
                 Flexible(
                   child: Container(
-                    height:size.height * 0.035,
+                    height:size.height * 0.025,
                     width: size.width * 0.8,
                     color: Colors.transparent,
                     child: Minmaxbar(daily: daily,size:size,total:totalnutrient),
                   ),
                 ),
                 Container(
-                  height:size.height * 0.035 ,
+                  height:size.height * 0.025 ,
                   width: size.width * 0.08,
                   color: Colors.transparent,
                   child: Align(
-                    alignment: Alignment.centerRight,
+                    alignment: Alignment.center,
                     child: FittedBox(
                         child: Column(
                           children: [
@@ -123,7 +130,8 @@ class Nutritionbar extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+
           ],
         ));
   }
@@ -135,7 +143,7 @@ class Nutritionbar extends StatelessWidget {
   }
   Color getcolor(double temp){
     Color color = Color(0xFF00A299);
-    if(temp>10){color= Colors.yellow;}
+    if(temp>10){color= Colors.yellow[600];}
     if(temp>20){color= Colors.orange;}
     if(temp>30){color= Colors.red;}
     return color;

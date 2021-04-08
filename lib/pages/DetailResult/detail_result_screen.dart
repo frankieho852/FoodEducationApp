@@ -24,15 +24,15 @@ class DetailResult extends StatelessWidget {
       image: "assets/images/Vitalemontea.jpg",
       grade: "A",
       ingredients: [
-        "water",
-        "sugar",
-        "flavouring",
-        "tea",
-        "lemon juice",
-        "acidity regulator(330 and 331)",
-        "vitamin C",
-        "Sweetener(952 and 955)",
-        "antioxidant(304)"
+        "Water",
+        "Sugar",
+        "Flavouring",
+        "Tea",
+        "Lemon juice",
+        "Acidity regulator (330 and 332)",
+        "Vitamin C",
+        "Sweetener (952 and 955)",
+        "Antioxidant (304)"
       ],
       star: 3.5,
     );

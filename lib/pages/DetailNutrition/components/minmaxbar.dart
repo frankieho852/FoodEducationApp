@@ -52,11 +52,11 @@ class TempPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4;
-    final p1 = Offset(size.width*0.05, size.height/2);
-    final p2 = Offset(size.width*0.05+size.width*0.90, size.height/2);
+    final p1 = Offset(size.width*0.04, size.height/2);
+    final p2 = Offset(size.width*0.96, size.height/2);
 
-    final p3 = Offset((size.width*0.05+size.width*0.95)*percent, size.height*0.1*resize);
-    final p4 = Offset((size.width*0.05+size.width*0.95)*percent, size.height*(1-(resize*0.1)));
+    final p3 = Offset(size.width*percent, size.height*0.1*resize);
+    final p4 = Offset(size.width*percent, size.height*(1-(resize*0.1)));
 
     canvas.drawLine(p1,p2,Paint1);
     canvas.drawLine(p3,p4,Paint2);

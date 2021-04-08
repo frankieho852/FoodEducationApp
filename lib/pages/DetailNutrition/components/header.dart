@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
+import 'package:food_education_app/pages/DetailNutrition/components/nutritionbar.dart';
 import 'package:food_education_app/size_config.dart';
-
+import 'package:food_education_app/dailyintake.dart';
 class Header extends StatelessWidget {
   Header({
     Key key,
     @required this.size,
     @required this.product,
+    @required this.daily,
   }) : super(key: key);
 
   final Size size;
   FoodProduct product;
-
+  final  List<DailyIntake> daily;
   @override
   Widget build(BuildContext context) {
     return Container(
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: 5),
       // explanation: height of the wrapping container, including the daily target card
-      height: size.height * 0.7,
+      height: size.height * 0.54,
       child: Stack(
         children: <Widget>[
           Container(
@@ -61,10 +63,21 @@ class Header extends StatelessWidget {
                     ),
                   ],
                 ),
+                child: Container(
+                  margin: const EdgeInsets.only(left:8.0,right:8.0),
+                  padding: const EdgeInsets.only(top:1,bottom: 1),
+                  child: ListView.builder(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: daily.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        Nutritionbar(daily: daily[index],size: size,product: product),
 
+                  ),
                 ),
               ),
-
+          ),
         ],
       ),
     );

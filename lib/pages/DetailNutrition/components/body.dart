@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailNutrition/components/header.dart';
 import 'package:food_education_app/foodproduct.dart';
-
+import 'package:food_education_app/dailyintake.dart';
+import 'package:food_education_app/pages/DetailNutrition/components/ingredientbox.dart';
 
 class Body extends StatelessWidget {
   Body({
     Key key,
     @required this.product,
+    @required this.daily,
   }) : super(key: key);
   FoodProduct product;
+  final  List<DailyIntake> daily;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,7 +31,9 @@ class Body extends StatelessWidget {
               )
             ),
           ),
-          Header(size: size,product: product),
+          Header(size: size,product: product,daily:daily),
+          SizedBox(height: size.height * 0.02),
+          IngredientBox(ingredient:product.ingredients,size: size),
         ],
       ),
     );
