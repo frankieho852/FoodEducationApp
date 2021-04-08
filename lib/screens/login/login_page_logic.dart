@@ -3,16 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
+import 'package:fyp_firebase_login/services/service_locator.dart';
 import '../../auth_service.dart';
+
+typedef ShowDialogCallback = void Function(String title, String content);
 
 class LoginPageLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
   bool _completedUserProfile = false;
   AuthService _authService;
+  ShowDialogCallback _onEmailLoginError;
 
-  void setup(AuthService authService) {
+  void setup(AuthService authService, ShowDialogCallback onEmailLoginError) {
     _authService = authService;
+    _onEmailLoginError = onEmailLoginError;
   }
 
   void fbLogin() async {
@@ -119,9 +123,6 @@ class LoginPageLogic {
   }
 
   void emailLogin(String email, String password) async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
     try {
       loadingNotifier.value = true;
 
@@ -153,7 +154,7 @@ class LoginPageLogic {
         //await _user.sendEmailVerification();
 
         await _user.sendEmailVerification(actionCodeSettings);
-        _showErrorDialog(
+        _onEmailLoginError(
             "Email Verification", "Please check your inbox and verify email");
 
         await FirebaseAuth.instance.signOut();
@@ -161,9 +162,9 @@ class LoginPageLogic {
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'user-not-found' ||
           authError.code == 'wrong-password') {
-        _showErrorDialog("Login Failed", "Invalid email or password.");
+        _onEmailLoginError("Login Failed", "Invalid email or password.");
       } else {
-        _showErrorDialog("Unknown Error",
+        _onEmailLoginError("Unknown Error",
             "Error code: ${authError.code}\nError message: ${authError.message}");
       }
     } finally {
@@ -175,7 +176,11 @@ class LoginPageLogic {
     }
   }
 
+  void showForgetPW() {
+    _authService.showForgotPW();
+  }
+
   void shouldShowSignUp() {
-    // TODO: move your firebase auth here
+    _authService.showSignUp();
   }
 }

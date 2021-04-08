@@ -24,7 +24,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _authService = AuthService();
+  final _authService = getIt<AuthService>();
 
   @override
   void initState() {
