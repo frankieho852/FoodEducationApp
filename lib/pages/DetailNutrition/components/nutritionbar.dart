@@ -17,7 +17,7 @@ class Nutritionbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double totalnutrient = this.product.getNutrientDouble(daily.nutrient);
-    double nutrientper100 = totalnutrient/product.volumeOrweight*100;
+    // double nutrientper100 = totalnutrient/product.volumeOrweight*100;
     double recommendPercentage =
         (totalnutrient * 100 / this.product.volumeOrweight) * 100 / daily.recDaily;
     String unit= getnutrientunit();
@@ -83,7 +83,7 @@ class Nutritionbar extends StatelessWidget {
               children: [
                 Container(
                   height:size.height * 0.035 ,
-                  width: size.width * 0.1,
+                  width: size.width * 0.08,
                   color: Colors.transparent,
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -101,14 +101,14 @@ class Nutritionbar extends StatelessWidget {
                 Flexible(
                   child: Container(
                     height:size.height * 0.035,
-                    width: size.width * 0.65,
+                    width: size.width * 0.8,
                     color: Colors.transparent,
-                    child: Minmaxbar(daily: daily,size:size,total:nutrientper100),
+                    child: Minmaxbar(daily: daily,size:size,total:totalnutrient),
                   ),
                 ),
                 Container(
                   height:size.height * 0.035 ,
-                  width: size.width * 0.1,
+                  width: size.width * 0.08,
                   color: Colors.transparent,
                   child: Align(
                     alignment: Alignment.centerRight,

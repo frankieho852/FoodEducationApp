@@ -18,7 +18,9 @@ class Minmaxbar extends StatelessWidget {
       percent=(total-daily.minSametype)/(daily.maxSametype-daily.minSametype);
     }
     double resize=1;//this is for resize if the bar is on left edge or right edge
-    if(percent==1||percent==0){resize=2;}
+    if(percent>0.97||percent<0.03){resize=3;}
+    if(percent>0.98||percent<0.02){resize=4;}
+    if(percent==1||percent==0){resize=5;}
 
     return CustomPaint(
       child: Container(
@@ -50,11 +52,11 @@ class TempPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4;
-    final p1 = Offset(8, size.height/2);
-    final p2 = Offset(size.width-8, size.height/2);
+    final p1 = Offset(size.width*0.05, size.height/2);
+    final p2 = Offset(size.width*0.05+size.width*0.90, size.height/2);
 
-    final p3 = Offset(size.width*percent, size.height*0.1*resize);
-    final p4 = Offset(size.width*percent, size.height*(1-(resize*0.1)));
+    final p3 = Offset((size.width*0.05+size.width*0.95)*percent, size.height*0.1*resize);
+    final p4 = Offset((size.width*0.05+size.width*0.95)*percent, size.height*(1-(resize*0.1)));
 
     canvas.drawLine(p1,p2,Paint1);
     canvas.drawLine(p3,p4,Paint2);

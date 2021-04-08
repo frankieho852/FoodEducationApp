@@ -43,7 +43,7 @@ class DetailResult extends StatelessWidget {
     //todo: get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = [
       DailyIntake(
-          nutrient: "Energy", maxSametype: 40, minSametype: 10, recDaily: 1000),
+          nutrient: "Energy", maxSametype: 160, minSametype: 0, recDaily: 1000),
       DailyIntake(
           nutrient: "Protein", maxSametype: 40, minSametype: 0, recDaily: 10),
       DailyIntake(
