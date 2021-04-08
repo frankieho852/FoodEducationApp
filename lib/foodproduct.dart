@@ -59,7 +59,7 @@ class FoodProduct {
     this.star,
   });
 
-  ScoreArray calculateGrade() {
+  ScoreArray calculateGrade() {//this function will calculate grade and change this.product.grade and return a score array object
     ScoreArray scoreArray = new ScoreArray();
     if (this.sugars_100 >= 5) {
       scoreArray.score = scoreArray.score - 1;

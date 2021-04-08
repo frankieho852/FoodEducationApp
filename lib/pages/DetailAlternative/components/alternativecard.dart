@@ -25,7 +25,7 @@ class AlternativeCard extends StatelessWidget {
         elevation: 0,
         //color: Colors.blue,
         child: InkWell(
-            onTap: () {},
+            onTap: () {},//todo: when ontap, build Detailresult(searchname:product.name)
             child: Row(
               children: [
                 Container(

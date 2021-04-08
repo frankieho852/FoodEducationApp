@@ -17,6 +17,7 @@ class Nutritionbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double totalnutrient = this.product.getNutrientDouble(daily.nutrient);
+    double nutrientper100 = totalnutrient/product.volumeOrweight*100;
     double recommendPercentage =
         (totalnutrient * 100 / this.product.volumeOrweight) * 100 / daily.recDaily;
     String unit= getnutrientunit();
@@ -78,13 +79,50 @@ class Nutritionbar extends StatelessWidget {
 
               ],
             ),
-            Expanded(
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                color: Colors.yellow,
-                child: Minmaxbar(daily: daily,),
-              ),
+            Row(
+              children: [
+                Container(
+                  height:size.height * 0.035 ,
+                  width: size.width * 0.1,
+                  color: Colors.transparent,
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      child: Column(
+
+                        children: [
+                          Text("min:"),
+                          Text(daily.minSametype.toInt().toString())
+                        ],
+                      )
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Container(
+                    height:size.height * 0.035,
+                    width: size.width * 0.65,
+                    color: Colors.transparent,
+                    child: Minmaxbar(daily: daily,size:size,total:nutrientper100),
+                  ),
+                ),
+                Container(
+                  height:size.height * 0.035 ,
+                  width: size.width * 0.1,
+                  color: Colors.transparent,
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FittedBox(
+                        child: Column(
+                          children: [
+                            Text("max:"),
+                            Text(daily.maxSametype.toInt().toString())
+                          ],
+                        )
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ));
