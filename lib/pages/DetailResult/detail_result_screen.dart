@@ -11,16 +11,16 @@ class DetailResult extends StatelessWidget {
     FoodProduct tempfood = FoodProduct(
       name: "Vita Lemon Tea",
       category: "drink",
-      volumeOrweight: 400,
-      energy_100: 20,
-      protein_100: 0,
-      totalFat_100: 0,
-      saturatetedFat_100: 0,
-      transFat_100: 0,
-      totalCarbonhydrates_100: 5,
-      dietarytFibre_100: 0,
-      sugars_100: 5,
-      sodium_100: 0,
+      volumeOrweight: 250,
+      energy: 137.5,
+      protein: 10,
+      totalFat: 0,
+      saturatetedFat: 0,
+      transFat: 0,
+      totalCarbonhydrates: 10,
+      dietarytFibre: 0,
+      sugars: 34,
+      sodium: 250,
       image: "assets/images/Vitalemontea.jpg",
       grade: "A",
       ingredients: [
@@ -43,24 +43,24 @@ class DetailResult extends StatelessWidget {
     //todo: get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = [
       DailyIntake(
-          nutrient: "Energy", maxSametype: 160, minSametype: 0, recDaily: 1000),
+          nutrient: "Energy", maxSametype: 600, minSametype: 100, recDaily: 1000),
       DailyIntake(
-          nutrient: "Protein", maxSametype: 40, minSametype: 0, recDaily: 10),
+          nutrient: "Protein", maxSametype: 50, minSametype: 10, recDaily: 100),
       DailyIntake(
           nutrient: "Total fat",
           maxSametype: 40,
           minSametype: 0,
-          recDaily: 1000),
+          recDaily: 100),
       DailyIntake(
-          nutrient: "Saturated fat", maxSametype: 40, minSametype: 0, recDaily: 20),
+          nutrient: "Saturated fat", maxSametype: 40, minSametype: 0, recDaily: 100),
       DailyIntake(
-          nutrient: "Trans fat", maxSametype: 40, minSametype: 0, recDaily: 30),
+          nutrient: "Trans fat", maxSametype: 0, minSametype: 0, recDaily: 100),
       DailyIntake(
-          nutrient: "Carbohydrates", maxSametype: 40, minSametype: 0, recDaily: 40),
+          nutrient: "Carbohydrates", maxSametype: 40, minSametype:40, recDaily: 100),
       DailyIntake(
-          nutrient: "Sugars", maxSametype: 40, minSametype: 0, recDaily: 50),
+          nutrient: "Sugars", maxSametype: 34, minSametype: 30, recDaily: 100),
       DailyIntake(
-          nutrient: "Sodium", maxSametype: 40, minSametype: 0, recDaily: 60),
+          nutrient: "Sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
     ];
     return Scaffold(
       appBar: buildAppBar(tempfood.name),

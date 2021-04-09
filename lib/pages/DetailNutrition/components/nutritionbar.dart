@@ -19,7 +19,7 @@ class Nutritionbar extends StatelessWidget {
     double totalnutrient = this.product.getNutrientDouble(daily.nutrient);
     // double nutrientper100 = totalnutrient/product.volumeOrweight*100;
     double recommendPercentage =
-        (totalnutrient * 100 / this.product.volumeOrweight) * 100 / daily.recDaily;
+        totalnutrient*100 / daily.recDaily;
     String unit= getnutrientunit();
     Color percentageColor=getcolor(recommendPercentage);
 
@@ -89,23 +89,23 @@ class Nutritionbar extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
-                  height:size.height * 0.025 ,
-                  width: size.width * 0.08,
-                  color: Colors.transparent,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      child: Column(
-                        children: [
-                          Text("min:"),
-                          Text(daily.minSametype.toInt().toString())
-                        ],
-                      )
-                    ),
-                  ),
-                ),
-                Flexible(
+                // Container(
+                //   height:size.height * 0.025 ,
+                //   width: size.width * 0.08,
+                //   color: Colors.transparent,
+                //   child: Align(
+                //     alignment: Alignment.center,
+                //     child: FittedBox(
+                //       child: Column(
+                //         children: [
+                //           Text("min:"),
+                //           Text(daily.minSametype.toInt().toString())
+                //         ],
+                //       )
+                //     ),
+                //   ),
+                // ),
+                Expanded(
                   child: Container(
                     height:size.height * 0.025,
                     width: size.width * 0.8,
@@ -113,22 +113,22 @@ class Nutritionbar extends StatelessWidget {
                     child: Minmaxbar(daily: daily,size:size,total:totalnutrient),
                   ),
                 ),
-                Container(
-                  height:size.height * 0.025 ,
-                  width: size.width * 0.08,
-                  color: Colors.transparent,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                        child: Column(
-                          children: [
-                            Text("max:"),
-                            Text(daily.maxSametype.toInt().toString())
-                          ],
-                        )
-                    ),
-                  ),
-                ),
+                // Container(
+                //   height:size.height * 0.025 ,
+                //   width: size.width * 0.08,
+                //   color: Colors.transparent,
+                //   child: Align(
+                //     alignment: Alignment.center,
+                //     child: FittedBox(
+                //         child: Column(
+                //           children: [
+                //             Text("max:"),
+                //             Text(daily.maxSametype.toInt().toString())
+                //           ],
+                //         )
+                //     ),
+                //   ),
+                // ),
               ],
             ),
 

@@ -49,7 +49,7 @@ class IngredientBox extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 1,
-                childAspectRatio: (size.width * 0.5 / (50)),
+                childAspectRatio: (size.width * 0.5 / (50)),// this enable small device to view 2 line
               ),
               scrollDirection: Axis.vertical,
               itemCount: ingredient.length,
@@ -61,7 +61,7 @@ class IngredientBox extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(right: 4),
                       //height: size.height * 0.01, //assume 2 row for text
-                      width: size.height * 0.007,
+                      width: 7,
                       decoration: BoxDecoration(
                           color: kPrimaryColor,
                           shape: BoxShape.circle
