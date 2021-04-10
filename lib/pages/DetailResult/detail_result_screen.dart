@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailResult/components/body.dart';
@@ -6,6 +7,11 @@ import 'package:food_education_app/dailyintake.dart';
 class DetailResult extends StatelessWidget {
   final String searchname;
   DetailResult({Key key, @required this.searchname}) : super(key: key);
+
+  CollectionReference foodProductCollection = FirebaseFirestore.instance.collection('foodProduct');
+
+
+
   @override
   Widget build(BuildContext context) {
     FoodProduct tempfood = FoodProduct(
@@ -82,4 +88,13 @@ class DetailResult extends StatelessWidget {
       ),
     );
   }
+
+  void barcodeSearch(String barcodeID){
+    var x = foodProductCollection.doc('X3EzsEB9mugLCGmytc2f');
+    x.get().then((value) {
+      print(value.data()["category"]);
+    }
+    );
+  }
+
 }
