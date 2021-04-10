@@ -18,7 +18,7 @@ class NutritionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height * 0.35,
+      height: size.height * 0.32,
       width: size.width,
       child: InkWell(
         onTap: () =>Navigator.push(

@@ -35,7 +35,7 @@ class Header extends StatelessWidget {
             // explanation: minus 27 to lift this container away up from the wrapping container
             height: size.height * 0.2 - 27,
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: kPrimaryColor,
               // location: the bottom corner of the teal header block
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(14),

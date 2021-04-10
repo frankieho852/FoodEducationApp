@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/alternativeproduct.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailResult/components/body.dart';
 import 'package:food_education_app/dailyintake.dart';
@@ -8,6 +9,7 @@ class DetailResult extends StatelessWidget {
   DetailResult({Key key, @required this.searchname}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //todo:function 1 and store in tempfood
     FoodProduct tempfood = FoodProduct(
       name: "Vita Lemon Tea",
       category: "drink",
@@ -62,9 +64,14 @@ class DetailResult extends StatelessWidget {
       DailyIntake(
           nutrient: "Sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
     ];
+
+    List <AlternativeProduct> alt2product=[
+      AlternativeProduct(name: "temp1", image:"assets/images/Vitalemontea.jpg"),
+      AlternativeProduct(name: "VERY LONG PRODDDDDDDDDDDDDUYCCCCTTT", image:"assets/images/Vitalemontea1.jpg"),
+    ];
     return Scaffold(
       appBar: buildAppBar(tempfood.name),
-      body: Body(product: tempfood, daily: tempDaily),
+      body: Body(product: tempfood, daily: tempDaily,alt2product: alt2product,),
 
       //bottomNavigationBar: MyBottomNavBar(),
     );
