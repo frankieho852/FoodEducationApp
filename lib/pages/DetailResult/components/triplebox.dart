@@ -176,14 +176,13 @@ class Triplebox extends StatelessWidget {
                                     product: product,
                                   ))),
                       child: Container(
-                        margin: const EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: Text(
                                 "User Rating",
-                                style: TextStyle(fontSize: 14),
                               ),
                             ),
                             SizedBox(
@@ -196,52 +195,54 @@ class Triplebox extends StatelessWidget {
                             SizedBox(
                               height: size.height * 0.01,
                             ),
-                            Container(
-                              height: size.height * 0.06,
-                              width: size.width * 0.2, //ensure enough space
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6FAF9), //Color(0xFFF6FAF9)
-                                borderRadius: BorderRadius.circular(14),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 3.7),
-                                    blurRadius: 14,
-                                    color: Colors.black.withOpacity(0.08),
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Container(
-                                    //color: Colors.red,
-                                    height: size.height * 0.04,
-                                    width: size.width * 0.06,
-                                    child: Icon(
-                                      Icons.star,
-                                      color: kPrimaryColor,
+                            Flexible(
+                              child: Container(
+                                height: size.height * 0.06,
+                                width: size.width * 0.2, //ensure enough space
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6FAF9), //Color(0xFFF6FAF9)
+                                  borderRadius: BorderRadius.circular(14),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 3.7),
+                                      blurRadius: 14,
+                                      color: Colors.black.withOpacity(0.08),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: size.width * 0.01,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                        //color: Colors.red,
-                                        height: size.height * 0.04,
-                                        width: size.width * 0.12,
-                                        child: FittedBox(
-                                            child:
-                                                Text(product.star.toString()))),
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                ],
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Container(
+                                      //color: Colors.red,
+                                      height: size.height * 0.04,
+                                      width: size.width * 0.06,
+                                      child: Icon(
+                                        Icons.star,
+                                        color: kPrimaryColor,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: size.width * 0.01,
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                          //color: Colors.red,
+                                          height: size.height * 0.04,
+                                          width: size.width * 0.12,
+                                          child: FittedBox(
+                                              child:
+                                                  Text(product.star.toString()))),
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                  ],
+                                ),
                               ),
                             )
                           ],
@@ -275,8 +276,7 @@ class Triplebox extends StatelessWidget {
                                     scoreArray: scoreArray,
                                   ))),
                       child: Container(
-                        margin: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 8.0),
+                        margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                         child: Column(
                           children: [
                             Padding(
@@ -301,15 +301,11 @@ class Triplebox extends StatelessWidget {
                                 //color: Colors.green,
                                 decoration: new BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Colors.green,
                                     image: DecorationImage(
                                         image:
                                             AssetImage(product.getGradeImage()),
                                         fit: BoxFit.cover)),
                               ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.01,
                             ),
                           ],
                         ),
