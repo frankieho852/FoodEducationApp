@@ -40,9 +40,9 @@ class DetailResult extends StatelessWidget {
     );
     tempfood.calculateTotalNutrient();
     tempfood.printproduct();
-    // todo:need a List <AlternativeProduct> with 2 element to fill in alternativebox
-    //todo: get current user height weight sex->calculate recDaily
-    //todo: get maxSametype,minSametype by category
+
+    //todo: function 5 get current user height weight sex->calculate recDaily
+    //todo: function 4 get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = [
       DailyIntake(
           nutrient: "Energy", maxSametype: 600, minSametype: 100, recDaily: 1000),
@@ -64,7 +64,7 @@ class DetailResult extends StatelessWidget {
       DailyIntake(
           nutrient: "Sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
     ];
-
+    //todo:function 3 and store in alt2product
     List <AlternativeProduct> alt2product=[
       AlternativeProduct(name: "temp1", image:"assets/images/Vitalemontea.jpg"),
       AlternativeProduct(name: "VERY LONG PRODDDDDDDDDDDDDUYCCCCTTT", image:"assets/images/Vitalemontea1.jpg"),
