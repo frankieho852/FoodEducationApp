@@ -101,8 +101,10 @@ class DetailResult extends StatelessWidget {
   // 3
     var categoryResult = foodProductCollection.where('category', isEqualTo: productCategory);
     // Calories
-    categoryResult.orderBy("calories", descending: true).limit(1); //find max
+    var max = categoryResult.orderBy("calories", descending: true).limit(1); //find max
     categoryResult.orderBy("calories", descending: false).limit(1); //find min
+    max.get().then((value) => print(value.docs.first.data()["testorder"]));
+
   // Protein
     categoryResult.orderBy("protein", descending: true).limit(1); //find max
     categoryResult.orderBy("protein", descending: false).limit(1); //find min
@@ -112,5 +114,11 @@ class DetailResult extends StatelessWidget {
   // Carbs
     categoryResult.orderBy("carbs", descending: true).limit(1); //find max
     categoryResult.orderBy("carbs", descending: false).limit(1); //find min
+  }
+
+  void getUserInfo(){
+
+    CollectionReference userCollection = FirebaseFirestore.instance.collection('userProfile');
+
   }
 }
