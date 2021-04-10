@@ -29,7 +29,6 @@ class DetailAlternative extends StatelessWidget {
             alignment: Alignment.center,
             child: CircularProgressIndicator(),
           );
-
         }
 
         List<AlternativeProduct> altproductslist;

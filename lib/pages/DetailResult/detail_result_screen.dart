@@ -10,10 +10,9 @@ class DetailResult extends StatelessWidget {
 
   CollectionReference foodProductCollection = FirebaseFirestore.instance.collection('foodProduct');
 
-
-
   @override
   Widget build(BuildContext context) {
+
     FoodProduct tempfood = FoodProduct(
       name: "Vita Lemon Tea",
       category: "drink",
@@ -90,11 +89,28 @@ class DetailResult extends StatelessWidget {
   }
 
   void barcodeSearch(String barcodeID){
-    var x = foodProductCollection.doc('X3EzsEB9mugLCGmytc2f');
+    // 2
+    var x = foodProductCollection.doc(barcodeID);
     x.get().then((value) {
       print(value.data()["category"]);
-    }
-    );
+     // add other ....
+    });
   }
 
+  void findMaxMin(String productCategory){
+  // 3
+    var categoryResult = foodProductCollection.where('category', isEqualTo: productCategory);
+    // Calories
+    categoryResult.orderBy("calories", descending: true).limit(1); //find max
+    categoryResult.orderBy("calories", descending: false).limit(1); //find min
+  // Protein
+    categoryResult.orderBy("protein", descending: true).limit(1); //find max
+    categoryResult.orderBy("protein", descending: false).limit(1); //find min
+  // Fat
+    categoryResult.orderBy("fat", descending: true).limit(1); //find max
+    categoryResult.orderBy("fat", descending: false).limit(1); //find min
+  // Carbs
+    categoryResult.orderBy("carbs", descending: true).limit(1); //find max
+    categoryResult.orderBy("carbs", descending: false).limit(1); //find min
+  }
 }
