@@ -118,16 +118,6 @@ class _SearchpageState extends State<Searchpage> {
     CollectionReference foodProductCollection =
     FirebaseFirestore.instance.collection('foodProduct');
 
-    // old method:
-    /*
-    foodProductCollection.get().then((snapshot) {
-      for(DocumentSnapshot product in snapshot.docs){  // snapshot.docs is set of products
-      //  print("Test:" + product.data()['name']);
-        tempList.add(product.data()['name']);
-      }
-    });
-     */
-
     // method 2
     foodProductCollection.orderBy('name').startAt([_searchText]).get().then((value) {
       //print(value.docsd);
