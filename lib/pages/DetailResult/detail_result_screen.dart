@@ -45,24 +45,24 @@ class DetailResult extends StatelessWidget {
     //todo: function 4 get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = [
       DailyIntake(
-          nutrient: "Energy", maxSametype: 600, minSametype: 100, recDaily: 1000),
+          nutrient: "energy", maxSametype: 600, minSametype: 100, recDaily: 1000),
       DailyIntake(
-          nutrient: "Protein", maxSametype: 50, minSametype: 10, recDaily: 100),
+          nutrient: "protein", maxSametype: 50, minSametype: 10, recDaily: 100),
       DailyIntake(
-          nutrient: "Total fat",
+          nutrient: "total fat",
           maxSametype: 40,
           minSametype: 0,
           recDaily: 100),
       DailyIntake(
-          nutrient: "Saturated fat", maxSametype: 40, minSametype: 0, recDaily: 100),
+          nutrient: "saturated fat", maxSametype: 40, minSametype: 0, recDaily: 100),
       DailyIntake(
-          nutrient: "Trans fat", maxSametype: 0, minSametype: 0, recDaily: 100),
+          nutrient: "trans fat", maxSametype: 0, minSametype: 0, recDaily: 100),
       DailyIntake(
-          nutrient: "Carbohydrates", maxSametype: 40, minSametype:40, recDaily: 100),
+          nutrient: "carbohydrates", maxSametype: 40, minSametype:40, recDaily: 100),
       DailyIntake(
-          nutrient: "Sugars", maxSametype: 34, minSametype: 30, recDaily: 100),
+          nutrient: "sugars", maxSametype: 34, minSametype: 30, recDaily: 100),
       DailyIntake(
-          nutrient: "Sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
+          nutrient: "sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
     ];
     //todo:function 3 and store in alt2product
     List <AlternativeProduct> alt2product=[

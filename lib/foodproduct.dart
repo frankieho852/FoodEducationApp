@@ -136,28 +136,28 @@ class FoodProduct {
 
   double getNutrientDouble(String temp) {
     double result = -1;
-    if (temp == "Energy") {
+    if (temp == "energy") {
       result = this.energy;
     }
-    if (temp == "Protein") {
+    if (temp == "protein") {
       result = this.protein;
     }
-    if (temp == "Total fat") {
+    if (temp == "total fat") {
       result = this.totalFat;
     }
-    if (temp == "Saturated fat") {
+    if (temp == "saturated fat") {
       result = this.saturatetedFat;
     }
-    if (temp == "Trans fat") {
+    if (temp == "trans fat") {
       result = this.transFat;
     }
-    if (temp == "Carbohydrates") {
+    if (temp == "carbohydrates") {
       result = this.totalCarbonhydrates;
     }
-    if (temp == "Sugars") {
+    if (temp == "sugars") {
       result = this.sugars;
     }
-    if (temp == "Sodium") {
+    if (temp == "sodium") {
       result = this.sodium;
     }
     return result;
@@ -165,28 +165,28 @@ class FoodProduct {
 
   String getNutrientImage(String temp) {
     String result = "not found";
-    if (temp == "Energy") {
+    if (temp == "energy") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Protein") {
+    if (temp == "protein") {
       result = "assets/images/proteinicon.jpg";
     }
-    if (temp == "Total fat") {
+    if (temp == "total fat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Saturated fat") {
+    if (temp == "saturated fat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Trans fat") {
+    if (temp == "trans fat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Carbohydrates") {
+    if (temp == "carbohydrates") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Sugars") {
+    if (temp == "sugars") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Sodium") {
+    if (temp == "sodium") {
       result = "assets/images/caloriesicon.jpg";
     }
     return result;

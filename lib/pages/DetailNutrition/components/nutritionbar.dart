@@ -3,6 +3,7 @@ import 'package:food_education_app/dailyintake.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailNutrition/components/minmaxbar.dart';
+
 class Nutritionbar extends StatelessWidget {
   const Nutritionbar({
     Key key,
@@ -50,7 +51,7 @@ class Nutritionbar extends StatelessWidget {
                       color: Colors.black,
                     ),
                     children: <TextSpan>[
-                      TextSpan(text: " " + daily.nutrient + ": "),
+                      TextSpan(text: " " + '${daily.nutrient[0].toUpperCase()}${daily.nutrient.substring(1)}' + ": "),
                       TextSpan(
                           text: totalnutrient.toString()+" "+unit,
                           style: TextStyle(fontWeight: FontWeight.bold,color: kPrimaryColor)),
