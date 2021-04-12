@@ -16,32 +16,33 @@ class DetailResult extends StatelessWidget {
   Widget build(BuildContext context) {
     //todo:function 1 and store in tempfood
     // search name => barcode (key)
+    FoodProduct tempfood;
     foodProductCollection.doc("searchname").get().then((snapshot) {
       try{
-        snapshot.get("name");
-        snapshot.get("category");
-        snapshot.get("volumeOrweight");
-        snapshot.get("energy");
-        snapshot.get("protein");
-        snapshot.get("totalFat");
-        snapshot.get("saturatetedFat");
-        snapshot.get("transFat");
-        snapshot.get("totalCarbonhydrates");
-        snapshot.get("dietarytFibre");
-        snapshot.get("sugars");
-
-        snapshot.get("sodium");
-        snapshot.get("image");
-        snapshot.get("grade");
-        snapshot.get("ingredients");
-        List<dynamic> ingredients = snapshot.data()["ingredients"];
-        snapshot.get("star");
+          tempfood = FoodProduct(
+            name: snapshot.get("name"),
+            category:    snapshot.get("category"),
+            volumeOrweight:  snapshot.get("volumeOrweight"),
+            energy:  snapshot.get("energy"),
+            protein:  snapshot.get("protein"),
+            totalFat: snapshot.get("totalFat"),
+            saturatetedFat: snapshot.get("saturatetedFat"),
+            transFat: snapshot.get("transFat"),
+            totalCarbonhydrates: snapshot.get("totalCarbonhydrates"),
+            dietarytFibre:  snapshot.get("dietarytFibre"),
+            sugars: snapshot.get("sugars"),
+            sodium: snapshot.get("sodium"),
+            image: snapshot.get("image"),
+            grade: snapshot.get("grade"),
+            ingredients: snapshot.data()["ingredients"],
+            star: snapshot.get("star")
+          );
       } on StateError catch (e) {
         print("Error: getproduct");
       }
     });
 
-
+/*
     FoodProduct tempfood = FoodProduct(
       name: "Vita Lemon Tea",
       category: "drink",
@@ -70,6 +71,7 @@ class DetailResult extends StatelessWidget {
       ],
       star: 3.5,
     );
+ */
     tempfood.calculateTotalNutrient();
     tempfood.printproduct();
 
@@ -77,8 +79,9 @@ class DetailResult extends StatelessWidget {
     _getUserInfo();
 
     //todo: function 4 get maxSametype,minSametype by category
-    List<DailyIntake> tempbySam = _findMaxMin("productCategory");
+    List<DailyIntake> tempDaily = _findMaxMin("productCategory");
 
+    /*
     List<DailyIntake> tempDaily = [
       DailyIntake(
           nutrient: "Energy", maxSametype: 600, minSametype: 100, recDaily: 1000),
@@ -100,6 +103,8 @@ class DetailResult extends StatelessWidget {
       DailyIntake(
           nutrient: "Sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
     ];
+
+     */
 
     //todo:function 3 and store in alt2product
 
@@ -145,15 +150,21 @@ class DetailResult extends StatelessWidget {
     var categoryResult = foodProductCollection.where('category', isEqualTo: productCategory);
 
   // todo: need to update sorting name maybe
-    List<String> labelTag = ["energy", "protein", "totalfat", "saturatedFat", "transFat", "carbohydrates", "sugars", "sodium"];
     List<DailyIntake> tempDaily;
 
+    // method 1
+    List<String> labelTag = ["energy", "protein", "totalfat", "saturatedFat", "transFat", "carbohydrates", "sugars", "sodium"];
 
-    for (String temp in labelTag){
-
+    for (String tempLabel in labelTag){
+      Query maxQ = categoryResult.orderBy(tempLabel, descending: true).limit(1); //find max
+      Query minQ = categoryResult.orderBy(tempLabel, descending: false).limit(1); //find min
+      double max, min;
+      maxQ.get().then((value) => max = value.docs.first.data()[tempLabel]);
+      minQ.get().then((value) => min = value.docs.first.data()[tempLabel]);
+      tempDaily.add(DailyIntake(nutrient: tempLabel, maxSametype: max, minSametype: min, recDaily: 1000));
     }
 
-
+    // method 2
     // energy
     Query energyMaxQ = categoryResult.orderBy("energy", descending: true).limit(1); //find max
     Query energyMinQ = categoryResult.orderBy("energy", descending: false).limit(1); //find min
