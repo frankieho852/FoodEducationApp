@@ -19,9 +19,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(
         context); // this is important for using proportionatescreen function
-    List<String> caution = scoreArray.cautions;
-    List<String> checks = scoreArray.checks;
-    List<String> combine=scoreArray.checks+scoreArray.cautions;
+    List<Message> combine=scoreArray.messagearray;
     return Container(
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
@@ -124,7 +122,7 @@ class Header extends StatelessWidget {
                                                 height: size.height * 0.03,
                                                 child: FittedBox(
                                                   child: Text(
-                                                    scoreArray.checks.length
+                                                    scoreArray.checks
                                                         .toString(),
                                                     style: TextStyle(
                                                       color: kPrimaryColor,
@@ -209,7 +207,7 @@ class Header extends StatelessWidget {
                                                 height: size.height * 0.03,
                                                 child: FittedBox(
                                                   child: Text(
-                                                    scoreArray.cautions.length
+                                                    scoreArray.cautions
                                                         .toString(),
                                                     style: TextStyle(
                                                       color: Colors.orange,

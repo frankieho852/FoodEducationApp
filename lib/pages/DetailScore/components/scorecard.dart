@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
+import 'package:food_education_app/foodproduct.dart';
 class ScoreCard extends StatelessWidget {
   const ScoreCard({
     Key key,
@@ -7,7 +8,7 @@ class ScoreCard extends StatelessWidget {
     this.type,
   }) : super(key: key);
 
-  final String description;
+  final Message description;
   final String type;
 
   @override
@@ -18,7 +19,7 @@ class ScoreCard extends StatelessWidget {
       size: size.height * 0.05,
       color: Colors.orange,
     );
-    if (type == "check") {
+    if (description.type == "checks") {
       icon = Icon(
         Icons.check,
         size: size.height * 0.05,
@@ -49,7 +50,7 @@ class ScoreCard extends StatelessWidget {
               color: Colors.white,
               alignment: Alignment.centerLeft,
               child: Text(
-                this.description,
+                this.description.message,
                 style: TextStyle(
                   fontSize: size.height * 0.02,
                   fontWeight: FontWeight.bold,
