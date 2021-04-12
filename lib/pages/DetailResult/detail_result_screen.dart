@@ -19,7 +19,7 @@ class DetailResult extends StatelessWidget {
       totalFat: 0,
       saturatetedFat: 0,
       transFat: 0,
-      totalCarbonhydrates: 10,
+      carbohydrates: 10,
       dietarytFibre: 0,
       sugars: 34,
       sodium: 250,
@@ -49,14 +49,14 @@ class DetailResult extends StatelessWidget {
       DailyIntake(
           nutrient: "protein", maxSametype: 50, minSametype: 10, recDaily: 100),
       DailyIntake(
-          nutrient: "total fat",
+          nutrient: "totalFat",
           maxSametype: 40,
           minSametype: 0,
           recDaily: 100),
       DailyIntake(
-          nutrient: "saturated fat", maxSametype: 40, minSametype: 0, recDaily: 100),
+          nutrient: "saturatedFat", maxSametype: 40, minSametype: 0, recDaily: 100),
       DailyIntake(
-          nutrient: "trans fat", maxSametype: 0, minSametype: 0, recDaily: 100),
+          nutrient: "transFat", maxSametype: 0, minSametype: 0, recDaily: 100),
       DailyIntake(
           nutrient: "carbohydrates", maxSametype: 40, minSametype:40, recDaily: 100),
       DailyIntake(

@@ -10,7 +10,7 @@ class FoodProduct {
   double totalFat = 0;
   double saturatetedFat = 0;
   double transFat = 0;
-  double totalCarbonhydrates = 0;
+  double carbohydrates = 0;
   double dietarytFibre = 0;
   double sugars = 0;
   double sodium = 0;
@@ -20,7 +20,7 @@ class FoodProduct {
   double totalFat_100 = 0;
   double saturatetedFat_100 = 0;
   double transFat_100 = 0;
-  double totalCarbonhydrates_100 = 0;
+  double carbohydrates_100 = 0;
   double dietarytFibre_100 = 0;
   double sugars_100 = 0;
   double sodium_100 = 0;
@@ -40,7 +40,7 @@ class FoodProduct {
     this.totalFat,
     this.saturatetedFat,
     this.transFat,
-    this.totalCarbonhydrates,
+    this.carbohydrates,
     this.dietarytFibre,
     this.sugars,
     this.sodium,
@@ -49,7 +49,7 @@ class FoodProduct {
     this.totalFat_100,
     this.saturatetedFat_100,
     this.transFat_100,
-    this.totalCarbonhydrates_100,
+    this.carbohydrates_100,
     this.dietarytFibre_100,
     this.sugars_100,
     this.sodium_100,
@@ -116,7 +116,7 @@ class FoodProduct {
       this.totalFat = this.totalFat_100 * this.volumeOrweight / 100;
       this.saturatetedFat = this.saturatetedFat_100 * this.volumeOrweight / 100;
       this.transFat = this.transFat_100 * this.volumeOrweight / 100;
-      this.totalCarbonhydrates = this.totalCarbonhydrates_100 * this.volumeOrweight / 100;
+      this.carbohydrates = this.carbohydrates_100 * this.volumeOrweight / 100;
       this.dietarytFibre = this.dietarytFibre_100 * this.volumeOrweight / 100;
       this.sugars = this.sugars_100 * this.volumeOrweight / 100;
       this.sodium = this.sodium_100 * this.volumeOrweight / 100;
@@ -127,7 +127,7 @@ class FoodProduct {
       this.totalFat_100 = this.totalFat / this.volumeOrweight;
       this.saturatetedFat_100 = this.saturatetedFat / this.volumeOrweight;
       this.transFat_100 = this.transFat / this.volumeOrweight;
-      this.totalCarbonhydrates_100 = this.totalCarbonhydrates / this.volumeOrweight;
+      this.carbohydrates_100 = this.carbohydrates / this.volumeOrweight;
       this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
       this.sugars_100 = this.sugars / this.volumeOrweight;
       this.sodium_100 = this.sodium/ this.volumeOrweight;
@@ -142,17 +142,17 @@ class FoodProduct {
     if (temp == "protein") {
       result = this.protein;
     }
-    if (temp == "total fat") {
+    if (temp == "totalFat") {
       result = this.totalFat;
     }
-    if (temp == "saturated fat") {
+    if (temp == "saturatedFat") {
       result = this.saturatetedFat;
     }
-    if (temp == "trans fat") {
+    if (temp == "transFat") {
       result = this.transFat;
     }
     if (temp == "carbohydrates") {
-      result = this.totalCarbonhydrates;
+      result = this.carbohydrates;
     }
     if (temp == "sugars") {
       result = this.sugars;
@@ -171,13 +171,13 @@ class FoodProduct {
     if (temp == "protein") {
       result = "assets/images/proteinicon.jpg";
     }
-    if (temp == "total fat") {
+    if (temp == "totalFat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "saturated fat") {
+    if (temp == "saturatedFat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "trans fat") {
+    if (temp == "transFat") {
       result = "assets/images/caloriesicon.jpg";
     }
     if (temp == "carbohydrates") {
@@ -200,7 +200,7 @@ class FoodProduct {
     print(this.totalFat.toString()+'\n');
     print(this.saturatetedFat.toString()+'\n');
     print(this.transFat.toString()+'\n');
-    print(this.totalCarbonhydrates.toString()+'\n');
+    print(this.carbohydrates.toString()+'\n');
     print(this.dietarytFibre.toString()+'\n');
     print(this.sugars.toString()+'\n');
     print(this.sodium.toString()+'\n');
@@ -210,7 +210,7 @@ class FoodProduct {
     print(this.totalFat_100.toString()+'\n');
     print(this.saturatetedFat_100.toString()+'\n');
     print(this.transFat_100.toString()+'\n') ;
-    print(this.totalCarbonhydrates_100.toString()+'\n');
+    print(this.carbohydrates_100.toString()+'\n');
     print(this.dietarytFibre_100.toString()+'\n');
     print(this.sugars_100.toString()+'\n');
     print(this.sodium_100.toString()+'\n');

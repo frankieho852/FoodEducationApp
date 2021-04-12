@@ -23,6 +23,7 @@ class Nutritionbar extends StatelessWidget {
         totalnutrient*100 / daily.recDaily;
     String unit= getnutrientunit();
     Color percentageColor=getcolor(recommendPercentage);
+    String capitalNutrient= getcapitalnutrient(daily.nutrient);
 
     return Container(
         height: size.height * 0.065,
@@ -51,7 +52,7 @@ class Nutritionbar extends StatelessWidget {
                       color: Colors.black,
                     ),
                     children: <TextSpan>[
-                      TextSpan(text: " " + '${daily.nutrient[0].toUpperCase()}${daily.nutrient.substring(1)}' + ": "),
+                      TextSpan(text: " " + capitalNutrient + ": "),
                       TextSpan(
                           text: totalnutrient.toString()+" "+unit,
                           style: TextStyle(fontWeight: FontWeight.bold,color: kPrimaryColor)),
@@ -138,8 +139,8 @@ class Nutritionbar extends StatelessWidget {
   }
   String getnutrientunit(){
     String unit="g";
-    if (daily.nutrient=="Energy"){unit="kcal";}
-    if (daily.nutrient=="Sodium"){unit="mg";}
+    if (daily.nutrient=="energy"){unit="kcal";}
+    if (daily.nutrient=="sodium"){unit="mg";}
     return unit;
   }
   Color getcolor(double temp){
@@ -149,4 +150,33 @@ class Nutritionbar extends StatelessWidget {
     if(temp>30){color= Colors.red;}
     return color;
   }
+  String getcapitalnutrient(String temp){
+    String result = "not found";
+    if (temp == "energy") {
+      result = "Energy";
+    }
+    if (temp == "protein") {
+      result = "Protein";
+    }
+    if (temp == "totalFat") {
+      result = "Total Fat";
+    }
+    if (temp == "saturatedFat") {
+      result = "Saturated Fat";
+    }
+    if (temp == "transFat") {
+      result = "Trans Fat";
+    }
+    if (temp == "carbohydrates") {
+      result = "Carbohydrates";
+    }
+    if (temp == "sugars") {
+      result = "Sugars";
+    }
+    if (temp == "sodium") {
+      result = "Sodium";
+    }
+    return result;
+  }
 }
+
