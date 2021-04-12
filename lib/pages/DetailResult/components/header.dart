@@ -121,7 +121,7 @@ class Header extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    height: size.height*0.07,
+                                    height: size.height*0.06,
                                     width: double.infinity,
                                     color: Colors.transparent,
                                     child: Row(

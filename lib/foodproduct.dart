@@ -151,13 +151,13 @@ class FoodProduct {
       gradeimage = "assets/images/A-minus.jpg";
     }
     if (grade == "B") {
-      gradeimage = "assets/images/B.jpg";
+      gradeimage = "assets/images/A-minus.jpg";
     }
     if (grade == "C") {
       gradeimage = "assets/images/A-minus.jpg";
     }
     if (grade == "D") {
-      gradeimage = "assets/images/D.jpg";
+      gradeimage = "assets/images/A-minus.jpg";
     }
     return gradeimage;
   }
