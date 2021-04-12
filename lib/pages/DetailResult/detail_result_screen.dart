@@ -14,6 +14,8 @@ class DetailResult extends StatelessWidget {
   CollectionReference foodProductCollection =
       FirebaseFirestore.instance.collection('foodProduct');
 
+  String foodProductCategory;
+
   @override
   Widget build(BuildContext context) {
     //todo:function 1 and store in tempfood
@@ -21,9 +23,10 @@ class DetailResult extends StatelessWidget {
     FoodProduct tempfood;
     foodProductCollection.doc("searchname").get().then((snapshot) {
       try {
+        foodProductCategory = snapshot.get("category");
         tempfood = FoodProduct(
             name: snapshot.get("name"),
-            category: snapshot.get("category"),
+            category: foodProductCategory,
             volumeOrweight: snapshot.get("volumeOrweight"),
             energy: snapshot.get("energy"),
             protein: snapshot.get("protein"),
@@ -43,36 +46,6 @@ class DetailResult extends StatelessWidget {
       }
     });
 
-/*
-    FoodProduct tempfood = FoodProduct(
-      name: "Vita Lemon Tea",
-      category: "drink",
-      volumeOrweight: 250,
-      energy: 137.5,
-      protein: 10,
-      totalFat: 0,
-      saturatetedFat: 0,
-      transFat: 0,
-      carbohydrates: 10,
-      dietarytFibre: 0,
-      sugars: 34,
-      sodium: 250,
-      image: "assets/images/Vitalemontea.jpg",
-      grade: "A",
-      ingredients: [
-        "Water",
-        "Sugar",
-        "Flavouring",
-        "Tea",
-        "Lemon juice",
-        "Acidity regulator (330 and 332)",
-        "Vitamin C",
-        "Sweetener (952 and 955)",
-        "Antioxidant (304)"
-      ],
-      star: 3.5,
-    );
- */
     tempfood.calculateTotalNutrient();
     tempfood.printproduct();
 
@@ -82,33 +55,24 @@ class DetailResult extends StatelessWidget {
     //todo: function 4 get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = _findMaxMin("productCategory");
 
-    /*
-    List<DailyIntake> tempDaily = [
-      DailyIntake(
-          nutrient: "energy", maxSametype: 600, minSametype: 100, recDaily: 1000),
-      DailyIntake(
-          nutrient: "protein", maxSametype: 50, minSametype: 10, recDaily: 100),
-      DailyIntake(
-          nutrient: "totalFat",
-          maxSametype: 40,
-          minSametype: 0,
-          recDaily: 100),
-      DailyIntake(
-          nutrient: "saturatedFat", maxSametype: 40, minSametype: 0, recDaily: 100),
-      DailyIntake(
-          nutrient: "transFat", maxSametype: 0, minSametype: 0, recDaily: 100),
-      DailyIntake(
-          nutrient: "carbohydrates", maxSametype: 40, minSametype:40, recDaily: 100),
-      DailyIntake(
-          nutrient: "sugars", maxSametype: 34, minSametype: 30, recDaily: 100),
-      DailyIntake(
-          nutrient: "sodium", maxSametype: 250, minSametype: 150, recDaily: 100),
-    ];
-
-     */
 
     //todo:function 3 and store in alt2product
+    List<AlternativeProduct> alt2product;
 
+    var getalt2product = foodProductCollection.where('category', isEqualTo: foodProductCategory).limit(2);
+    getalt2product.get().then((value) {
+      value.docs.map((DocumentSnapshot document) {
+        try {
+          alt2product.add(
+            AlternativeProduct(name: document.data()["name"], image: document.data()["image"]));
+
+        } on StateError catch (e) {
+          print("Error: getalt2product");
+        }
+      });
+    });
+
+    /*
     List<AlternativeProduct> alt2product = [
       AlternativeProduct(
           name: "temp1", image: "assets/images/Vitalemontea.jpg"),
@@ -116,6 +80,8 @@ class DetailResult extends StatelessWidget {
           name: "VERY LONG PRODDDDDDDDDDDDDUYCCCCTTT",
           image: "assets/images/Vitalemontea1.jpg"),
     ];
+     */
+
     return Scaffold(
       appBar: buildAppBar(tempfood.name),
       body: Body(
@@ -211,6 +177,9 @@ class DetailResult extends StatelessWidget {
           recDaily: 1000));
     }
 
+
+    return tempDaily;
+    /*
     // method 2
     // energy
     Query energyMaxQ =
@@ -316,7 +285,8 @@ class DetailResult extends StatelessWidget {
     sodiumMax.get().then((value) => print(value.docs.first.data()["sodium"]));
     sodiumMin.get().then((value) => print(value.docs.first.data()["sodium"]));
 
-    return tempDaily;
+     */
+
   }
 
   void _getUserInfo() async {
