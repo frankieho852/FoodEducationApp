@@ -10,7 +10,7 @@ class FoodProduct {
   double totalFat = 0;
   double saturatetedFat = 0;
   double transFat = 0;
-  double totalCarbonhydrates = 0;
+  double carbohydrates = 0;
   double dietarytFibre = 0;
   double sugars = 0;
   double sodium = 0;
@@ -20,7 +20,7 @@ class FoodProduct {
   double totalFat_100 = 0;
   double saturatetedFat_100 = 0;
   double transFat_100 = 0;
-  double totalCarbonhydrates_100 = 0;
+  double carbohydrates_100 = 0;
   double dietarytFibre_100 = 0;
   double sugars_100 = 0;
   double sodium_100 = 0;
@@ -40,7 +40,7 @@ class FoodProduct {
     this.totalFat,
     this.saturatetedFat,
     this.transFat,
-    this.totalCarbonhydrates,
+    this.carbohydrates,
     this.dietarytFibre,
     this.sugars,
     this.sodium,
@@ -49,7 +49,7 @@ class FoodProduct {
     this.totalFat_100,
     this.saturatetedFat_100,
     this.transFat_100,
-    this.totalCarbonhydrates_100,
+    this.carbohydrates_100,
     this.dietarytFibre_100,
     this.sugars_100,
     this.sodium_100,
@@ -59,52 +59,105 @@ class FoodProduct {
     this.star,
   });
 
-  ScoreArray calculateGrade() {//this function will calculate grade and change this.product.grade and return a score array object
+  ScoreArray calculateGrade() {
+    //this function will calculate grade and change this.product.grade and return a score array object
+    //the recommendation are follow hkgov https://www.cfs.gov.hk/english/nutrient/nutrient.php
+    // and WWO standard https://www.who.int/news-room/fact-sheets/detail/healthy-diet
+    // Different person have different recommend daily intake based on weight/height/sex.
+    // To make a general grade for users to reference, the recommend maximum daily intake values in the following
+    // are based on an average body weight of 65kg for men
+    double maxCalories = 2400;
+    double maxProtein =
+        maxCalories * 0.15 / 4; //One gram of protein provides 4 kcal.
+    double maxCarbohydrate =
+        maxCalories * 0.75 / 4; //One gram of carbohydrate provides 4 kcal.
+    double maxFat =
+        maxCalories * 0.3 / 9; //Fat provides 9 kcal for each gram of fat.
+    //these 3 values should added up to be 100% of max calories per day, but the percentage can varies,
+    //For example, 100% calories = 15% Proteins+ 55% Carbohydrate +30% Fat
+    //or 100% calories = 10% Proteins+ 70% Carbohydrate +20% Fat are also fine
+    double minDietaryfibre = 25; //Not less than 25g per day.
+    double maxSugars =
+        maxCalories * 0.1 / 4; // One gram of sugar provides 4 kcal.
+    double maxSaturatedfat = maxCalories * 0.1 / 9;
+    double maxTransfat = maxCalories * 0.01 / 9;
+    double maxSodium = 5000;
     ScoreArray scoreArray = new ScoreArray();
-    if (this.sugars_100 >= 5) {
+
+    if (this.sugars >= maxSugars * 0.3) {
       scoreArray.score = scoreArray.score - 1;
-      scoreArray.cautions
-          .add("Too Sweet: This product contains too much sugar");
+      scoreArray.cautions++;
+      scoreArray.messagearray.add(Message(
+          "Too Sweet: This product contains too much sugar", "cautions"));
     }
     if (this.sugars_100 == 0) {
       scoreArray.score = scoreArray.score + 2;
-      scoreArray.checks.add("Unsweetened");
+      scoreArray.cautions++;
+      scoreArray.messagearray.add(Message("Unsweetened", "checks"));
     }
-    if (this.totalFat_100 > -1) {
-      scoreArray.score = scoreArray.score + 2;
-      scoreArray.checks.add(
-          "Temp +1 check xxxsxsxsxsxscjsadhckjsdhfksjdfjlasdsfjdshfjklshfdsjkfhdslfshdflskjhfd");
+    if (this.transFat_100 > 0) {
+      scoreArray.score = scoreArray.score - 1;
+      scoreArray.cautions++;
+      scoreArray.messagearray
+          .add(Message("This product contains trans fat", "cautions"));
     }
-    if (this.totalFat_100 > -1) {
-      scoreArray.score = scoreArray.score + 2;
-      scoreArray.checks.add("Temp +2 check");
+    if (this.totalFat > maxFat * 0.3) {
+      scoreArray.score = scoreArray.score - 2;
+      scoreArray.cautions++;
+      scoreArray.messagearray
+          .add(Message("This product contains too much fat", "cautions"));
     }
-    if (this.totalFat_100 > -1) {
-      scoreArray.score = scoreArray.score + 2;
-      scoreArray.cautions.add("Temp +1 caution");
+    if (this.saturatetedFat > maxSaturatedfat * 0.3) {
+      scoreArray.score = scoreArray.score - 1;
+      scoreArray.cautions++;
+      scoreArray.messagearray.add(
+          Message("This product contains too much saturated fat", "cautions"));
     }
-    if (this.totalFat_100 > -1) {
+    if (this.sodium > maxSodium * 0.3) {
+      scoreArray.score = scoreArray.score - 2;
+      scoreArray.cautions++;
+      scoreArray.messagearray.add(Message(
+          "Too Salty! This product contains too much salt", "cautions"));
+    }
+    if (this.dietarytFibre > minDietaryfibre * 0.3) {
       scoreArray.score = scoreArray.score + 2;
-      scoreArray.cautions.add("Temp +2 caution");
+      scoreArray.checks++;
+      scoreArray.messagearray
+          .add(Message("Contains a lot of dietary Fibre!", "checks"));
+    }
+    test(String value) => value.contains("Sweetener");
+    if (this.ingredients.any(test) == false && this.sugars > 0) {
+      scoreArray.score = scoreArray.score + 2;
+      scoreArray.checks++;
+      scoreArray.messagearray.add(Message(
+          "No added sweetners: all sugars come from actual food", "checks"));
+    }
+    if (this.ingredients.length <= 15) {
+      scoreArray.score = scoreArray.score + 2;
+      scoreArray.checks++;
+      scoreArray.messagearray.add(Message(
+          "Minimally Processed: It has a very short ingredient list",
+          "checks"));
     }
     this.grade = scoreArray.scoreToGrade();
+    print("now grade= " + grade);
     return scoreArray;
   }
 
   String getGradeImage() {
     String gradeimage;
-    print("calling getGradeImage() "+grade); //testing
+    print("calling getGradeImage() " + grade); //testing
     if (grade == "A") {
       gradeimage = "assets/images/A-minus.jpg";
     }
     if (grade == "B") {
-      gradeimage = "assets/images/B.jpg";
+      gradeimage = "assets/images/A-minus.jpg";
     }
     if (grade == "C") {
       gradeimage = "assets/images/A-minus.jpg";
     }
     if (grade == "D") {
-      gradeimage = "assets/images/D.jpg";
+      gradeimage = "assets/images/A-minus.jpg";
     }
     return gradeimage;
   }
@@ -116,48 +169,48 @@ class FoodProduct {
       this.totalFat = this.totalFat_100 * this.volumeOrweight / 100;
       this.saturatetedFat = this.saturatetedFat_100 * this.volumeOrweight / 100;
       this.transFat = this.transFat_100 * this.volumeOrweight / 100;
-      this.totalCarbonhydrates = this.totalCarbonhydrates_100 * this.volumeOrweight / 100;
+      this.carbohydrates = this.carbohydrates_100 * this.volumeOrweight / 100;
       this.dietarytFibre = this.dietarytFibre_100 * this.volumeOrweight / 100;
       this.sugars = this.sugars_100 * this.volumeOrweight / 100;
       this.sodium = this.sodium_100 * this.volumeOrweight / 100;
     }
     if (this.energy_100 == null) {
-      this.energy_100 = this.energy/this.volumeOrweight;
+      this.energy_100 = this.energy / this.volumeOrweight;
       this.protein_100 = this.protein / this.volumeOrweight;
       this.totalFat_100 = this.totalFat / this.volumeOrweight;
       this.saturatetedFat_100 = this.saturatetedFat / this.volumeOrweight;
       this.transFat_100 = this.transFat / this.volumeOrweight;
-      this.totalCarbonhydrates_100 = this.totalCarbonhydrates / this.volumeOrweight;
+      this.carbohydrates_100 = this.carbohydrates / this.volumeOrweight;
       this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
       this.sugars_100 = this.sugars / this.volumeOrweight;
-      this.sodium_100 = this.sodium/ this.volumeOrweight;
+      this.sodium_100 = this.sodium / this.volumeOrweight;
     }
   }
 
   double getNutrientDouble(String temp) {
     double result = -1;
-    if (temp == "Energy") {
+    if (temp == "energy") {
       result = this.energy;
     }
-    if (temp == "Protein") {
+    if (temp == "protein") {
       result = this.protein;
     }
-    if (temp == "Total fat") {
+    if (temp == "totalFat") {
       result = this.totalFat;
     }
-    if (temp == "Saturated fat") {
+    if (temp == "saturatedFat") {
       result = this.saturatetedFat;
     }
-    if (temp == "Trans fat") {
+    if (temp == "transFat") {
       result = this.transFat;
     }
-    if (temp == "Carbohydrates") {
-      result = this.totalCarbonhydrates;
+    if (temp == "carbohydrates") {
+      result = this.carbohydrates;
     }
-    if (temp == "Sugars") {
+    if (temp == "sugars") {
       result = this.sugars;
     }
-    if (temp == "Sodium") {
+    if (temp == "sodium") {
       result = this.sodium;
     }
     return result;
@@ -165,67 +218,68 @@ class FoodProduct {
 
   String getNutrientImage(String temp) {
     String result = "not found";
-    if (temp == "Energy") {
+    if (temp == "energy") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Protein") {
+    if (temp == "protein") {
       result = "assets/images/proteinicon.jpg";
     }
-    if (temp == "Total fat") {
+    if (temp == "totalFat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Saturated fat") {
+    if (temp == "saturatedFat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Trans fat") {
+    if (temp == "transFat") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Carbohydrates") {
+    if (temp == "carbohydrates") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Sugars") {
+    if (temp == "sugars") {
       result = "assets/images/caloriesicon.jpg";
     }
-    if (temp == "Sodium") {
+    if (temp == "sodium") {
       result = "assets/images/caloriesicon.jpg";
     }
     return result;
   }
 
-  void printproduct(){
-    print("printing "+ this.name + '\n');
+  void printproduct() {
+    print("printing " + this.name + '\n');
 
-    print(this.energy.toString()+'\n');
-    print(this.protein.toString()+'\n');
-    print(this.totalFat.toString()+'\n');
-    print(this.saturatetedFat.toString()+'\n');
-    print(this.transFat.toString()+'\n');
-    print(this.totalCarbonhydrates.toString()+'\n');
-    print(this.dietarytFibre.toString()+'\n');
-    print(this.sugars.toString()+'\n');
-    print(this.sodium.toString()+'\n');
-    print("printing 100: "+ this.name + '\n');
-    print(this.energy_100.toString()+'\n');
-    print(this.protein_100.toString()+'\n');
-    print(this.totalFat_100.toString()+'\n');
-    print(this.saturatetedFat_100.toString()+'\n');
-    print(this.transFat_100.toString()+'\n') ;
-    print(this.totalCarbonhydrates_100.toString()+'\n');
-    print(this.dietarytFibre_100.toString()+'\n');
-    print(this.sugars_100.toString()+'\n');
-    print(this.sodium_100.toString()+'\n');
+    print(this.energy.toString() + '\n');
+    print(this.protein.toString() + '\n');
+    print(this.totalFat.toString() + '\n');
+    print(this.saturatetedFat.toString() + '\n');
+    print(this.transFat.toString() + '\n');
+    print(this.carbohydrates.toString() + '\n');
+    print(this.dietarytFibre.toString() + '\n');
+    print(this.sugars.toString() + '\n');
+    print(this.sodium.toString() + '\n');
+    print("printing 100: " + this.name + '\n');
+    print(this.energy_100.toString() + '\n');
+    print(this.protein_100.toString() + '\n');
+    print(this.totalFat_100.toString() + '\n');
+    print(this.saturatetedFat_100.toString() + '\n');
+    print(this.transFat_100.toString() + '\n');
+    print(this.carbohydrates_100.toString() + '\n');
+    print(this.dietarytFibre_100.toString() + '\n');
+    print(this.sugars_100.toString() + '\n');
+    print(this.sodium_100.toString() + '\n');
   }
 }
 
 class ScoreArray {
   //this is a simple class to store all required information in scorepage
   String grade = "C";
+  int checks = 0;
+  int cautions = 0;
   int score = 6;
-  List<String> checks = [];
-  List<String> cautions = [];
+  List<Message> messagearray = [];
 
   String scoreToGrade() {
-    print("calling scoreToGrade score="+score.toString());
+    print("calling scoreToGrade score=" + score.toString());
     if (score < 3) {
       grade = "D";
     }
@@ -240,4 +294,11 @@ class ScoreArray {
     }
     return grade;
   }
+}
+
+class Message {
+  String message;
+  String type;
+
+  Message(this.message, this.type);
 }

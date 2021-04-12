@@ -121,7 +121,7 @@ class Header extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    height: size.height*0.07,
+                                    height: size.height*0.06,
                                     width: double.infinity,
                                     color: Colors.transparent,
                                     child: Row(
@@ -152,7 +152,7 @@ class Header extends StatelessWidget {
                                                         child: FittedBox(
                                                           fit: BoxFit.fitHeight,
                                                           child: Text(
-                                                            scoreArray.checks.length
+                                                            scoreArray.checks
                                                                 .toString(),
                                                             style: TextStyle(
                                                               color: kPrimaryColor,
@@ -211,7 +211,7 @@ class Header extends StatelessWidget {
                                                         child: FittedBox(
                                                           fit: BoxFit.fitHeight,
                                                           child: Text(
-                                                            scoreArray.cautions.length
+                                                            scoreArray.cautions
                                                                 .toString(),
                                                             style: TextStyle(
                                                               color: Colors.orange,
