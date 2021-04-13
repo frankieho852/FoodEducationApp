@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,6 +11,7 @@ class Commentbox extends StatelessWidget {
   int commentlength;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   double star;
+  final TextEditingController _textEditingController = TextEditingController();
 
   Commentbox({
     Key key,
@@ -18,7 +21,7 @@ class Commentbox extends StatelessWidget {
   }) : super(key: key);
 
   Future<String> createTextBox(BuildContext context) {
-    TextEditingController _textEditingController = TextEditingController();
+
     //double newcommentstar; use for star bar
     bool isChecked = false;
     return showDialog(
@@ -64,8 +67,7 @@ class Commentbox extends StatelessWidget {
                           _textEditingController.text.toString() +
                               " " +
                               isChecked.toString()); //todo:
-                    }
-                    ;
+                    };
                   },
                 ),
               ],
@@ -134,6 +136,29 @@ class Commentbox extends StatelessWidget {
                               value)); //todo: this function currently catch the textfield string and checkbox boolean and then print the string in console
                           //todo: make these value pass to firestore and also each user can only pass once
                           //todo: if user already passed before, the button change to another function to edit the comment in firestore
+
+                          // todo: I need product name
+                          final User _user = FirebaseAuth.instance.currentUser;
+
+                          try{
+                            CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc("product name").collection("commentSet");
+                            DocumentReference productCommentByUser = productComment.doc(_user.uid);
+                            productCommentByUser.get().then((doc) {
+                              if (doc.exists) { // if the user already has a comment in firebase -> update
+                                productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": 0})
+                                    .then((value) => print("Comment Updated"))
+                                    .catchError((error) => print("Failed to update your comment: $error"));
+
+                              } else {  // if not, create one
+                                productComment.doc(_user.uid).set({
+                                  'comment': _textEditingController.text.trim(), 'star': star})
+                                    .then((value) => print("New comment"))
+                                    .catchError((error) => print("Failed to post your comment: $error"));
+                              }
+                            });
+                          } catch(error){
+                            print("Error getting document:" + error);
+                          }
                         },
                         child: FittedBox(child: Icon(Icons.add)),
                       ),

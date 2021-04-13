@@ -72,16 +72,6 @@ class DetailResult extends StatelessWidget {
       });
     });
 
-    /*
-    List<AlternativeProduct> alt2product = [
-      AlternativeProduct(
-          name: "temp1", image: "assets/images/Vitalemontea.jpg"),
-      AlternativeProduct(
-          name: "VERY LONG PRODDDDDDDDDDDDDUYCCCCTTT",
-          image: "assets/images/Vitalemontea1.jpg"),
-    ];
-     */
-
     return Scaffold(
       appBar: buildAppBar(tempfood.name),
       body: Body(
@@ -108,7 +98,7 @@ class DetailResult extends StatelessWidget {
   }
 
   void _barcodeSearch(String barcodeID) {
-    // 2 get foodproduct
+    // 2 get foodproduct, you must pass barcode(String) to me
     FoodProduct tempfoodByBarcode;
     var barcodeSnapshots =
         foodProductCollection.where("barcode", isEqualTo: barcodeID);
@@ -145,7 +135,6 @@ class DetailResult extends StatelessWidget {
     var categoryResult =
         foodProductCollection.where('category', isEqualTo: productCategory);
 
-    // todo: need to update sorting name maybe
     List<DailyIntake> tempDaily;
 
     // method 1
@@ -176,117 +165,7 @@ class DetailResult extends StatelessWidget {
           minSametype: min,
           recDaily: 1000));
     }
-
-
     return tempDaily;
-    /*
-    // method 2
-    // energy
-    Query energyMaxQ =
-        categoryResult.orderBy("energy", descending: true).limit(1); //find max
-    Query energyMinQ =
-        categoryResult.orderBy("energy", descending: false).limit(1); //find min
-    double energyMax, energyMin;
-    energyMaxQ
-        .get()
-        .then((value) => energyMax = value.docs.first.data()["energy"]);
-    energyMinQ
-        .get()
-        .then((value) => energyMin = value.docs.first.data()["energy"]);
-    tempDaily.add(DailyIntake(
-        nutrient: "Energy",
-        maxSametype: energyMax,
-        minSametype: energyMin,
-        recDaily: 1000));
-
-    // Protein
-    Query proteinMaxQ =
-        categoryResult.orderBy("protein", descending: true).limit(1); //find max
-    Query proteinMinQ = categoryResult
-        .orderBy("protein", descending: false)
-        .limit(1); //find min
-    double proteinMax, proteinMin;
-    proteinMaxQ
-        .get()
-        .then((value) => proteinMax = value.docs.first.data()["protein"]);
-    proteinMinQ
-        .get()
-        .then((value) => proteinMinQ = value.docs.first.data()["protein"]);
-
-    // total ft
-    Query totalFatMaxQ = categoryResult
-        .orderBy("totalFat", descending: true)
-        .limit(1); //find max
-    Query totalFatMinQ = categoryResult
-        .orderBy("totalFat", descending: false)
-        .limit(1); //find min
-    double totalFatMax, totalFatMin;
-    totalFatMaxQ
-        .get()
-        .then((value) => totalFatMax = value.docs.first.data()["totalFat"]);
-    totalFatMinQ
-        .get()
-        .then((value) => totalFatMin = value.docs.first.data()["totalFat"]);
-
-    // saturated fat
-    Query saturatedFatMaxQ = categoryResult
-        .orderBy("saturatedFat", descending: true)
-        .limit(1); //find max
-    Query saturatedFatMinQ = categoryResult
-        .orderBy("saturatedFat", descending: false)
-        .limit(1); //find min
-    double saturatedFatMax, saturatedFatMin;
-    saturatedFatMaxQ.get().then(
-        (value) => saturatedFatMax = value.docs.first.data()["saturatedFat"]);
-    saturatedFatMinQ.get().then(
-        (value) => saturatedFatMin = value.docs.first.data()["saturatedFat"]);
-
-    // trans fat
-    Query transFatMaxQ = categoryResult
-        .orderBy("transFat", descending: true)
-        .limit(1); //find max
-    Query transFatMinQ = categoryResult
-        .orderBy("transFat", descending: false)
-        .limit(1); //find min
-    double transFatMax, transFatMin;
-    transFatMaxQ
-        .get()
-        .then((value) => transFatMax = value.docs.first.data()["transFat"]);
-    transFatMinQ
-        .get()
-        .then((value) => transFatMin = value.docs.first.data()["transFat"]);
-
-    // carbohydartes
-    Query carbohydratesMaxQ = categoryResult
-        .orderBy("carbohydrates", descending: true)
-        .limit(1); //find max
-    Query carbohydratesMinQ = categoryResult
-        .orderBy("carbohydrates", descending: false)
-        .limit(1); //find min
-    double carbohydratesMax, carbohydratesMin;
-    carbohydratesMaxQ
-        .get()
-        .then((value) => value.docs.first.data()["carbohydrates"]);
-    carbohydratesMinQ
-        .get()
-        .then((value) => value.docs.first.data()["carbohydrates"]);
-
-    Query sugarsMax =
-        categoryResult.orderBy("sugars", descending: true).limit(1); //find max
-    Query sugarsMin =
-        categoryResult.orderBy("sugars", descending: false).limit(1); //find min
-    sugarsMax.get().then((value) => print(value.docs.first.data()["sugars"]));
-    sugarsMin.get().then((value) => print(value.docs.first.data()["sugars"]));
-
-    Query sodiumMax =
-        categoryResult.orderBy("sodium", descending: true).limit(1); //find max
-    Query sodiumMin =
-        categoryResult.orderBy("sodium", descending: false).limit(1); //find min
-    sodiumMax.get().then((value) => print(value.docs.first.data()["sodium"]));
-    sodiumMin.get().then((value) => print(value.docs.first.data()["sodium"]));
-
-     */
-
   }
 
   void _getUserInfo() async {
