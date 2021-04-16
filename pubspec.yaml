@@ -38,7 +38,7 @@ dependencies:
   cloud_functions: ^1.0.2
 
   google_sign_in: ^5.0.1
-  flutter_facebook_auth: ^3.1.1
+  flutter_facebook_auth: ^3.3.2
   flutter_auth_buttons: ^0.10.0
   circular_profile_avatar: ^2.0.0
 
