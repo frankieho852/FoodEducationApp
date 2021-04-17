@@ -5,7 +5,7 @@ import 'package:food_education_app/Verification_page_phone.dart';
 import 'package:food_education_app/forgotPW.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
-import 'SignUpPage sign_up_page.dart';
+import 'screens/signup/SignUpPage sign_up_page.dart';
 import 'Verification_page_email.dart';
 import 'Verification_page_succeed.dart';
 import 'auth_service.dart';
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _authService.initDynamicLinks();
+   // _authService.initDynamicLinks();
     _authService.checkAuthStatus();
   }
 
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'FYP login',
-      theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
+      theme: ThemeData(primaryColor: Color(0xFF00A299),visualDensity: VisualDensity.adaptivePlatformDensity),
       home: StreamBuilder<AuthState>(
           stream: _authService.authStateController.stream,
           builder: (context, snapshot) {
@@ -95,9 +95,9 @@ class _MyAppState extends State<MyApp> {
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
                     MaterialPage(
-                        child: FoodEducationMain(
-                            shouldLogOut: _authService.logOut,
-                            showFoodEducation: _authService.showFoodEducation)),
+                        child: FoodEducationMain()),
+                            //shouldLogOut: _authService.logOut,
+                            //showFoodEducation: _authService.showFoodEducation
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );

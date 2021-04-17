@@ -30,7 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool _obscurePW = true;
   bool _obscureConfirmPW = true;
-
   bool _loading = false;
 
   @override
@@ -182,9 +181,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
       User _user = FirebaseAuth.instance.currentUser;
       FirebaseFirestore.instance
-          .collection('userprofile')
+          .collection('userProfile')
           .doc(_user.uid)
-          .set({'done': false
+          .set({'completedProfile': false
       }).then((userInfoValue) {
       });
 

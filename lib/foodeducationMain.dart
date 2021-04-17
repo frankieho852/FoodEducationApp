@@ -4,7 +4,7 @@ import 'package:food_education_app/pages/home/home_screen.dart';
 import 'components/bottom_nav_bar.dart';
 
 // todo: is the pages.home file structure correct?
-class MyApp extends StatelessWidget {
+class FoodEducationMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

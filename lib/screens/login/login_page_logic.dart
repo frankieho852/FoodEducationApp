@@ -11,11 +11,11 @@ class LoginPageLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
   bool _completedUserProfile = false;
   AuthService _authService;
-  ShowDialogCallback _onEmailLoginError;
+  ShowDialogCallback _onLoginError;
 
-  void setup(AuthService authService, ShowDialogCallback onEmailLoginError) {
+  void setup(AuthService authService, ShowDialogCallback onLoginError) {
     _authService = authService;
-    _onEmailLoginError = onEmailLoginError;
+    _onLoginError = onLoginError;
   }
 
   void fbLogin() async {
@@ -23,43 +23,45 @@ class LoginPageLogic {
       loadingNotifier.value = true;
 
       // Trigger the sign-in
-      final accessToken = await FacebookAuth.instance.login();
-     // accessToken.accessToken;
-      // Create a credential from the access token
-      final OAuthCredential credential = FacebookAuthProvider.credential(
-          accessToken.accessToken.token);
-      // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final LoginResult result = await FacebookAuth.instance.login();
 
-      final User _user = FirebaseAuth.instance.currentUser;
+      if(result.status == LoginStatus.success){
+        // Create a credential from the access token
+        final OAuthCredential credential = FacebookAuthProvider.credential(
+            result.accessToken.token);
 
-      CollectionReference userprofile =
-          FirebaseFirestore.instance.collection('userprofile');
-      DocumentReference documentReference = userprofile.doc(_user.uid);
+        // Once signed in, return the UserCredential
+        await FirebaseAuth.instance.signInWithCredential(credential);
 
-      try {
-        await documentReference.get().then((snapshot) {
-          _completedUserProfile = snapshot.get('done');
-        });
-      } on StateError catch (e) {
-        //"done - not exist"
-        // set done
-        FirebaseFirestore.instance
-            .collection('userprofile')
-            .doc(_user.uid)
-            .set({'done': false});
-      }
+        final User _user = FirebaseAuth.instance.currentUser;
 
-      // Google sign-in: email auto verified
-      if (_completedUserProfile) {
-        _authService.loginWithCredentials();
+        CollectionReference userprofile =
+        FirebaseFirestore.instance.collection('userProfile');
+        DocumentReference documentReference = userprofile.doc(_user.uid);
+
+        try {
+          await documentReference.get().then((snapshot) {
+            _completedUserProfile = snapshot.get('completedProfile');
+          });
+        } on StateError catch (e) {
+          //"done - not exist"
+          // set done
+          FirebaseFirestore.instance
+              .collection('userProfile')
+              .doc(_user.uid)
+              .set({'completedProfile': false});
+        }
+        // Google sign-in: email auto verified
+        if (_completedUserProfile) {
+          _authService.loginWithCredentials();
+        } else {
+          _authService.showNewUserProfile();
+        }
       } else {
-        _authService.showNewUserProfile();
+        _onLoginError(result.status.toString(), result.message);
       }
-    } on FacebookAuthErrorCode catch (fbAuthError) {
-      // _showErrorDialog("Facebook Error",
-      //     "Error code: ${fbAuthError.errorCode}\nError message: ${fbAuthError.message}");
     } on FirebaseAuthException catch (authError) {
+      _onLoginError("Login Error", "Error code: ${authError.code}\nError message: ${authError.message}");
       // _showErrorDialog("Login Error",
       //     "Error code: ${authError.code}\nError message: ${authError.message}");
     } finally {
@@ -90,20 +92,20 @@ class LoginPageLogic {
       final User _user = FirebaseAuth.instance.currentUser;
 
       CollectionReference userprofile =
-          FirebaseFirestore.instance.collection('userprofile');
+          FirebaseFirestore.instance.collection('userProfile');
       DocumentReference documentReference = userprofile.doc(_user.uid);
 
       try {
         await documentReference.get().then((snapshot) {
-          _completedUserProfile = snapshot.get('done');
+          _completedUserProfile = snapshot.get('completedProfile');
         });
       } on StateError catch (e) {
         //"done - not exist"
         // set done
         FirebaseFirestore.instance
-            .collection('userprofile')
+            .collection('userProfile')
             .doc(_user.uid)
-            .set({'done': false});
+            .set({'completedProfile': false});
       }
 
       // Google sign-in: email auto verified
@@ -113,6 +115,7 @@ class LoginPageLogic {
         _authService.showNewUserProfile();
       }
     } on FirebaseAuthException catch (authError) {
+      _onLoginError("Login Error", "Error code: ${authError.code}\nError message: ${authError.message}");
       // _showErrorDialog("Login Error",
       //     "Error code: ${authError.code}\nError message: ${authError.message}");
     } finally {
@@ -129,11 +132,11 @@ class LoginPageLogic {
       final User _user = FirebaseAuth.instance.currentUser;
       if (_user.emailVerified) {
         CollectionReference userprofile =
-            FirebaseFirestore.instance.collection('userprofile');
+            FirebaseFirestore.instance.collection('userProfile');
 
         DocumentReference documentReference = userprofile.doc(_user.uid);
         await documentReference.get().then((snapshot) {
-          _completedUserProfile = snapshot.get('done');
+          _completedUserProfile = snapshot.get('completedProfile');
         });
 
         if (_completedUserProfile) {
@@ -152,7 +155,7 @@ class LoginPageLogic {
         //await _user.sendEmailVerification();
 
         await _user.sendEmailVerification(actionCodeSettings);
-        _onEmailLoginError(
+        _onLoginError(
             "Email Verification", "Please check your inbox and verify email");
 
         await FirebaseAuth.instance.signOut();
@@ -160,9 +163,9 @@ class LoginPageLogic {
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'user-not-found' ||
           authError.code == 'wrong-password') {
-        _onEmailLoginError("Login Failed", "Invalid email or password.");
+        _onLoginError("Login Failed", "Invalid email or password.");
       } else {
-        _onEmailLoginError("Unknown Error",
+        _onLoginError("Unknown Error",
             "Error code: ${authError.code}\nError message: ${authError.message}");
       }
     } finally {
