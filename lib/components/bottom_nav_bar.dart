@@ -37,6 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         children: <Widget>[
           HomeScreen(),
           HomeScreen(),
+          HomeScreen(),
 
         ],
       ),
@@ -58,12 +59,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: Column(
           children: [
             ListTile(
-              leading: Icon(Icons.camera_alt),
-              title: Text('Barcode Scanner'),
+              leading: Icon(Icons.print),
+              title: Text('UI Testing'),
               onTap: () => Navigator.push(//temp location for editing detail result page (figo)
                   context,
                   MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
               ),
+            ),
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text('Barcode Scanner'),//todo:ray can add your barcode here
+              // onTap: () => Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
+              // ),
             ),
             ListTile(
               leading: Icon(Icons.title),
