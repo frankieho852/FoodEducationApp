@@ -167,10 +167,7 @@ class LoginPageLogic {
       }
     } finally {
       loadingNotifier.value = false;
-      // setState(() {
-      //   _emailController.clear();
-      //   _passwordController.clear();
-      // });
+
     }
   }
 

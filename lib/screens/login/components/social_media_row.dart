@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fyp_firebase_login/services/service_locator.dart';
+import 'package:food_education_app/services/service_locator.dart';
 
 import '../../../constants.dart';
 import '../login_page_logic.dart';
