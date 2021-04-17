@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/foodeducation_flow.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 import 'package:food_education_app/Verification_page_phone.dart';
@@ -95,9 +96,10 @@ class _MyAppState extends State<MyApp> {
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
                     MaterialPage(
-                        child: FoodEducationMain()),
-                            //shouldLogOut: _authService.logOut,
-                            //showFoodEducation: _authService.showFoodEducation
+                        child:FoodEducationMain()),
+                        //FoodEducationFlow(shouldLogOut: _authService.logOut,
+                          //showFoodEducation: _authService.showFoodEducation)),  //FoodEducationMain()
+
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );
