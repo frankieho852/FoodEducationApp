@@ -40,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loading ? CircularProgressIndicator():LoginScreen(),
+      body:
+          _loading ? CircularProgressIndicator() : LoginForm(loading: _loading),
     );
   }
 
@@ -66,10 +67,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+/*
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({
+  LoginScreen({
     Key key,
-  }) : super(key: key);
+    bool loading,
+  })  : _loading = loading,
+        super(key: key);
+
+  bool _loading;
 
   @override
   Widget build(BuildContext context) {
@@ -82,8 +88,17 @@ class LoginScreen extends StatelessWidget {
     ]));
   }
 }
+ */
 
 class LoginForm extends StatefulWidget {
+  LoginForm({
+    Key key,
+    bool loading,
+  })  : _loading = loading,
+        super(key: key);
+
+  bool _loading;
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -91,11 +106,21 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-
   final _formKeyLogin = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
+    return SafeArea(
+        child: Stack(children: [
+      // Login Form
+      _loginForm(loading: _loading),
+      // Sign Up Button
+      GoToSignUpButton(),
+    ]));
+  }
+
+  Widget _loginForm(bool loading) {
     return Form(
       key: _formKeyLogin,
       child: Column(
@@ -106,12 +131,13 @@ class _LoginFormState extends State<LoginForm> {
           ),
           PasswordFormField(passwordController: _passwordController),
           LoginButton(
+              loading: _loading,
               formKeyLogin: _formKeyLogin,
               emailController: _emailController,
               passwordController: _passwordController),
           ForgetPasswordButton(),
           OrDivider(),
-          SocialMediaRow(),
+          SocialMediaRow(_loading),
         ],
       ),
     );

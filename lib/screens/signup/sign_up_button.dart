@@ -7,9 +7,9 @@ import 'package:food_education_app/services/service_locator.dart';
 class SignUpButton extends StatelessWidget {
   SignUpButton({
     Key key,
-    //  @required GlobalKey<FormState> formKeyLogin,
-    // @required TextEditingController emailController,
-    // @required TextEditingController passwordController,
+      @required GlobalKey<FormState> formKeyLogin,
+     @required TextEditingController emailController,
+     @required TextEditingController passwordController,
   })  : _formKeyLogin = formKeyLogin,
         _emailController = emailController,
         _passwordController = passwordController,
@@ -37,7 +37,7 @@ class SignUpButton extends StatelessWidget {
               final email = _emailController.text.trim();
               final password = _passwordController.text.trim();
               final loginPageLogic = getIt<SignUpPageLogic>();
-              loginPageLogic.emailLogin(email, password);
+             // loginPageLogic.emailLogin(email, password);
             }
           },
           child: Text(
