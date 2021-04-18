@@ -6,22 +6,25 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../auth_service.dart';
 
 typedef ShowDialogCallback = void Function(String title, String content);
+typedef ShowLoading = void Function(bool loading);
 
 class LoginPageLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
   bool _completedUserProfile = false;
   AuthService _authService;
   ShowDialogCallback _onLoginError;
+  ShowLoading _setLoading;
 
-  void setup(AuthService authService, ShowDialogCallback onLoginError) {
+  void setup(AuthService authService, ShowDialogCallback onLoginError, ShowLoading loading) {
     _authService = authService;
     _onLoginError = onLoginError;
+    _setLoading = loading;
   }
 
   void fbLogin() async {
     try {
       loadingNotifier.value = true;
-
+      _setLoading(true);
       // Trigger the sign-in
       final LoginResult result = await FacebookAuth.instance.login();
 
@@ -65,6 +68,7 @@ class LoginPageLogic {
       // _showErrorDialog("Login Error",
       //     "Error code: ${authError.code}\nError message: ${authError.message}");
     } finally {
+      _setLoading(false);
       loadingNotifier.value = false;
     }
   }
@@ -72,7 +76,7 @@ class LoginPageLogic {
   void googleLogin() async {
     try {
       loadingNotifier.value = true;
-
+      _setLoading(true);
       // Trigger the authentication flow
       final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -119,6 +123,7 @@ class LoginPageLogic {
       // _showErrorDialog("Login Error",
       //     "Error code: ${authError.code}\nError message: ${authError.message}");
     } finally {
+      _setLoading(false);
       loadingNotifier.value = false;
     }
   }
@@ -126,7 +131,7 @@ class LoginPageLogic {
   void emailLogin(String email, String password) async {
     try {
       loadingNotifier.value = true;
-
+      _setLoading(true);
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       final User _user = FirebaseAuth.instance.currentUser;
@@ -169,8 +174,8 @@ class LoginPageLogic {
             "Error code: ${authError.code}\nError message: ${authError.message}");
       }
     } finally {
+      _setLoading(false);
       loadingNotifier.value = false;
-
     }
   }
 

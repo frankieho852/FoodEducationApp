@@ -170,15 +170,16 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
 
                       User user = FirebaseAuth.instance.currentUser;
                       FirebaseFirestore.instance
-                          .collection('userprofile')
+                          .collection('userProfile')
                           .doc(user.uid)
                           .set({
-                        'nickname': nickname,
+                        'name': nickname,
                         'age': age,
                         'height': height,
                         'weight': weight,
                         'sex': _genderRadioBtnVal,
-                        'done': true
+                        'coupon': 0,
+                        'completedProfile': true
                       }).then((userInfoValue) {});
                       user.updateProfile(displayName: nickname, photoURL: null);
                       widget.showFoodEducation();

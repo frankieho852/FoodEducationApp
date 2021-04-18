@@ -13,13 +13,11 @@ class LoginButton extends StatelessWidget {
   })  : _formKeyLogin = formKeyLogin,
         _emailController = emailController,
         _passwordController = passwordController,
-        _loading = loading,
         super(key: key);
 
   final GlobalKey<FormState> _formKeyLogin;
   final TextEditingController _emailController;
   final TextEditingController _passwordController;
-  bool _loading;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,6 @@ class LoginButton extends StatelessWidget {
           ),
           onPressed: () {
             if (_formKeyLogin.currentState.validate()) {
-              _loading = true;
               final email = _emailController.text.trim();
               final password = _passwordController.text.trim();
               final loginPageLogic = getIt<LoginPageLogic>();

@@ -34,15 +34,21 @@ class _LoginPageState extends State<LoginPage> {
     // TODO: implement initState
     super.initState();
     final loginLogic = getIt<LoginPageLogic>();
-    loginLogic.setup(widget.authService, _showErrorDialog);
+    loginLogic.setup(widget.authService, _showErrorDialog, _setLoading);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-          _loading ? CircularProgressIndicator() : LoginForm(loading: _loading),
+          _loading ? Center(child: CircularProgressIndicator()) : LoginForm(),
     );
+  }
+
+  void _setLoading(bool loading){
+    setState(() {
+      _loading = loading;
+    });
   }
 
   // todo: login Page dialog
@@ -67,37 +73,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-/*
-class LoginScreen extends StatelessWidget {
-  LoginScreen({
-    Key key,
-    bool loading,
-  })  : _loading = loading,
-        super(key: key);
-
-  bool _loading;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-        child: Stack(children: [
-      // Login Form
-      LoginForm(),
-      // Sign Up Button
-      GoToSignUpButton(),
-    ]));
-  }
-}
- */
-
 class LoginForm extends StatefulWidget {
   LoginForm({
     Key key,
     bool loading,
-  })  : _loading = loading,
-        super(key: key);
+  })  : super(key: key);
 
-  bool _loading;
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -108,19 +89,18 @@ class _LoginFormState extends State<LoginForm> {
   final _passwordController = TextEditingController();
   final _formKeyLogin = GlobalKey<FormState>();
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Stack(children: [
       // Login Form
-      _loginForm(loading: _loading),
+      _loginForm(),
       // Sign Up Button
       GoToSignUpButton(),
     ]));
   }
 
-  Widget _loginForm(bool loading) {
+  Widget _loginForm() {
     return Form(
       key: _formKeyLogin,
       child: Column(
@@ -131,13 +111,12 @@ class _LoginFormState extends State<LoginForm> {
           ),
           PasswordFormField(passwordController: _passwordController),
           LoginButton(
-              loading: _loading,
               formKeyLogin: _formKeyLogin,
               emailController: _emailController,
               passwordController: _passwordController),
           ForgetPasswordButton(),
           OrDivider(),
-          SocialMediaRow(_loading),
+          SocialMediaRow(),
         ],
       ),
     );
