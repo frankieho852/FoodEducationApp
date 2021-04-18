@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_education_app/screens/login/login_page_logic.dart';
+import 'package:food_education_app/auth/screens/components/forget_password_button.dart';
+import 'package:food_education_app/auth/screens/components/goto_sign_up_button.dart';
+import 'package:food_education_app/auth/screens/components/login_button.dart';
+import 'package:food_education_app/auth/screens/components/login_form.dart';
+import 'package:food_education_app/auth/screens/components/or_divider.dart';
+import 'package:food_education_app/auth/screens/components/social_media_row.dart';
+import 'package:food_education_app/auth/screens/login/login_page_logic.dart';
+import 'package:food_education_app/auth_service.dart';
+
 import 'package:food_education_app/services/service_locator.dart';
 
-import '../../auth_service.dart';
-import 'components/forget_password_button.dart';
-import 'components/login_button.dart';
-import 'components/login_form.dart';
-import 'components/or_divider.dart';
-import 'components/goto_sign_up_button.dart';
-import 'components/social_media_row.dart';
 
 class LoginPage extends StatefulWidget {
   final AuthService authService;

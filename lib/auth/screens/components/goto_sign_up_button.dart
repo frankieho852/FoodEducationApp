@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/auth/screens/login/login_page_logic.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
-import '../login_page_logic.dart';
+
 
 class GoToSignUpButton extends StatelessWidget {
   const GoToSignUpButton({

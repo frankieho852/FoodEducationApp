@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_education_app/auth/screens/signup/signup_page_logic.dart';
 import 'package:food_education_app/constants.dart';
-import 'package:food_education_app/screens/signup/signup_page_logic.dart';
+
 import 'package:food_education_app/services/service_locator.dart';
 
 class SignUpButton extends StatelessWidget {

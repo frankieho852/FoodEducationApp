@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/auth/screens/forgotPW/forgotPW.dart';
+import 'package:food_education_app/auth/screens/login/login_page.dart';
+import 'package:food_education_app/auth/screens/signup/SignUpPage%20sign_up_page.dart';
 import 'package:food_education_app/foodeducation_flow.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 import 'package:food_education_app/tempRubbishBin/Verification_page_phone.dart';
-import 'package:food_education_app/screens/forgotPW/forgotPW.dart';
-import 'package:food_education_app/services/service_locator.dart';
 
-import 'screens/signup/SignUpPage sign_up_page.dart';
 import 'Verification_page_email.dart';
 import 'tempRubbishBin/Verification_page_succeed.dart';
 import 'auth_service.dart';
 import 'foodeducationMain.dart';
-import 'screens/login/login_page.dart';
+
 import 'new_userprofile.dart';
 
 void main() {

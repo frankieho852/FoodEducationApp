@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:food_education_app/auth_service.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../auth_service.dart';
+
 
 typedef ShowDialogCallback = void Function(String title, String content);
 typedef ShowLoading = void Function(bool loading);
