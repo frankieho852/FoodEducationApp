@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'camera_page.dart';
-import 'gallery_page.dart';
+import 'tempRubbishBin/camera_page.dart';
+import 'tempRubbishBin/gallery_page.dart';
 
 class FoodEducationFlow extends StatefulWidget {
   final VoidCallback shouldLogOut;

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/foodeducation_flow.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
-import 'package:food_education_app/Verification_page_phone.dart';
-import 'package:food_education_app/forgotPW.dart';
+import 'package:food_education_app/tempRubbishBin/Verification_page_phone.dart';
+import 'package:food_education_app/screens/forgotPW/forgotPW.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 import 'screens/signup/SignUpPage sign_up_page.dart';
 import 'Verification_page_email.dart';
-import 'Verification_page_succeed.dart';
+import 'tempRubbishBin/Verification_page_succeed.dart';
 import 'auth_service.dart';
 import 'foodeducationMain.dart';
 import 'screens/login/login_page.dart';
@@ -32,14 +32,14 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // _authService.initDynamicLinks();
+    _authService.initDynamicLinks();
     _authService.checkAuthStatus();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FYP login',
+      title: 'Food Education',
       theme: ThemeData(primaryColor: Color(0xFF00A299),visualDensity: VisualDensity.adaptivePlatformDensity),
       home: StreamBuilder<AuthState>(
           stream: _authService.authStateController.stream,

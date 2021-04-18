@@ -102,6 +102,7 @@ class AuthService {
      */
   }
 
+  //  todo: Sam remark remove
   void verifyCodeViaPhoneNum(String verificationCode) async {
     User user = FirebaseAuth.instance.currentUser;
     if (!user.emailVerified) {
