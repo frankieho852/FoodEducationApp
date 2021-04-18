@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_education_app/auth/screens/forgotPW/forgotPW.dart';
-import 'package:food_education_app/auth/screens/login/login_page.dart';
-import 'package:food_education_app/auth/screens/signup/SignUpPage%20sign_up_page.dart';
+import 'package:food_education_app/auth/forgotPW/forgotPW.dart';
+import 'package:food_education_app/auth/login/login_page.dart';
+import 'package:food_education_app/auth/signup/SignUpPage%20sign_up_page.dart';
+
 import 'package:food_education_app/foodeducation_flow.dart';
 import 'package:food_education_app/services/service_locator.dart';
 

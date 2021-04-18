@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_education_app/auth/screens/components/forget_password_button.dart';
-import 'package:food_education_app/auth/screens/components/goto_sign_up_button.dart';
-import 'package:food_education_app/auth/screens/components/login_button.dart';
-import 'package:food_education_app/auth/screens/components/login_form.dart';
-import 'package:food_education_app/auth/screens/components/or_divider.dart';
-import 'package:food_education_app/auth/screens/components/social_media_row.dart';
-import 'package:food_education_app/auth/screens/login/login_page_logic.dart';
+import 'package:food_education_app/auth/components/forget_password_button.dart';
+import 'package:food_education_app/auth/components/goto_sign_up_button.dart';
+import 'package:food_education_app/auth/components/login_button.dart';
+import 'package:food_education_app/auth/components/login_form.dart';
+import 'package:food_education_app/auth/components/or_divider.dart';
+import 'package:food_education_app/auth/components/social_media_row.dart';
+import 'package:food_education_app/auth/login/login_page_logic.dart';
+
 import 'package:food_education_app/auth_service.dart';
 
 import 'package:food_education_app/services/service_locator.dart';
-
 
 class LoginPage extends StatefulWidget {
   final AuthService authService;
@@ -41,12 +41,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          _loading ? Center(child: CircularProgressIndicator()) : LoginForm(),
+      body: _loading ? Center(child: CircularProgressIndicator()) : LoginForm(),
     );
   }
 
-  void _setLoading(bool loading){
+  void _setLoading(bool loading) {
     setState(() {
       _loading = loading;
     });
@@ -78,8 +77,7 @@ class LoginForm extends StatefulWidget {
   LoginForm({
     Key key,
     bool loading,
-  })  : super(key: key);
-
+  }) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -115,8 +113,34 @@ class _LoginFormState extends State<LoginForm> {
               formKeyLogin: _formKeyLogin,
               emailController: _emailController,
               passwordController: _passwordController),
-          ForgetPasswordButton(),
-          OrDivider(),
+          TextButton(
+              onPressed: () {
+                final loginPageLogic = getIt<LoginPageLogic>();
+                loginPageLogic.showForgetPW();
+              },
+              child: Text('Forgot password?'),
+              style: TextButton.styleFrom(
+                primary: Colors.grey[700],
+              )),
+          Row(children: <Widget>[
+            Expanded(
+              child: new Container(
+                  margin: const EdgeInsets.only(left: 10.0, right: 15.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 50,
+                  )),
+            ),
+            Text("OR"),
+            Expanded(
+              child: new Container(
+                  margin: const EdgeInsets.only(left: 15.0, right: 10.0),
+                  child: Divider(
+                    color: Colors.black,
+                    height: 50,
+                  )),
+            ),
+          ]),
           SocialMediaRow(),
         ],
       ),

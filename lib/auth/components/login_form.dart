@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/constants.dart';
 
-import '../../../constants.dart';
 
 class EmailFormField extends StatelessWidget {
   const EmailFormField({

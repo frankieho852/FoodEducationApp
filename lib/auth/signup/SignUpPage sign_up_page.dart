@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_education_app/auth/components/login_form.dart';
 
 class SignUpPage extends StatefulWidget {
   final VoidCallback didProvideEmail;
@@ -76,6 +77,9 @@ class _SignUpPageState extends State<SignUpPage> {
         children: [
 
           // Email TextField
+          EmailFormField(
+            emailController: _emailController,
+          ),
           TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,

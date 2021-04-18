@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:food_education_app/auth/screens/login/login_page_logic.dart';
+import 'package:food_education_app/auth/login/login_page_logic.dart';
+import 'package:food_education_app/constants.dart';
+
 import 'package:food_education_app/services/service_locator.dart';
 
-import '../../../constants.dart';
 
 
 class SocialMediaRow extends StatelessWidget {

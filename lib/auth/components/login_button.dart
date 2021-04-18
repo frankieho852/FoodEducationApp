@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_education_app/auth/screens/signup/signup_page_logic.dart';
-import 'package:food_education_app/constants.dart';
+import 'package:food_education_app/auth/login/login_page_logic.dart';
 
+import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
-class SignUpButton extends StatelessWidget {
-  SignUpButton({
+
+class LoginButton extends StatelessWidget {
+  LoginButton({
     Key key,
-      @required GlobalKey<FormState> formKeyLogin,
-     @required TextEditingController emailController,
-     @required TextEditingController passwordController,
+  @required GlobalKey<FormState> formKeyLogin,
+    @required TextEditingController emailController,
+    @required TextEditingController passwordController,
+    @required bool loading,
   })  : _formKeyLogin = formKeyLogin,
         _emailController = emailController,
         _passwordController = passwordController,
@@ -37,12 +38,12 @@ class SignUpButton extends StatelessWidget {
             if (_formKeyLogin.currentState.validate()) {
               final email = _emailController.text.trim();
               final password = _passwordController.text.trim();
-              final loginPageLogic = getIt<SignUpPageLogic>();
-             // loginPageLogic.emailLogin(email, password);
+              final loginPageLogic = getIt<LoginPageLogic>();
+              loginPageLogic.emailLogin(email, password);
             }
           },
           child: Text(
-            'Sign Up',
+            'Login',
             style: TextStyle(color: Colors.white),
           ),
         ),
