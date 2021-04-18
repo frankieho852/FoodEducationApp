@@ -8,7 +8,7 @@ import 'components/forget_password_button.dart';
 import 'components/login_button.dart';
 import 'components/login_form.dart';
 import 'components/or_divider.dart';
-import 'components/sign_up_button.dart';
+import 'components/goto_sign_up_button.dart';
 import 'components/social_media_row.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loading ? LoadingScreen() : LoginScreen(),
+      body: _loading ? CircularProgressIndicator():LoginScreen(),
     );
   }
 
@@ -78,17 +78,8 @@ class LoginScreen extends StatelessWidget {
       // Login Form
       LoginForm(),
       // Sign Up Button
-      SignUpButton(),
+      GoToSignUpButton(),
     ]));
-  }
-}
-
-class LoadingScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
   }
 }
 

@@ -3,8 +3,8 @@ import 'package:food_education_app/services/service_locator.dart';
 
 import '../login_page_logic.dart';
 
-class SignUpButton extends StatelessWidget {
-  const SignUpButton({
+class GoToSignUpButton extends StatelessWidget {
+  const GoToSignUpButton({
     Key key,
   }) : super(key: key);
 
