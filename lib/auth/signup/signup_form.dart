@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 
 
-class EmailFormField extends StatelessWidget {
-  const EmailFormField({
+class EmailSignUpFormField extends StatelessWidget {
+  const EmailSignUpFormField({
     Key key,
-    @required TextEditingController emailController,
-  })  : _emailController = emailController,
+    @required TextEditingController emailController, @required focusNode
+  })  : _emailController = emailController, _emailFocus = focusNode,
         super(key: key);
 
   final TextEditingController _emailController;
+  final FocusNode _emailFocus;
 
   @override
   Widget build(BuildContext context) {
-    return LoginFormField(
+    Size size = MediaQuery.of(context).size;
+    return SignUpFormField(
       controller: _emailController,
       textInputType: TextInputType.emailAddress,
       icon: Icons.email,
@@ -23,18 +25,19 @@ class EmailFormField extends StatelessWidget {
   }
 }
 
-class PasswordFormField extends StatelessWidget {
-  const PasswordFormField({
+class PasswordSignUpFormField extends StatelessWidget {
+  const PasswordSignUpFormField({
     Key key,
-    @required TextEditingController passwordController,
-  })  : _passwordController = passwordController,
+    @required TextEditingController passwordController, @required focusNode
+  })  : _passwordController = passwordController, _passwordFocus = focusNode,
         super(key: key);
 
   final TextEditingController _passwordController;
+  final FocusNode _passwordFocus;
 
   @override
   Widget build(BuildContext context) {
-    return LoginFormField(
+    return SignUpFormField(
         controller: _passwordController,
         textInputType: TextInputType.visiblePassword,
         icon: Icons.lock_open,
@@ -44,8 +47,30 @@ class PasswordFormField extends StatelessWidget {
   }
 }
 
-class LoginFormField extends StatelessWidget {
-  const LoginFormField({
+class ConfirmPasswordSignUpFormField extends StatelessWidget {
+  const ConfirmPasswordSignUpFormField({
+    Key key,
+    @required TextEditingController confirmPasswordController, @required focusNode
+  })  : _confirmPasswordController = confirmPasswordController, _confirmPasswordFocus = focusNode,
+        super(key: key);
+
+  final TextEditingController _confirmPasswordController;
+  final FocusNode _confirmPasswordFocus;
+
+  @override
+  Widget build(BuildContext context) {
+    return SignUpFormField(
+        controller: _confirmPasswordController,
+        textInputType: TextInputType.visiblePassword,
+        icon: Icons.lock_open,
+        hintText: 'Password',
+        validationText: 'Please enter your Password',
+        obscureText: true);
+  }
+}
+
+class SignUpFormField extends StatelessWidget {
+  const SignUpFormField({
     Key key,
     @required TextEditingController controller,
     @required this.textInputType,

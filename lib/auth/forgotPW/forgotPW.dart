@@ -79,12 +79,12 @@ class _forgotPWState extends State<forgotPW> {
     final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
     var actionCodeSettings = ActionCodeSettings(
-        url: 'https://fyptest1.page.link/resetpw/',
-        dynamicLinkDomain: "fyptest1.page.link",
-        androidPackageName: "com.example.fyp_firebase_login",
+        url: 'https://foodeducation.page.link/resetpw/',
+        dynamicLinkDomain: "foodeducation.page.link",
+        androidPackageName: "com.example.food_education_app",
         androidInstallApp: true,
         handleCodeInApp: true,
-        iOSBundleId: "com.example.fyp_firebase_login");
+        iOSBundleId: "com.example.food_education_app");
 
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email, actionCodeSettings: actionCodeSettings);

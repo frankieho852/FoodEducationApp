@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_education_app/auth/components/forget_password_button.dart';
 import 'package:food_education_app/auth/components/goto_sign_up_button.dart';
 import 'package:food_education_app/auth/components/login_button.dart';
 import 'package:food_education_app/auth/components/login_form.dart';
-import 'package:food_education_app/auth/components/or_divider.dart';
 import 'package:food_education_app/auth/components/social_media_row.dart';
 import 'package:food_education_app/auth/login/login_page_logic.dart';
-
 import 'package:food_education_app/auth_service.dart';
-
 import 'package:food_education_app/services/service_locator.dart';
 
 class LoginPage extends StatefulWidget {
@@ -51,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // todo: login Page dialog
   void _showErrorDialog(String title, String content) {
     showDialog<void>(
         context: context,
