@@ -10,7 +10,7 @@ class Searchpage extends StatefulWidget {
 class _SearchpageState extends State<Searchpage> {
   final TextEditingController _filter = new TextEditingController();
   String _searchText = "";
-  List names;
+  List names=[];
   List filteredNames = [];
   Icon _searchIcon = new Icon(Icons.search);
   Widget _appBarTitle = new Text('Search a food');
@@ -58,7 +58,7 @@ class _SearchpageState extends State<Searchpage> {
   }
 
   Widget _buildList() {
-    /*
+
     if (_searchText.isNotEmpty) {
       List tempList= [];
       for (int i = 0; i < names.length; i++) {
@@ -71,7 +71,6 @@ class _SearchpageState extends State<Searchpage> {
       filteredNames = tempList;
     }
 
-     */
 
     return ListView.builder(
       itemCount: names == null ? 0 : filteredNames.length,
@@ -113,21 +112,29 @@ class _SearchpageState extends State<Searchpage> {
   void _searchProductByName() async {
     //todo: get all name of all products in firestore and store in templist
 
-    List tempList;
+    //List tempList;
 
     CollectionReference foodProductCollection =
     FirebaseFirestore.instance.collection('foodProduct');
 
     // method 2
     foodProductCollection.orderBy('name').startAt([_searchText]).get().then((value) {
+      List tempList=[];
       //print(value.docsd);
       for(DocumentSnapshot product in value.docs){
-        print("Finding: " + product.data()["name"]);  //debug
+        print("Finding: "+"_searchText:"+_searchText + " "+product.data()["name"]);  //debug
         tempList.add(product.data()['name']);
       }
+      setState(() {
+        names = tempList;
+        print("names:");
+        print(names);
+        names.sort();
+        filteredNames = [];// not showing any result when initstate
+      });
     });
 
-    names = tempList;
+    //names = tempList;
     // tempList = ["water", "noodle", "apple", "banana", "vita lemon tea","temp","temp","temp","temp","temp","temp"];
     /*
     setState(() {
