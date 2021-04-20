@@ -34,9 +34,8 @@ class _DetailResultState extends State<DetailResult> {
    // _setLoading(true);
     //todo:function 1 and store in tempfood
     _getProdcutData();
-
-    //tempfood.calculateTotalNutrient();
-   // tempfood.printproduct();
+    tempfood.calculateTotalNutrient();
+    tempfood.printproduct();
 
     //todo: function 5 get current user height weight sex->calculate recDaily
     _getUserInfo();
@@ -47,7 +46,6 @@ class _DetailResultState extends State<DetailResult> {
     //todo:function 3 and store in alt2product
     _findAlt2product();
 
-
   }
 
   @override
@@ -57,6 +55,7 @@ class _DetailResultState extends State<DetailResult> {
     print("searchname: " + widget.searchname);
     print("TempObject2: " + tempfood.name);
     print("TempObject2: " + tempfood.category);
+    print("alt2: "+ alt2product.last.name);
     if (tempfood.name == null) {
       log("tempfood is null");
     } else if(tempDaily.isEmpty){
@@ -224,6 +223,7 @@ class _DetailResultState extends State<DetailResult> {
   }
 
   void _findAlt2product() {
+    // todo: can change to random later
     try {
       var getalt2product = foodProductCollection.where(
           'category', isEqualTo: foodProductCategory).limit(2);
