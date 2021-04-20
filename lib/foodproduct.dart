@@ -27,7 +27,7 @@ class FoodProduct {
 
   String image;
   String grade;
-  List<dynamic> ingredients=[];
+  List<String> ingredients=[];
 
   double star = 0; //average rating by users
 
@@ -79,6 +79,10 @@ class FoodProduct {
     this.ingredients = temp.ingredients;
 
     this.star = temp.star; //average rating by users
+  }
+
+  String getName(){
+    return this.name;
   }
 
   ScoreArray calculateGrade() {
@@ -148,7 +152,7 @@ class FoodProduct {
           .add(Message("Contains a lot of dietary Fibre!", "checks"));
     }
     test(String value) => value.contains("Sweetener");
-    /*
+
     if (this.ingredients.any(test) == false && this.sugars > 0) {
       scoreArray.score = scoreArray.score + 2;
       scoreArray.checks++;
@@ -156,7 +160,7 @@ class FoodProduct {
           "No added sweetners: all sugars come from actual food", "checks"));
     }
 
-     */
+
     if (this.ingredients.length <= 15) {
       scoreArray.score = scoreArray.score + 2;
       scoreArray.checks++;

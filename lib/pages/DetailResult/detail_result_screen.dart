@@ -34,6 +34,28 @@ class DetailResult extends StatelessWidget {
       // print(x);
       //  print(x[0]);
 
+        tempfood = FoodProduct(
+            name: snapshot.get("name"),
+            category: foodProductCategory,
+            volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
+            energy: snapshot.get("energy").toDouble(),
+            protein: snapshot.get("protein").toDouble(),
+            totalFat: snapshot.get("totalFat").toDouble(),
+            saturatetedFat: snapshot.get("saturatetedFat").toDouble(),
+            transFat: snapshot.get("transFat").toDouble(),
+            carbohydrates: snapshot.get("carbohydrates").toDouble(),
+            dietarytFibre: snapshot.get("dietarytFibre").toDouble(),
+            sugars: snapshot.get("sugars").toDouble(),
+            sodium: snapshot.get("sodium").toDouble(),
+            image: snapshot.get("image"),
+            grade: snapshot.get("grade"),
+            ingredients: new List<String>.from(snapshot.data()["ingredients"]),//snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
+            star: snapshot.get("star").toDouble()
+      );
+
+        print(tempfood.getName());
+
+        /*
         tempfood.copy(FoodProduct(
             name: snapshot.get("name"),
             category: foodProductCategory,
@@ -52,6 +74,8 @@ class DetailResult extends StatelessWidget {
             ingredients: snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
             star: snapshot.get("star").toDouble())
         );
+
+         */
         print("bug 4");
         //print("TempObject: "+tempfood.name);
       } on StateError catch (e) {
@@ -59,7 +83,7 @@ class DetailResult extends StatelessWidget {
       }
     });
     print("bug 5");
-    print("TempObject2: "+tempfood.name);
+    print(tempfood.getName());
     tempfood.calculateTotalNutrient();
     print("bug 6");
     tempfood.printproduct();
