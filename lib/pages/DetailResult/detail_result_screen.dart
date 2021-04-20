@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,81 +17,39 @@ class DetailResult extends StatelessWidget {
       FirebaseFirestore.instance.collection('foodProduct');
 
   String foodProductCategory;
-
+  FoodProduct tempfood = FoodProduct();
 
   @override
   Widget build(BuildContext context) {
     //todo:function 1 and store in tempfood
     // search name => barcode (key)
-    FoodProduct tempfood = FoodProduct();
+    print("searchname: "+ searchname);
+    //tempfood.name = "XXX";
+    _getProdcutData();
 
-    foodProductCollection.doc("ID1").get().then((snapshot) {
-      try {
-        foodProductCategory = snapshot.get("category");
-        print("bug 3");
+    print("TempObject2: "+tempfood.name.toString());
+    if(tempfood.name == null){
+      log("tempfood is null");
+    } else{
+      log("other error");
+    }
 
-        /*
-        tempfood = FoodProduct(
-            name: snapshot.get("name"),
-            category: foodProductCategory,
-            volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
-            energy: snapshot.get("energy").toDouble(),
-            protein: snapshot.get("protein").toDouble(),
-            totalFat: snapshot.get("totalFat").toDouble(),
-            saturatetedFat: snapshot.get("saturatetedFat").toDouble(),
-            transFat: snapshot.get("transFat").toDouble(),
-            carbohydrates: snapshot.get("carbohydrates").toDouble(),
-            dietarytFibre: snapshot.get("dietarytFibre").toDouble(),
-            sugars: snapshot.get("sugars").toDouble(),
-            sodium: snapshot.get("sodium").toDouble(),
-            image: snapshot.get("image"),
-            grade: snapshot.get("grade"),
-            ingredients: new List<String>.from(snapshot.data()["ingredients"]),//snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
-            star: snapshot.get("star").toDouble()
-      );
-         */
-   //     print(tempfood.getName());
-
-        tempfood.copy(FoodProduct(
-            name: snapshot.get("name"),
-            category: foodProductCategory,
-            volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
-            energy: snapshot.get("energy").toDouble(),
-            protein: snapshot.get("protein").toDouble(),
-            totalFat: snapshot.get("totalFat").toDouble(),
-            saturatetedFat: snapshot.get("saturatetedFat").toDouble(),
-            transFat: snapshot.get("transFat").toDouble(),
-            carbohydrates: snapshot.get("carbohydrates").toDouble(),
-            dietarytFibre: snapshot.get("dietarytFibre").toDouble(),
-            sugars: snapshot.get("sugars").toDouble(),
-            sodium: snapshot.get("sodium").toDouble(),
-            image: snapshot.get("image"),
-            grade: snapshot.get("grade"),
-            ingredients: new List<String>.from(snapshot.data()["ingredients"]), //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
-            star: snapshot.get("star").toDouble())
-        );
-
-        print("bug 4");
-      } on StateError catch (e) {
-        print("Error: getproduct "+ e.message );
-      }
-      print("TempObject2: "+tempfood.energy.toString());
-    });
+  log("OOOO: "+tempfood.name);
     print("bug 5");
-    print("TempObject4: "+tempfood.energy.toString());
+    //print("TempObject4: "+tempfood.energy.toString());
     //print("TEST: " + tempfood.name);
-    tempfood.calculateTotalNutrient();
+   // tempfood.calculateTotalNutrient();
     print("bug 6");
-    tempfood.printproduct();
+  //  tempfood.printproduct();
     print("bug 7");
     //todo: function 5 get current user height weight sex->calculate recDaily
-    _getUserInfo();
+    //_getUserInfo();
 
     //todo: function 4 get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = _findMaxMin("productCategory");
 
     //todo:function 3 and store in alt2product
-    List<AlternativeProduct> alt2product;
+    List<AlternativeProduct> alt2product =[];
 
     var getalt2product = foodProductCollection.where('category', isEqualTo: foodProductCategory).limit(2);
     getalt2product.get().then((value) {
@@ -97,7 +57,6 @@ class DetailResult extends StatelessWidget {
         try {
           alt2product.add(
             AlternativeProduct(name: document.data()["name"], image: document.data()["image"]));
-
         } on StateError catch (e) {
           print("Error: getalt2product");
         }
@@ -198,6 +157,38 @@ class DetailResult extends StatelessWidget {
           recDaily: 1000));
     }
     return tempDaily;
+  }
+
+  void _getProdcutData() async{
+    await foodProductCollection.doc("ID1").get().then((snapshot) {
+      try {
+        foodProductCategory = snapshot.get("category");
+        tempfood.copy(FoodProduct(
+            name: snapshot.get("name"),
+            category: foodProductCategory,
+            volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
+            energy: snapshot.get("energy").toDouble(),
+            protein: snapshot.get("protein").toDouble(),
+            totalFat: snapshot.get("totalFat").toDouble(),
+            saturatetedFat: snapshot.get("saturatetedFat").toDouble(),
+            transFat: snapshot.get("transFat").toDouble(),
+            carbohydrates: snapshot.get("carbohydrates").toDouble(),
+            dietarytFibre: snapshot.get("dietarytFibre").toDouble(),
+            sugars: snapshot.get("sugars").toDouble(),
+            sodium: snapshot.get("sodium").toDouble(),
+            image: snapshot.get("image"),
+            grade: snapshot.get("grade"),
+            ingredients: new List<String>.from(snapshot.data()["ingredients"]), //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
+            star: snapshot.get("star").toDouble())
+        );
+
+        print("bug 4");
+      } on StateError catch (e) {
+        print("Error: getproduct "+ e.message );
+      }
+
+      print("in abc: "+tempfood.name.toString());
+    });
   }
 
   void _getUserInfo() async {

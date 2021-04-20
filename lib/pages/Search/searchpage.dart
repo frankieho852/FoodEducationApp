@@ -78,7 +78,7 @@ class _SearchpageState extends State<Searchpage> {
         return new ListTile(
           title: Text(filteredNames[index]),
           onTap: () {
-            print(filteredNames[index]);
+            print("filteredNames: "+filteredNames[index]);
             Navigator.push(
                 context,
                 MaterialPageRoute(
