@@ -135,7 +135,7 @@ class DetailResult extends StatelessWidget {
     var categoryResult =
         foodProductCollection.where('category', isEqualTo: productCategory);
 
-    List<DailyIntake> tempDaily;
+    List<DailyIntake> tempDaily = [];
 
     // method 1
     List<String> labelTag = [
