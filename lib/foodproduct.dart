@@ -8,7 +8,7 @@ class FoodProduct {
   double energy = 0;
   double protein = 0;
   double totalFat = 0;
-  double saturatetedFat = 0;
+  double saturatedFat = 0;
   double transFat = 0;
   double carbohydrates = 0;
   double dietarytFibre = 0;
@@ -18,7 +18,7 @@ class FoodProduct {
   double energy_100 = 0;
   double protein_100 = 0;
   double totalFat_100 = 0;
-  double saturatetedFat_100 = 0;
+  double saturatedFat_100 = 0;
   double transFat_100 = 0;
   double carbohydrates_100 = 0;
   double dietarytFibre_100 = 0;
@@ -38,7 +38,7 @@ class FoodProduct {
     this.energy,
     this.protein,
     this.totalFat,
-    this.saturatetedFat,
+    this.saturatedFat,
     this.transFat,
     this.carbohydrates,
     this.dietarytFibre,
@@ -47,7 +47,7 @@ class FoodProduct {
     this.energy_100,
     this.protein_100,
     this.totalFat_100,
-    this.saturatetedFat_100,
+    this.saturatedFat_100,
     this.transFat_100,
     this.carbohydrates_100,
     this.dietarytFibre_100,
@@ -69,7 +69,7 @@ class FoodProduct {
     this.energy = temp.energy;
     this.protein = temp.protein;
     this.totalFat = temp.totalFat;
-    this.saturatetedFat = temp.saturatetedFat;
+    this.saturatedFat = temp.saturatedFat;
     this.transFat = temp.transFat;
     this.carbohydrates = temp.carbohydrates;
     this.dietarytFibre = temp.dietarytFibre;
@@ -135,7 +135,7 @@ class FoodProduct {
       scoreArray.messagearray
           .add(Message("This product contains too much fat", "cautions"));
     }
-    if (this.saturatetedFat > maxSaturatedfat * 0.3) {
+    if (this.saturatedFat > maxSaturatedfat * 0.3) {
       scoreArray.score = scoreArray.score - 1;
       scoreArray.cautions++;
       scoreArray.messagearray.add(
@@ -198,7 +198,7 @@ class FoodProduct {
       this.energy = this.energy_100 * this.volumeOrweight / 100;
       this.protein = this.protein_100 * this.volumeOrweight / 100;
       this.totalFat = this.totalFat_100 * this.volumeOrweight / 100;
-      this.saturatetedFat = this.saturatetedFat_100 * this.volumeOrweight / 100;
+      this.saturatedFat = this.saturatedFat_100 * this.volumeOrweight / 100;
       this.transFat = this.transFat_100 * this.volumeOrweight / 100;
       this.carbohydrates = this.carbohydrates_100 * this.volumeOrweight / 100;
       this.dietarytFibre = this.dietarytFibre_100 * this.volumeOrweight / 100;
@@ -209,7 +209,7 @@ class FoodProduct {
       this.energy_100 = this.energy / this.volumeOrweight;
       this.protein_100 = this.protein / this.volumeOrweight;
       this.totalFat_100 = this.totalFat / this.volumeOrweight;
-      this.saturatetedFat_100 = this.saturatetedFat / this.volumeOrweight;
+      this.saturatedFat_100 = this.saturatedFat / this.volumeOrweight;
       this.transFat_100 = this.transFat / this.volumeOrweight;
       this.carbohydrates_100 = this.carbohydrates / this.volumeOrweight;
       this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
@@ -230,7 +230,7 @@ class FoodProduct {
       result = this.totalFat;
     }
     if (temp == "saturatedFat") {
-      result = this.saturatetedFat;
+      result = this.saturatedFat;
     }
     if (temp == "transFat") {
       result = this.transFat;
@@ -282,7 +282,7 @@ class FoodProduct {
     print(this.energy.toString() + '\n');
     print(this.protein.toString() + '\n');
     print(this.totalFat.toString() + '\n');
-    print(this.saturatetedFat.toString() + '\n');
+    print(this.saturatedFat.toString() + '\n');
     print(this.transFat.toString() + '\n');
     print(this.carbohydrates.toString() + '\n');
     print(this.dietarytFibre.toString() + '\n');
@@ -292,7 +292,7 @@ class FoodProduct {
     print(this.energy_100.toString() + '\n');
     print(this.protein_100.toString() + '\n');
     print(this.totalFat_100.toString() + '\n');
-    print(this.saturatetedFat_100.toString() + '\n');
+    print(this.saturatedFat_100.toString() + '\n');
     print(this.transFat_100.toString() + '\n');
     print(this.carbohydrates_100.toString() + '\n');
     print(this.dietarytFibre_100.toString() + '\n');
@@ -325,10 +325,6 @@ class ScoreArray {
     }
     return grade;
   }
-
-
-
-
 
 }
 
