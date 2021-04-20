@@ -21,19 +21,14 @@ class DetailResult extends StatelessWidget {
   Widget build(BuildContext context) {
     //todo:function 1 and store in tempfood
     // search name => barcode (key)
-    print("bug 1");
     FoodProduct tempfood = FoodProduct();
-    print("bug 2");
+
     foodProductCollection.doc("ID1").get().then((snapshot) {
       try {
         foodProductCategory = snapshot.get("category");
         print("bug 3");
-        //List.castFrom(snap.data['idList'] as List ?? []);
-        var x = snapshot.data()["ingredients"];
-       //print(x.runtimeType);
-      // print(x);
-      //  print(x[0]);
 
+        /*
         tempfood = FoodProduct(
             name: snapshot.get("name"),
             category: foodProductCategory,
@@ -52,10 +47,9 @@ class DetailResult extends StatelessWidget {
             ingredients: new List<String>.from(snapshot.data()["ingredients"]),//snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
             star: snapshot.get("star").toDouble()
       );
+         */
+   //     print(tempfood.getName());
 
-        print(tempfood.getName());
-
-        /*
         tempfood.copy(FoodProduct(
             name: snapshot.get("name"),
             category: foodProductCategory,
@@ -71,19 +65,19 @@ class DetailResult extends StatelessWidget {
             sodium: snapshot.get("sodium").toDouble(),
             image: snapshot.get("image"),
             grade: snapshot.get("grade"),
-            ingredients: snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
+            ingredients: new List<String>.from(snapshot.data()["ingredients"]), //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
             star: snapshot.get("star").toDouble())
         );
 
-         */
         print("bug 4");
-        //print("TempObject: "+tempfood.name);
       } on StateError catch (e) {
         print("Error: getproduct "+ e.message );
       }
+      print("TempObject2: "+tempfood.energy.toString());
     });
     print("bug 5");
-    print(tempfood.getName());
+    print("TempObject4: "+tempfood.energy.toString());
+    //print("TEST: " + tempfood.name);
     tempfood.calculateTotalNutrient();
     print("bug 6");
     tempfood.printproduct();

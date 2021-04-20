@@ -59,6 +59,8 @@ class FoodProduct {
     this.star,
   });
 
+
+
   void copy(FoodProduct temp){
     this.name = temp.name;
     this.category = temp.category;
