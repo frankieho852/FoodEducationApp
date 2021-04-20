@@ -2,17 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_education_app/auth/components/login_form.dart';
-import 'package:food_education_app/auth/signup/signup_form.dart';
 import 'package:food_education_app/auth/signup/signup_page_logic.dart';
+import 'package:food_education_app/auth_service.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 class SignUpPage extends StatefulWidget {
   final VoidCallback didProvideEmail;
   final VoidCallback shouldShowLogin;
+  final AuthService authService;
 
-  SignUpPage({Key key, this.didProvideEmail, this.shouldShowLogin})
+  SignUpPage({Key key, this.didProvideEmail, this.shouldShowLogin, @required this.authService})
       : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
     // TODO: implement initState
     super.initState();
     final signupLogic = getIt<SignUpPageLogic>();
-    //signupLogic.setup(widget.authService, _showErrorDialog, _setLoading);
+    signupLogic.setup(widget.authService, _showErrorDialog, _loading);
   }
 
   @override
@@ -80,12 +80,12 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _signUpForm() {
+    Size size = MediaQuery.of(context).size;
     return Form(
       key: _formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
           FormField(
             TextFormField(
                 controller: _emailController,
@@ -125,7 +125,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Icon(_obscurePW
                           ? Icons.visibility
                           : Icons.visibility_off))),
-
               keyboardType: TextInputType.visiblePassword,
               obscureText: _obscurePW,
               focusNode: _passwordFocus,
@@ -159,7 +158,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Icon(_obscureConfirmPW
                             ? Icons.visibility
                             : Icons.visibility_off))),
-
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: _obscureConfirmPW,
                 focusNode: _confirmPasswordFocus,
@@ -174,27 +172,34 @@ class _SignUpPageState extends State<SignUpPage> {
                   return null;
                 }),
           ),
-          // Sign Up Button
 
-          TextButton(
-            onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _signUp();
-              }
-            },
-            child: Text('Sign Up'),
-          )
+          // Sign Up Button
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            width: size.width * 0.9,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(29),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  backgroundColor: Colors.red,
+                ),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    final signupLogic = getIt<SignUpPageLogic>();
+                    signupLogic.signUp(_emailController.text.trim(), _passwordController.text.trim()); //
+                  }
+                },
+                child: Text(
+                  'Sign Up',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
-  }
-
-  bool checkUserPW() {
-    final password = _passwordController.text.trim();
-    String pattern = r'^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$'; // letters + digits
-    RegExp regExp = new RegExp(pattern);
-
-    return regExp.hasMatch(password);
   }
 
   InputDecoration _decoration(Icon icon, String hintText, InkWell inkWellData) {
@@ -230,7 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
         child: formField);
   }
 
-  void _showDialog(String title, String content) {
+  void _showErrorDialog(String title, String content) {
     showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
@@ -248,6 +253,14 @@ class _SignUpPageState extends State<SignUpPage> {
             ],
           );
         });
+  }
+
+  bool checkUserPW() {
+    final password = _passwordController.text.trim();
+    String pattern = r'^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$'; // letters + digits
+    RegExp regExp = new RegExp(pattern);
+
+    return regExp.hasMatch(password);
   }
 
   void _signUp() async {
@@ -291,15 +304,15 @@ class _SignUpPageState extends State<SignUpPage> {
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'weak-password') {
         // might remove this statement later
-        _showDialog('Weak Password', "The password provided is too weak.");
+        _showErrorDialog('Weak Password', "The password provided is too weak.");
       } else if (authError.code == 'email-already-in-use') {
-        _showDialog('Email already in use!',
+        _showErrorDialog('Email already in use!',
             "The account already exists for that email.");
         print('The account already exists for that email.');
       } else if (authError.code == 'invalid-email') {
-        _showDialog("Invalid email", "Please enter correct email");
+        _showErrorDialog("Invalid email", "Please enter correct email");
       } else {
-        _showDialog('Unknown Error', "Error code: " + authError.code);
+        _showErrorDialog('Unknown Error', "Error code: " + authError.code);
       }
     } catch (e) {
       print('Failed to sign up - ' + e);

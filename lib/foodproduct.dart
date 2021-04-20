@@ -27,7 +27,7 @@ class FoodProduct {
 
   String image;
   String grade;
-  List<String> ingredients;
+  List<dynamic> ingredients=[];
 
   double star = 0; //average rating by users
 
@@ -58,6 +58,28 @@ class FoodProduct {
     this.grade,
     this.star,
   });
+
+  void copy(FoodProduct temp){
+    this.name = temp.name;
+    this.category = temp.category;
+    this.volumeOrweight= temp.volumeOrweight;
+
+    this.energy = temp.energy;
+    this.protein = temp.protein;
+    this.totalFat = temp.totalFat;
+    this.saturatetedFat = temp.saturatetedFat;
+    this.transFat = temp.transFat;
+    this.carbohydrates = temp.carbohydrates;
+    this.dietarytFibre = temp.dietarytFibre;
+    this.sugars = temp.sugars;
+    this.sodium = temp.sodium;
+
+    this.image= temp.image;
+    this.grade= temp.grade;
+    this.ingredients = temp.ingredients;
+
+    this.star = temp.star; //average rating by users
+  }
 
   ScoreArray calculateGrade() {
     //this function will calculate grade and change this.product.grade and return a score array object
@@ -126,12 +148,15 @@ class FoodProduct {
           .add(Message("Contains a lot of dietary Fibre!", "checks"));
     }
     test(String value) => value.contains("Sweetener");
+    /*
     if (this.ingredients.any(test) == false && this.sugars > 0) {
       scoreArray.score = scoreArray.score + 2;
       scoreArray.checks++;
       scoreArray.messagearray.add(Message(
           "No added sweetners: all sugars come from actual food", "checks"));
     }
+
+     */
     if (this.ingredients.length <= 15) {
       scoreArray.score = scoreArray.score + 2;
       scoreArray.checks++;
@@ -294,6 +319,11 @@ class ScoreArray {
     }
     return grade;
   }
+
+
+
+
+
 }
 
 class Message {

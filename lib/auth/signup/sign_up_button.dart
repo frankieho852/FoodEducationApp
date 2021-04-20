@@ -4,7 +4,7 @@ import 'package:food_education_app/auth/signup/signup_page_logic.dart';
 import 'package:food_education_app/constants.dart';
 
 import 'package:food_education_app/services/service_locator.dart';
-// need to change
+// can remove
 class SignUpButton extends StatelessWidget {
   SignUpButton({
     Key key,

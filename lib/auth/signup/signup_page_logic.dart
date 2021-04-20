@@ -1,24 +1,35 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:food_education_app/auth_service.dart';
+
+typedef ShowDialogCallback = void Function(String title, String content);
+
 class SignUpPageLogic {
-  //final loadingNotifier = ValueNotifier<bool>(false);
-  //bool _completedUserProfile = false;
-  //AuthService _authService;
- // ShowDialogCallback _onLoginError;
+  final loadingNotifier = ValueNotifier<bool>(false);
+  bool _loading;
+  AuthService _authService;
+  ShowDialogCallback _onSignupError;
 
- // void setup(AuthService authService, ShowDialogCallback onLoginError) {
-   // _authService = authService;
-    //_onLoginError = onLoginError;
-  //}
+  void setup(AuthService authService, ShowDialogCallback onSignupError, bool loading) {
+    _authService = authService;
+    _onSignupError = onSignupError;
+    _loading = loading;
+  }
 
-  /*
-  void _signUp() async {
+
+  void signUp(String email, String password) async {
+    /*
+    loadingNotifier.value = true;
+    //_setLoading(true);
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
     try {
-      setState(() {
+
         _loading = true;
-      });
+
 
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -69,9 +80,8 @@ class SignUpPageLogic {
         _loading = false;
       });
     }
+
+     */
   }
-   */
-
-
 
 }

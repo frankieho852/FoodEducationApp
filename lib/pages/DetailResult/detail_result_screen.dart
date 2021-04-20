@@ -16,45 +16,59 @@ class DetailResult extends StatelessWidget {
 
   String foodProductCategory;
 
+
   @override
   Widget build(BuildContext context) {
     //todo:function 1 and store in tempfood
     // search name => barcode (key)
-    FoodProduct tempfood;
-    foodProductCollection.doc("searchname").get().then((snapshot) {
+    print("bug 1");
+    FoodProduct tempfood = FoodProduct();
+    print("bug 2");
+    foodProductCollection.doc("ID1").get().then((snapshot) {
       try {
         foodProductCategory = snapshot.get("category");
-        tempfood = FoodProduct(
+        print("bug 3");
+        //List.castFrom(snap.data['idList'] as List ?? []);
+        var x = snapshot.data()["ingredients"];
+       //print(x.runtimeType);
+      // print(x);
+      //  print(x[0]);
+
+        tempfood.copy(FoodProduct(
             name: snapshot.get("name"),
             category: foodProductCategory,
-            volumeOrweight: snapshot.get("volumeOrweight"),
-            energy: snapshot.get("energy"),
-            protein: snapshot.get("protein"),
-            totalFat: snapshot.get("totalFat"),
-            saturatetedFat: snapshot.get("saturatetedFat"),
-            transFat: snapshot.get("transFat"),
-            carbohydrates: snapshot.get("totalCarbonhydrates"),
-            dietarytFibre: snapshot.get("dietarytFibre"),
-            sugars: snapshot.get("sugars"),
-            sodium: snapshot.get("sodium"),
+            volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
+            energy: snapshot.get("energy").toDouble(),
+            protein: snapshot.get("protein").toDouble(),
+            totalFat: snapshot.get("totalFat").toDouble(),
+            saturatetedFat: snapshot.get("saturatetedFat").toDouble(),
+            transFat: snapshot.get("transFat").toDouble(),
+            carbohydrates: snapshot.get("carbohydrates").toDouble(),
+            dietarytFibre: snapshot.get("dietarytFibre").toDouble(),
+            sugars: snapshot.get("sugars").toDouble(),
+            sodium: snapshot.get("sodium").toDouble(),
             image: snapshot.get("image"),
             grade: snapshot.get("grade"),
-            ingredients: snapshot.data()["ingredients"],
-            star: snapshot.get("star"));
+            ingredients: snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
+            star: snapshot.get("star").toDouble())
+        );
+        print("bug 4");
+        //print("TempObject: "+tempfood.name);
       } on StateError catch (e) {
-        print("Error: getproduct");
+        print("Error: getproduct "+ e.message );
       }
     });
-
+    print("bug 5");
+    print("TempObject2: "+tempfood.name);
     tempfood.calculateTotalNutrient();
+    print("bug 6");
     tempfood.printproduct();
-
+    print("bug 7");
     //todo: function 5 get current user height weight sex->calculate recDaily
     _getUserInfo();
 
     //todo: function 4 get maxSametype,minSametype by category
     List<DailyIntake> tempDaily = _findMaxMin("productCategory");
-
 
     //todo:function 3 and store in alt2product
     List<AlternativeProduct> alt2product;
