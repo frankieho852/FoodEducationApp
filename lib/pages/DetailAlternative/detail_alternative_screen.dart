@@ -79,7 +79,7 @@ class _DetailAlternativeState extends State<DetailAlternative> {
       getaltproduct.get().then((value) {
         for (DocumentSnapshot document in value.docs) {
           altproductslist.add(AlternativeProduct(
-              name: document.data()["name"], image: document.data()["image"]));
+              name: document.data()["name"], image: document.data()["image"],calories:document.data()["energy"],grade: document.data()["energy"] ));
         }
       });
     } on StateError catch (e) {
