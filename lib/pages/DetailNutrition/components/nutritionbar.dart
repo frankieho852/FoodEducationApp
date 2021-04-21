@@ -3,6 +3,7 @@ import 'package:food_education_app/dailyintake.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailNutrition/components/minmaxbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Nutritionbar extends StatelessWidget {
   const Nutritionbar({
@@ -37,13 +38,14 @@ class Nutritionbar extends StatelessWidget {
                   //padding: EdgeInsets.all(kDefaultPadding * 0.1),
                   height: size.height * 0.035,
                   width: size.height * 0.035, // ensure sqaure container
-                  decoration: new BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                          image: AssetImage(
-                              product.getNutrientImage(daily.nutrient)),
-                          fit: BoxFit.cover)),
+                  child: SvgPicture.asset(product.getNutrientImage(daily.nutrient)),
+                  // decoration: new BoxDecoration(
+                  //     shape: BoxShape.rectangle,
+                  //     color: Colors.transparent,
+                  //     image: DecorationImage(
+                  //         image: AssetImage(
+                  //             product.getNutrientImage(daily.nutrient)),
+                  //         fit: BoxFit.cover)),
                 ),
                 RichText(
                   text: TextSpan(

@@ -294,14 +294,14 @@ class Triplebox extends StatelessWidget {
                             SizedBox(
                               height: size.height * 0.01,
                             ),
-                            SvgPicture.asset("assets/icons/A-1.svg"),
+                            //SvgPicture.asset("assets/icons/A-1.svg"),
                             Expanded(
                               child: Container(
                                 height: size.height * 0.08,
                                 width: size.height *
                                     0.08, // ensure the circle is in a squared box
                                 //color: Colors.green,
-                                child: SvgPicture.asset("assets/icons/A-1.svg"),
+                                child: SvgPicture.asset('assets/icons/icons8-google.svg'),
                                 // decoration: new BoxDecoration(
                                 //     shape: BoxShape.circle,
                                 //     image: DecorationImage(

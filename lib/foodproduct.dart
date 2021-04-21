@@ -253,28 +253,28 @@ class FoodProduct {
   String getNutrientImage(String temp) {
     String result = "not found";
     if (temp == "energy") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/calories.svg";
     }
     if (temp == "protein") {
-      result = "assets/images/proteinicon.jpg";
+      result = "assets/icons/protein.svg";
     }
     if (temp == "totalFat") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/fat.svg";
     }
     if (temp == "saturatedFat") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/fat.svg";
     }
     if (temp == "transFat") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/fat.svg";
     }
     if (temp == "carbohydrates") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/carb.svg";
     }
     if (temp == "sugars") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/carb.svg";
     }
     if (temp == "sodium") {
-      result = "assets/images/caloriesicon.jpg";
+      result = "assets/icons/sodium.svg";
     }
     return result;
   }
