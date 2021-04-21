@@ -1,78 +1,41 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailAlternative/components/body.dart';
 import 'package:food_education_app/alternativeproduct.dart';
-class DetailAlternative extends StatelessWidget {
+
+class DetailAlternative extends StatefulWidget {
   final FoodProduct product;
-  DetailAlternative({Key key,@required this.product}) : super(key:key);
+
+  DetailAlternative({Key key, @required this.product}) : super(key: key);
+
+  @override
+  _DetailAlternativeState createState() => _DetailAlternativeState();
+}
+
+class _DetailAlternativeState extends State<DetailAlternative> {
+  List<AlternativeProduct> altproductslist=[];
+  CollectionReference foodProductCollection =
+      FirebaseFirestore.instance.collection('foodProduct');
+  String foodProductCategory;
+
+  void initState() {
+    super.initState();
+    // _setLoading(true);
+    foodProductCategory = widget.product.category;
+    print("in detail screen alt:"+foodProductCategory);
+    _findAltproduct();
+    print("in detail screen alt length:"+altproductslist.length.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
     // todo: a function to search database by product.catergory -> create a list object with simular products
 
-    CollectionReference foodProductCollection = FirebaseFirestore.instance.collection('foodProduct');
+    CollectionReference foodProductCollection =
+        FirebaseFirestore.instance.collection('foodProduct');
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: foodProductCollection.where('category', isEqualTo: product.category).snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Container(
-            alignment: Alignment.center,
-            child: Text('Error'),
-          );
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        List<AlternativeProduct> altproductslist;
-
-        snapshot.data.docs.map((DocumentSnapshot document) {
-
-          int calories = document.data()['energy_100']*document.data()['volumeOrweight'];
-          String grade = document.data()['grade'];
-          String gradeImagePath = "";
-          if(grade == "A+"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-          } else if (grade == "A"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "A-"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "B+"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "B"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "B-"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "C+"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "C"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "C-"){
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          } else if (grade == "D"){ // no F grade
-            gradeImagePath = "assets/images/A-minus.jpg";
-
-          }
-
-          altproductslist.add(AlternativeProduct(name: document.data()['name'], grade: gradeImagePath, image: document.data()['imageURL'], star: document.data()['star'], calories: calories));
-        });
-
-        /*
+    /*
           List<AlternativeProduct> altproductslist = [
             AlternativeProduct(name:"Vita Lemon Juice",grade:"assets/images/A-minus.jpg",image:"assets/images/Vitalemontea.jpg",star:4.0,calories:200),
             AlternativeProduct(name:"A super long nameeeeeeeeeeeeeeeeeee",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.5,calories:340),
@@ -87,12 +50,10 @@ class DetailAlternative extends StatelessWidget {
             AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
           ];
            */
-        return Scaffold(
-          appBar: buildAppBar(product.name),
-          body: Body(altproductslist:altproductslist),
-          //bottomNavigationBar: MyBottomNavBar(),
-        );
-      },
+    return Scaffold(
+      appBar: buildAppBar(widget.product.name),
+      body: Body(altproductslist: altproductslist),
+      //bottomNavigationBar: MyBottomNavBar(),
     );
   }
 
@@ -107,5 +68,22 @@ class DetailAlternative extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _findAltproduct() {
+    // todo: can change to random later
+    try {
+      var getaltproduct = foodProductCollection.where('category',
+          isEqualTo: foodProductCategory);
+
+      getaltproduct.get().then((value) {
+        for (DocumentSnapshot document in value.docs) {
+          altproductslist.add(AlternativeProduct(
+              name: document.data()["name"], image: document.data()["image"]));
+        }
+      });
+    } on StateError catch (e) {
+      print("Error: findAltproduct");
+    }
   }
 }

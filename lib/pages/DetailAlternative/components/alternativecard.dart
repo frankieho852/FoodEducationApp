@@ -50,13 +50,13 @@ class AlternativeCard extends StatelessWidget {
                             child: Container(
                               height: size.height * 0.05,
                               width: size.height * 0.05,// ensure the circle is in a squared box
-                              //color: Colors.green,
-                              decoration: new BoxDecoration(
-                                 shape: BoxShape.circle,
-                                 color: Colors.transparent,
-                                 image: DecorationImage(
-                                     image: AssetImage(product.grade),
-                                     fit: BoxFit.cover)),
+                              color: Colors.green,
+                              // decoration: new BoxDecoration(
+                              //    shape: BoxShape.circle,
+                              //    color: Colors.green,
+                              //    image: DecorationImage(
+                              //        image: AssetImage(),//todo: change by product image
+                              //        fit: BoxFit.cover)),
                               ),
                             //
                 ),
