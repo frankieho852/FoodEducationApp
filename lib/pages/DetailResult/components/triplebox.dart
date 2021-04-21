@@ -41,12 +41,16 @@ class Triplebox extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailAlternative(
+            onTap: (){
+              if(alt2product.length>0){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailAlternative(
                           product: product,
-                        ))),
+                        )));
+            }
+              }  ,
             child: Container(
               height: size.height * 0.25,
               width: size.width * 0.6 - kDefaultPadding, //ensure enough space
@@ -101,7 +105,7 @@ class Triplebox extends StatelessWidget {
                                       //color: Colors.transparent,
                                       image: DecorationImage(
                                           image:
-                                              AssetImage(alt2product[0].image),
+                                              AssetImage(alt2product[index].image),
                                           fit: BoxFit.cover)),
                                 ),
                                 Align(
@@ -131,7 +135,7 @@ class Triplebox extends StatelessWidget {
                                       alt2product[index].name,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: Colors.black),
                                     ),
                                   ),
                                 ),
@@ -301,7 +305,7 @@ class Triplebox extends StatelessWidget {
                                 width: size.height *
                                     0.08, // ensure the circle is in a squared box
                                 //color: Colors.green,
-                                child: SvgPicture.asset('assets/icons/icons8-google.svg'),
+                                child: SvgPicture.asset('assets/icons/B-2.svg'),
                                 // decoration: new BoxDecoration(
                                 //     shape: BoxShape.circle,
                                 //     image: DecorationImage(
