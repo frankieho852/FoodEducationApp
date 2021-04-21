@@ -39,10 +39,11 @@ class _DetailAlternativeState extends State<DetailAlternative> {
 
 
           List<AlternativeProduct> tempaltproductslist = [
-            AlternativeProduct(name:"Vita TM Cold Brew No Sugar Jasmine Tea",grade:"assets/icons/A-1.svg",image:"assets/images/Vita TM Cold Brew No Sugar Jasmine Tea.jpg",star:4.0,calories:200),
-            AlternativeProduct(name:"A super long nameeeeeeeeeeeeeeeeeee",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.5,calories:340),
-            AlternativeProduct(name:"Vita Chrysanthemum Tea Drink",grade:"assets/icons/D-4.svg",image:"assets/images/Vita Chrysanthemum Tea Drink.jpg",star:3.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread4",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:1.4,calories:340),
+            AlternativeProduct(name:"Vita TM Cold Brew No Sugar Jasmine Tea",grade:"assets/icons/A-1.svg",image:"assets/images/Vita TM Cold Brew No Sugar Jasmine Tea.jpg",star:4.0,calories:0),
+            AlternativeProduct(name:"Vita TM Cold Brew No Sugar Tie Guan Yin Tea",grade:"assets/icons/A-1.svg",image:"assets/images/Vita TM Cold Brew No Sugar Jasmine Tea.jpg",star:3,calories:0),
+            AlternativeProduct(name:"Vita TM Low Sugar Lemon Tea Drink",grade:"assets/icons/C-3.svg",image:"assets/images/Vitalemontea.jpg",star:3,calories:0),
+            AlternativeProduct(name:"Vita TM Lemon Tea Drink",grade:"assets/icons/C-3.svg",image:"assets/images/Vita TM Lemon Tea Drink.jpg",star:4.5,calories:137),
+            AlternativeProduct(name:"Vita Chrysanthemum Tea Drink",grade:"assets/icons/C-3.svg",image:"assets/images/Vita Chrysanthemum Tea Drink.jpg",star:3.4,calories:35),
 
           ];
 

@@ -110,7 +110,7 @@ class Triplebox extends StatelessWidget {
                                               image: DecorationImage(
                                                   image: AssetImage(
                                                       alt2product[index].image),
-                                                  fit: BoxFit.fitWidth)),
+                                                  fit: BoxFit.fitHeight)),
                                         ),
                                       ),
                                       Align(
