@@ -83,11 +83,12 @@ class Header extends StatelessWidget {
                           //color: Colors.green,
                           decoration: new BoxDecoration(
                               color: Colors.transparent,
+                              border: Border.all(color: Colors.grey.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(14),
                               image: DecorationImage(
                                 //todo: add picture
-                                  image: AssetImage(product.image),
-                                  fit: BoxFit.cover)),
+                                  image: AssetImage("assets/images/Vita TM Lemon Tea Drink.jpg"),
+                                  fit: BoxFit.fitHeight)),
                         ),
                         SizedBox(width: 8),
                         Expanded(

@@ -14,7 +14,9 @@ class DetailAlternative extends StatefulWidget {
 }
 
 class _DetailAlternativeState extends State<DetailAlternative> {
-  List<AlternativeProduct> altproductslist=[];
+  List<AlternativeProduct> altproductslist=[
+    AlternativeProduct(name:"Vita Lemon Juice",grade:"assets/images/A-minus.jpg",image:"assets/images/Vitalemontea.jpg",star:4.0,calories:200),
+  ];
   CollectionReference foodProductCollection =
       FirebaseFirestore.instance.collection('foodProduct');
   String foodProductCategory;
@@ -35,24 +37,18 @@ class _DetailAlternativeState extends State<DetailAlternative> {
     CollectionReference foodProductCollection =
         FirebaseFirestore.instance.collection('foodProduct');
 
-    /*
-          List<AlternativeProduct> altproductslist = [
-            AlternativeProduct(name:"Vita Lemon Juice",grade:"assets/images/A-minus.jpg",image:"assets/images/Vitalemontea.jpg",star:4.0,calories:200),
+
+          List<AlternativeProduct> tempaltproductslist = [
+            AlternativeProduct(name:"Vita TM Cold Brew No Sugar Jasmine Tea",grade:"assets/icons/A-1.svg",image:"assets/images/Vita TM Cold Brew No Sugar Jasmine Tea.jpg",star:4.0,calories:200),
             AlternativeProduct(name:"A super long nameeeeeeeeeeeeeeeeeee",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.5,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread3",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
+            AlternativeProduct(name:"Vita Chrysanthemum Tea Drink",grade:"assets/icons/D-4.svg",image:"assets/images/Vita Chrysanthemum Tea Drink.jpg",star:3.4,calories:340),
             AlternativeProduct(name:"Whole Wheaet Bread4",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:1.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:4.1,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
-            AlternativeProduct(name:"Whole Wheaet Bread",grade:"assets/images/A-minus.jpg",image:"assets/images/bread.jpg",star:3.4,calories:340),
+
           ];
-           */
+
     return Scaffold(
       appBar: buildAppBar(widget.product.name),
-      body: Body(altproductslist: altproductslist),
+      body: Body(altproductslist: tempaltproductslist),
       //bottomNavigationBar: MyBottomNavBar(),
     );
   }
