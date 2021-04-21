@@ -17,6 +17,8 @@ class NutritionBox extends StatelessWidget {
   final List<DailyIntake> daily;
   @override
   Widget build(BuildContext context) {
+    print("in nutrition");
+    this.product.printproduct();
     return Container(
       height: size.height * 0.32,
       width: size.width,

@@ -20,6 +20,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     ScoreArray scoreArray= this.product.calculateGrade();
+    //this.product.printproduct();
     // print(scoreArray.cautions);
     // print(scoreArray.grade);
 

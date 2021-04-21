@@ -61,7 +61,7 @@ class FoodProduct {
 
 
 
-  void copy(FoodProduct temp){
+  FoodProduct copy(FoodProduct temp){
     this.name = temp.name;
     this.category = temp.category;
     this.volumeOrweight= temp.volumeOrweight;
@@ -111,6 +111,8 @@ class FoodProduct {
     double maxTransfat = maxCalories * 0.01 / 9;
     double maxSodium = 5000;
     ScoreArray scoreArray = new ScoreArray();
+    this.calculateTotalNutrient();
+    this.printproduct();
 
     if (this.sugars >= maxSugars * 0.3) {
       scoreArray.score = scoreArray.score - 1;
@@ -212,9 +214,10 @@ class FoodProduct {
       this.saturatedFat_100 = this.saturatedFat / this.volumeOrweight;
       this.transFat_100 = this.transFat / this.volumeOrweight;
       this.carbohydrates_100 = this.carbohydrates / this.volumeOrweight;
-      this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
+      //this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
       this.sugars_100 = this.sugars / this.volumeOrweight;
       this.sodium_100 = this.sodium / this.volumeOrweight;
+
     }
   }
 
@@ -299,6 +302,9 @@ class FoodProduct {
     print(this.sugars_100.toString() + '\n');
     print(this.sodium_100.toString() + '\n');
   }
+
+
+
 }
 
 class ScoreArray {
