@@ -22,6 +22,7 @@ class _DetailResultState extends State<DetailResult> {
   CollectionReference foodProductCollection =
   FirebaseFirestore.instance.collection('foodProduct');
 
+  int dataSize;
   String foodProductCategory;
   bool _loading = true;
   FoodProduct tempfood = new FoodProduct();
@@ -42,21 +43,23 @@ class _DetailResultState extends State<DetailResult> {
     _getUserInfo();
 
     //todo: function 4 get maxSametype,minSametype by category
-    _findMaxMin(foodProductCategory);
+
 
     //todo:function 3 and store in alt2product
-    _findAlt2product();
+    //_findAlt2product();
 
   }
 
   @override
   Widget build(BuildContext context) {
-
+    print("start");
+    _findMaxMin(foodProductCategory);
+    print(dataSize);
     _setLoading(false);
-    print("searchname: " + widget.searchname);
-    print("TempObject2: " + tempfood.name);
-    print("TempObject2: " + tempfood.category);
-    print("alt2: "+ alt2product.last.name);
+  //  print("searchname: " + widget.searchname);
+   // print("TempObject2: " + tempfood.name);
+  //  print("TempObject2: " + tempfood.category);
+ //   print("alt2: "+ alt2product.last.name);
     //tempfood.calculateTotalNutrient();
     if (tempfood.name == null) {
       log("tempfood is null");
@@ -70,11 +73,11 @@ class _DetailResultState extends State<DetailResult> {
 
     return Scaffold(
       appBar: buildAppBar(tempfood.name),
-      body:  Body( //_loading ? Center(child: CircularProgressIndicator()) :
-        product: tempfood,
-        daily: tempDaily,
-        alt2product: alt2product,
-      ),
+      body:   Body ( //Center(child: CircularProgressIndicator())
+      product: tempfood,
+      daily: tempDaily,
+      alt2product: alt2product,
+    ),
       //bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -134,7 +137,7 @@ class _DetailResultState extends State<DetailResult> {
 
   void _getProdcutData() async {
     //_setLoading(true);
-    await foodProductCollection.doc("ID1").get().then((snapshot) {
+    await foodProductCollection.doc("Temp milk").get().then((snapshot) {
 
       try {
         foodProductCategory = snapshot.get("category");
@@ -191,10 +194,7 @@ class _DetailResultState extends State<DetailResult> {
 
   void _findMaxMin(String productCategory) {
     // 3
-    var categoryResult =
-    foodProductCollection.where('category', isEqualTo: productCategory);
-
-    // method 1
+    //int dataSize=0;
     List<String> labelTag = [
       "energy",
       "protein",
@@ -206,21 +206,49 @@ class _DetailResultState extends State<DetailResult> {
       "sodium"
     ];
 
-    for (String tempLabel in labelTag) {
-      Query maxQ = categoryResult
-          .orderBy(tempLabel, descending: true)
-          .limit(1); //find max
-      Query minQ = categoryResult
-          .orderBy(tempLabel, descending: false)
-          .limit(1); //find min
-      double max, min;
-      maxQ.get().then((value) => max = value.docs.first.data()[tempLabel].toDouble());
-      minQ.get().then((value) => min = value.docs.first.data()[tempLabel].toDouble());
-      tempDaily.add(DailyIntake(
-          nutrient: tempLabel,
-          maxSametype: max,
-          minSametype: min,
-          recDaily: 100));
+    var categoryResult =
+    foodProductCollection.where('category', isEqualTo: productCategory);
+    categoryResult.get().then((value) {
+      print("size bug");
+      print(value.size);
+      print(value.size.runtimeType);
+      dataSize = value.size;
+    });
+    print("size bug2");
+    print(dataSize);
+    if (dataSize == 1 || dataSize ==0) {
+      for (String tempLabel in labelTag) {
+        categoryResult.get().then((value) => null);
+        tempDaily.add(DailyIntake(
+            nutrient: tempLabel,
+            maxSametype: 5,
+            minSametype: 0,
+            recDaily: 100));
+      }
+    } else {
+
+      for (String tempLabel in labelTag) {
+        Query maxQ = categoryResult
+            .orderBy(tempLabel, descending: true)
+            .limit(1); //find max
+        Query minQ = categoryResult
+            .orderBy(tempLabel, descending: false)
+            .limit(1); //find min
+
+        double max, min;
+
+        maxQ.get().then((value) => max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
+        minQ.get().then((value) => min = value.docs.first.data()[tempLabel].toDouble());
+        log("findmaxmin3 max: " + max.toString());
+        print("game");
+        print(max);
+        log("findmaxmin3 min: " + min.toString());
+        tempDaily.add(DailyIntake(
+            nutrient: tempLabel,
+            maxSametype: max,
+            minSametype: min,
+            recDaily: 100));
+      }
     }
   }
 
