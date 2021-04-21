@@ -21,7 +21,7 @@ class AlternativeCard extends StatelessWidget {
     return Container(
       //width: size.width * 0.3,
       height: size.height * 0.14,
-      color: Colors.grey,
+      //color: Colors.grey,
       child: Card(
         elevation: 0,
         //color: Colors.blue,
