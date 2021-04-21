@@ -45,7 +45,7 @@ class _HeaderState extends State<Header> {
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
             height: widget.size.height * 0.2 -
-                67, //here not -27,space is used for "Alternative title"
+                57, //here not -27,space is used for "Alternative title"
             decoration: BoxDecoration(
               color: kPrimaryColor,
               // location: the bottom corner of the teal header block

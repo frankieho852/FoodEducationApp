@@ -41,6 +41,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Food Education',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Color(0xFF00A299),visualDensity: VisualDensity.adaptivePlatformDensity),
       home: StreamBuilder<AuthState>(
           stream: _authService.authStateController.stream,

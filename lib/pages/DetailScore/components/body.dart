@@ -22,12 +22,12 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 40,
+            height: 30,
             color: kPrimaryColor,
             child: Center(
               child:Text(
                 "Score",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.white),
               )
             ),
           ),
