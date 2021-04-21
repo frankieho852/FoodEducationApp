@@ -3,6 +3,8 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/size_config.dart';
 import 'package:food_education_app/pages/DetailScore/components/scorecard.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 class Header extends StatefulWidget {
   Header({
     Key key,
@@ -26,7 +28,7 @@ class _HeaderState extends State<Header> {
         context); // this is important for using proportionatescreen function
     List<Message> combine=widget.scoreArray.messagearray;
     String selected = "first";
-    Color _colorContainer = Colors.blue;
+    Color _colorContainer = Color(0xFFF6FAF9);
     return Container(
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
@@ -179,13 +181,15 @@ class _HeaderState extends State<Header> {
                                             child: Container(
                                               height: widget.size.height * 0.08,
                                               width: widget.size.height * 0.08,
-                                              decoration: new BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image:
-                                                      AssetImage(widget.product.getGradeImage()),
-                                                      fit: BoxFit.cover)),
+                                              child: SvgPicture.asset('assets/icons/C-3.svg'),
+                                              // decoration: new BoxDecoration(
+                                              //     shape: BoxShape.circle,
+                                              //     image: DecorationImage(
+                                              //         image:
+                                              //         AssetImage(widget.product.getGradeImage()),
+                                              //         fit: BoxFit.cover)),
                                             ),
+
 
                                           ),
                                           SizedBox(
@@ -216,7 +220,7 @@ class _HeaderState extends State<Header> {
                                         child: Container(
                                           height: double.infinity,
                                           decoration: new BoxDecoration(
-                                            color: selected == 'second' ? Colors.red : Colors.blue,
+                                            color: Color(0xFFF6FAF9),
                                             borderRadius:
                                             BorderRadius.circular(14),
                                           ),

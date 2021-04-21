@@ -156,8 +156,8 @@ class FoodProduct {
           .add(Message("Contains a lot of dietary Fibre!", "checks"));
     }
     test(String value) => value.contains("Sweetener");
-
-    if (this.ingredients.any(test) == false && this.sugars > 0) {
+    test1(String value) => value.contains("Sugar");
+    if (this.ingredients.any(test) == false && this.sugars > 0 && this.ingredients.any(test1) == false) {
       scoreArray.score = scoreArray.score + 2;
       scoreArray.checks++;
       scoreArray.messagearray.add(Message(
@@ -165,7 +165,7 @@ class FoodProduct {
     }
 
 
-    if (this.ingredients.length <= 15) {
+    if (this.ingredients.length <= 5) {
       scoreArray.score = scoreArray.score + 2;
       scoreArray.checks++;
       scoreArray.messagearray.add(Message(
