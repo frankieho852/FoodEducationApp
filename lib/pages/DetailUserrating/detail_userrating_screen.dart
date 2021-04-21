@@ -34,7 +34,12 @@ class DetailUserrating extends StatelessWidget {
           //Text("Loading");
         }
 
-        List<Userrating> ratinglist;
+        List<Userrating> ratinglist=[//todo: temp value
+          Userrating(productname:product.name,name:"Figo",image:"assets/images/tempUserpicture.jpg",star:4,comment:"It taste sweet"),
+          Userrating(productname:product.name,name:"Sam",image:"assets/images/tempUserpicture1.jpg",star:2.5,comment:"It taste so bad"),
+          Userrating(productname:product.name,name:"Ray",image:"assets/images/tempUserpicture2.jpg",star:3.5,comment:"It taste ok"),
+          Userrating(productname:product.name,name:"Frankie",image:"assets/images/tempUserpicture3.jpg",star:1,comment:"I hate lemon tea and this is worst lemon tea ever."),
+        ];
         snapshot.data.docs.map((DocumentSnapshot productDoc) {
 
           productDoc.reference.collection('commentSet').get().then((snapshot) {
@@ -75,7 +80,7 @@ class DetailUserrating extends StatelessWidget {
         return new Scaffold(
           appBar: buildAppBar(product.name),
           body: Body(
-              image: product.image, ratinglist: ratinglist, star: product.star),
+              image: "assets/images/Vita TM Lemon Tea Drink.jpg", ratinglist: ratinglist, star: product.star),//todo: used temp pic here
           //bottomNavigationBar: MyBottomNavBar(),
         );
       },

@@ -33,7 +33,7 @@ class _HeaderState extends State<Header> {
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
       // explanation: height of the wrapping container, including the daily target card
-      height: widget.size.height * 0.8,
+      height: widget.size.height * 0.75,
       child: Stack(
         children: <Widget>[
           Container(
@@ -86,9 +86,10 @@ class _HeaderState extends State<Header> {
                       height: widget.size.height * 0.25,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: Colors.grey.withOpacity(0.3)),
                           image: DecorationImage(
-                              image: AssetImage(widget.product.image),
-                              fit: BoxFit.cover)),
+                              image: AssetImage("assets/images/Vita TM Lemon Tea Drink.jpg"),
+                              fit: BoxFit.fitHeight)),
                     ),
                     Container(
                       height: widget.size.height * 0.08,
