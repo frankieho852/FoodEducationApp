@@ -41,16 +41,16 @@ class Triplebox extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: (){
-              if(alt2product.length>0){
+            onTap: () {
+              if (alt2product.length > 0) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => DetailAlternative(
-                          product: product,
-                        )));
-            }
-              }  ,
+                              product: product,
+                            )));
+              }
+            },
             child: Container(
               height: size.height * 0.25,
               width: size.width * 0.6 - kDefaultPadding, //ensure enough space
@@ -95,48 +95,67 @@ class Triplebox extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) =>
                               Container(
                             height: size.height * 0.104,
-                            //color: Colors.red,
-                            child: Stack(
+                            child: Column(
                               children: [
-                                Container(
-                                  height: size.height * 0.104,
-                                  width: double.infinity,
-                                  decoration: new BoxDecoration(
-                                      //color: Colors.transparent,
-                                      image: DecorationImage(
-                                          image:
-                                              AssetImage(alt2product[index].image),
-                                          fit: BoxFit.cover)),
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Container(
+                                          height: size.height * 0.104,
+                                          width: size.width * 0.25,
+                                          decoration: new BoxDecoration(
+                                              //color: Colors.transparent,
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      alt2product[index].image),
+                                                  fit: BoxFit.fitHeight)),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Container(
+                                          margin:
+                                              EdgeInsets.only(top: 2, left: 8),
+                                          padding: EdgeInsets.all(3),
+                                          height: size.height * 0.03,
+                                          width: size.height *
+                                              0.03, // ensure the circle is in a squared box
+                                          decoration: new BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            shape: BoxShape.rectangle,
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                          ),
+                                          child: FittedBox(
+                                            child: Text(
+                                                (index + 1).toString() + "."),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: Container(
-                                    margin: EdgeInsets.only(top: 8, left: 8),
-                                    padding: EdgeInsets.all(3),
-                                    height: size.height * 0.03,
-                                    width: size.height *
-                                        0.03, // ensure the circle is in a squared box
-                                    decoration: new BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      shape: BoxShape.rectangle,
-                                      color: Colors.black.withOpacity(0.3),
-                                    ),
-                                    child: FittedBox(
-                                      child: Text((index+1).toString() + "."),
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 8, bottom: 8),
-                                    color: Colors.transparent,
+                                    margin: EdgeInsets.only(left: 8),
+                                    color: Colors.white,
                                     child: Text(
                                       alt2product[index].name,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(color: Colors.black),
                                     ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 1,
+                                  width: double.infinity,
+                                  child: const DecoratedBox(
+                                    decoration: const BoxDecoration(color: Colors.grey),
                                   ),
                                 ),
                               ],
@@ -181,7 +200,8 @@ class Triplebox extends StatelessWidget {
                                     product: product,
                                   ))),
                       child: Container(
-                        margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                        margin: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, bottom: 8.0),
                         child: Column(
                           children: [
                             Padding(
@@ -240,8 +260,8 @@ class Triplebox extends StatelessWidget {
                                           height: size.height * 0.04,
                                           width: size.width * 0.12,
                                           child: FittedBox(
-                                              child:
-                                                  Text(product.star.toString()))),
+                                              child: Text(
+                                                  product.star.toString()))),
                                     ),
                                     SizedBox(
                                       width: 8,
@@ -281,7 +301,8 @@ class Triplebox extends StatelessWidget {
                                     scoreArray: scoreArray,
                                   ))),
                       child: Container(
-                        margin: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                        margin: const EdgeInsets.only(
+                            left: 8.0, right: 8.0, bottom: 8.0),
                         child: Column(
                           children: [
                             Padding(
@@ -305,7 +326,7 @@ class Triplebox extends StatelessWidget {
                                 width: size.height *
                                     0.08, // ensure the circle is in a squared box
                                 //color: Colors.green,
-                                child: SvgPicture.asset('assets/icons/B-2.svg'),
+                                child: SvgPicture.asset('assets/icons/C-3.svg'),
                                 // decoration: new BoxDecoration(
                                 //     shape: BoxShape.circle,
                                 //     image: DecorationImage(

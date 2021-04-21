@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
       // explanation: height of the wrapping container, including the daily target card
-      height: size.height * 0.8,
+      height: size.height * 0.75,
       child: Stack(
         children: <Widget>[
           Container(
@@ -32,7 +32,7 @@ class Header extends StatelessWidget {
               bottom: 36 + kDefaultPadding,
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
-            height: size.height * 0.2 - 67,//here not -27,space is used for "Alternative title"
+            height: size.height * 0.2 - 57,//here not -27,space is used for "Alternative title"
             decoration: BoxDecoration(
               color: kPrimaryColor,
               // location: the bottom corner of the teal header block
@@ -64,14 +64,17 @@ class Header extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-                child: ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: altproductslist.length,
-                  itemBuilder: (BuildContext context,int index)=>AlternativeCard(
-                      product:altproductslist[index]
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ListView.builder(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: altproductslist.length,
+                    itemBuilder: (BuildContext context,int index)=>AlternativeCard(
+                        product:altproductslist[index]
 
+                    ),
                   ),
                 ),
               ),

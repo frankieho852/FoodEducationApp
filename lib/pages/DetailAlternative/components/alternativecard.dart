@@ -3,6 +3,7 @@ import 'package:food_education_app/constants.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:food_education_app/alternativeproduct.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AlternativeCard extends StatelessWidget {
   const AlternativeCard({
@@ -35,22 +36,32 @@ class AlternativeCard extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
+                          margin: EdgeInsets.all(8),
                           height: size.height * 0.13,
                           width: size.width * 0.35,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(18.0),
-                            child: Image.asset(
-                              product.image,
-                              fit: BoxFit.cover,
-                            ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                              borderRadius: BorderRadius.circular(14),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    product.image),
+                                fit: BoxFit.fitHeight)
                           ),
+                          // child: ClipRRect(
+                          //   borderRadius: BorderRadius.circular(18.0),
+                          //   child: Image.asset(
+                          //     product.image,
+                          //     fit: BoxFit.fitHeight,
+                          //   ),
+                          // ),
                         ),
                         Align(
                             alignment: Alignment.bottomRight,
                             child: Container(
                               height: size.height * 0.05,
                               width: size.height * 0.05,// ensure the circle is in a squared box
-                              color: Colors.green,
+                              color: Colors.transparent,
+                              child: SvgPicture.asset(product.grade),
                               // decoration: new BoxDecoration(
                               //    shape: BoxShape.circle,
                               //    color: Colors.green,

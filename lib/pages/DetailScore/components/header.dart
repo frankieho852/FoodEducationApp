@@ -3,6 +3,8 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/size_config.dart';
 import 'package:food_education_app/pages/DetailScore/components/scorecard.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 class Header extends StatefulWidget {
   Header({
     Key key,
@@ -26,12 +28,12 @@ class _HeaderState extends State<Header> {
         context); // this is important for using proportionatescreen function
     List<Message> combine=widget.scoreArray.messagearray;
     String selected = "first";
-    Color _colorContainer = Colors.blue;
+    Color _colorContainer = Color(0xFFF6FAF9);
     return Container(
       // explanation: margin between this container and "Recommended section title
       margin: EdgeInsets.only(bottom: getProportionateScreenHeight(5)),
       // explanation: height of the wrapping container, including the daily target card
-      height: widget.size.height * 0.8,
+      height: widget.size.height * 0.75,
       child: Stack(
         children: <Widget>[
           Container(
@@ -43,7 +45,7 @@ class _HeaderState extends State<Header> {
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
             height: widget.size.height * 0.2 -
-                67, //here not -27,space is used for "Alternative title"
+                57, //here not -27,space is used for "Alternative title"
             decoration: BoxDecoration(
               color: kPrimaryColor,
               // location: the bottom corner of the teal header block
@@ -84,9 +86,10 @@ class _HeaderState extends State<Header> {
                       height: widget.size.height * 0.25,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: Colors.grey.withOpacity(0.3)),
                           image: DecorationImage(
-                              image: AssetImage(widget.product.image),
-                              fit: BoxFit.cover)),
+                              image: AssetImage("assets/images/Vita TM Lemon Tea Drink.jpg"),
+                              fit: BoxFit.fitHeight)),
                     ),
                     Container(
                       height: widget.size.height * 0.08,
@@ -179,13 +182,15 @@ class _HeaderState extends State<Header> {
                                             child: Container(
                                               height: widget.size.height * 0.08,
                                               width: widget.size.height * 0.08,
-                                              decoration: new BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image:
-                                                      AssetImage(widget.product.getGradeImage()),
-                                                      fit: BoxFit.cover)),
+                                              child: SvgPicture.asset('assets/icons/C-3.svg'),
+                                              // decoration: new BoxDecoration(
+                                              //     shape: BoxShape.circle,
+                                              //     image: DecorationImage(
+                                              //         image:
+                                              //         AssetImage(widget.product.getGradeImage()),
+                                              //         fit: BoxFit.cover)),
                                             ),
+
 
                                           ),
                                           SizedBox(
@@ -216,7 +221,7 @@ class _HeaderState extends State<Header> {
                                         child: Container(
                                           height: double.infinity,
                                           decoration: new BoxDecoration(
-                                            color: selected == 'second' ? Colors.red : Colors.blue,
+                                            color: Color(0xFFF6FAF9),
                                             borderRadius:
                                             BorderRadius.circular(14),
                                           ),
