@@ -5,6 +5,7 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/DetailAlternative/detail_alternative_screen.dart';
 import 'package:food_education_app/pages/DetailUserrating/detail_userrating_screen.dart';
 import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Triplebox extends StatelessWidget {
   const Triplebox({
@@ -293,18 +294,20 @@ class Triplebox extends StatelessWidget {
                             SizedBox(
                               height: size.height * 0.01,
                             ),
+                            SvgPicture.asset("assets/icons/A-1.svg"),
                             Expanded(
                               child: Container(
                                 height: size.height * 0.08,
                                 width: size.height *
                                     0.08, // ensure the circle is in a squared box
                                 //color: Colors.green,
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image:
-                                            AssetImage(product.getGradeImage()),
-                                        fit: BoxFit.cover)),
+                                child: SvgPicture.asset("assets/icons/A-1.svg"),
+                                // decoration: new BoxDecoration(
+                                //     shape: BoxShape.circle,
+                                //     image: DecorationImage(
+                                //         image:
+                                //             AssetImage(product.getGradeImage()),
+                                //         fit: BoxFit.cover)),
                               ),
                             ),
                           ],

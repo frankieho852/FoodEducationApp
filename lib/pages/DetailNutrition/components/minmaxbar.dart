@@ -18,6 +18,7 @@ class Minmaxbar extends StatelessWidget {
     //   percent=(total-daily.minSametype)/(daily.maxSametype-daily.minSametype);
     // }
     double rec=daily.recDaily;
+    print("maxmin= "+daily.maxSametype.toString()+" "+daily.minSametype.toString()+daily.recDaily.toString());
     double max=daily.maxSametype;
     double min=daily.minSametype;
     double percentmax=(max/rec);

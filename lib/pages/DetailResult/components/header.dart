@@ -85,6 +85,7 @@ class Header extends StatelessWidget {
                               color: Colors.transparent,
                               borderRadius: BorderRadius.circular(14),
                               image: DecorationImage(
+                                //todo: add picture
                                   image: AssetImage(product.image),
                                   fit: BoxFit.cover)),
                         ),

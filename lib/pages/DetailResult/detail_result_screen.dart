@@ -214,13 +214,13 @@ class _DetailResultState extends State<DetailResult> {
           .orderBy(tempLabel, descending: false)
           .limit(1); //find min
       double max, min;
-      maxQ.get().then((value) => max = value.docs.first.data()[tempLabel]);
-      minQ.get().then((value) => min = value.docs.first.data()[tempLabel]);
+      maxQ.get().then((value) => max = value.docs.first.data()[tempLabel].toDouble());
+      minQ.get().then((value) => min = value.docs.first.data()[tempLabel].toDouble());
       tempDaily.add(DailyIntake(
           nutrient: tempLabel,
           maxSametype: max,
           minSametype: min,
-          recDaily: 1000));
+          recDaily: 100));
     }
   }
 
