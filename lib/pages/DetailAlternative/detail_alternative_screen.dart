@@ -80,7 +80,6 @@ class _DetailAlternativeState extends State<DetailAlternative> {
         for (DocumentSnapshot document in value.docs) {
           altproductslist.add(AlternativeProduct(
               name: document.data()["name"], image: document.data()["image"]));
-          print("adding in alt page");
         }
       });
     } on StateError catch (e) {
