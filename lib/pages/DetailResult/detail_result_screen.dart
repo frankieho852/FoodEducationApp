@@ -54,7 +54,7 @@ class _DetailResultState extends State<DetailResult> {
   Widget build(BuildContext context) {
     print("start");
     _findMaxMin(foodProductCategory);
-    print(dataSize);
+  //  print(dataSize);
     _setLoading(false);
   //  print("searchname: " + widget.searchname);
    // print("TempObject2: " + tempfood.name);
@@ -73,11 +73,15 @@ class _DetailResultState extends State<DetailResult> {
 
     return Scaffold(
       appBar: buildAppBar(tempfood.name),
-      body:   Body ( //Center(child: CircularProgressIndicator())
+      body: //Center(child: CircularProgressIndicator())
+
+       Body (
       product: tempfood,
       daily: tempDaily,
       alt2product: alt2product,
     ),
+
+
       //bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -137,7 +141,7 @@ class _DetailResultState extends State<DetailResult> {
 
   void _getProdcutData() async {
     //_setLoading(true);
-    await foodProductCollection.doc("Temp milk").get().then((snapshot) {
+    await foodProductCollection.doc("ID1").get().then((snapshot) {
 
       try {
         foodProductCategory = snapshot.get("category");
@@ -237,8 +241,16 @@ class _DetailResultState extends State<DetailResult> {
 
         double max, min;
 
-        maxQ.get().then((value) => max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
+        maxQ.get().then((value) {
+          max = value.docs.first.data()[tempLabel].toDouble();
+          print("give me somthing");
+          print(value.docs.first.data()[tempLabel]);
+        });
+        //max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
+
+
         minQ.get().then((value) => min = value.docs.first.data()[tempLabel].toDouble());
+
         log("findmaxmin3 max: " + max.toString());
         print("game");
         print(max);
