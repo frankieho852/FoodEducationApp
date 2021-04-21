@@ -18,13 +18,12 @@ class DetailResult extends StatefulWidget {
 }
 
 class _DetailResultState extends State<DetailResult> {
-
   CollectionReference foodProductCollection =
-  FirebaseFirestore.instance.collection('foodProduct');
+      FirebaseFirestore.instance.collection('foodProduct');
 
   int dataSize;
   String foodProductCategory;
-  bool _loading = true;
+  bool _loading = false;
   FoodProduct tempfood = new FoodProduct();
   List<DailyIntake> tempDaily = [];
   List<AlternativeProduct> alt2product = [];
@@ -32,10 +31,14 @@ class _DetailResultState extends State<DetailResult> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // _setLoading(true);
-    //todo:function 1 and store in tempfood
-    _getProdcutData();
+  //  _setLoading(true);
 
+    testdown();
+
+    /*
+    //todo:function 1 and store in tempfood
+    //print(foodProductCategory);
+    _getProdcutData();
     //tempfood.calculateTotalNutrient();
     //tempfood.printproduct();
 
@@ -43,47 +46,69 @@ class _DetailResultState extends State<DetailResult> {
     _getUserInfo();
 
     //todo: function 4 get maxSametype,minSametype by category
-
-
+    _findMaxMin(foodProductCategory);
     //todo:function 3 and store in alt2product
-    //_findAlt2product();
+    _findAlt2product();
 
+   // _setLoading(false);
+
+     */
   }
 
   @override
   Widget build(BuildContext context) {
     print("start");
+    _getProdcutData();
     _findMaxMin(foodProductCategory);
-  //  print(dataSize);
-    _setLoading(false);
-  //  print("searchname: " + widget.searchname);
-   // print("TempObject2: " + tempfood.name);
-  //  print("TempObject2: " + tempfood.category);
- //   print("alt2: "+ alt2product.last.name);
+
+    //  print(dataSize);
+   // _setLoading(false);
+    //print("searchname: " + widget.searchname);
+    // print("TempObject2: " + tempfood.name);
+    //  print("TempObject2: " + tempfood.category);
+    //   print("alt2: "+ alt2product.last.name);
     //tempfood.calculateTotalNutrient();
+    print("HIHI");
+    print(tempDaily.length);
     if (tempfood.name == null) {
       log("tempfood is null");
-    } else if(tempDaily.isEmpty){
+    } else if (tempDaily.isEmpty) {
       log("tempDaily is null");
-    } else if (alt2product.isEmpty){
+    } else if (alt2product.isEmpty) {
       log("alt2product is null");
-    } else{
+    } else {
       log("other bug");
     }
 
     return Scaffold(
-      appBar: buildAppBar(tempfood.name),
-      body: //Center(child: CircularProgressIndicator())
 
-       Body (
-      product: tempfood,
-      daily: tempDaily,
-      alt2product: alt2product,
-    ),
+        appBar: buildAppBar(tempfood.name),
+        body: // Center(child: CircularProgressIndicator()):
+          FutureBuilder<String>(
+            future: testdown(),
+            builder: (BuildContext context,  AsyncSnapshot<String> snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(child: CircularProgressIndicator());
+              }else{
+                if (snapshot.hasError)
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                else{
+                  return  Body (
+                  product: tempfood,
+                  daily: tempDaily,
+              alt2product: alt2product,
+              );
+              }
+                  //return Center(child: new Text('${snapshot.data}'));  // snapshot.data  :- get your object which is pass from your downloadData() function
+              }
+            }
+          ),
+      /*
 
 
-      //bottomNavigationBar: MyBottomNavBar(),
-    );
+*/
+        //bottomNavigationBar: MyBottomNavBar(),
+        );
   }
 
   AppBar buildAppBar(String title) {
@@ -99,12 +124,31 @@ class _DetailResultState extends State<DetailResult> {
     );
   }
 
+  Future<String> testdown() async{
+//todo:function 1 and store in tempfood
+    //print(foodProductCategory);
+    _getProdcutData();
+    //tempfood.calculateTotalNutrient();
+    //tempfood.printproduct();
+
+    //todo: function 5 get current user height weight sex->calculate recDaily
+    _getUserInfo();
+
+    //todo: function 4 get maxSametype,minSametype by category
+    _findMaxMin(foodProductCategory);
+    //todo:function 3 and store in alt2product
+    _findAlt2product();
+
+    return "ready";
+  }
+
+
   // todo: nned to update barcode search function later
   void _barcodeSearch(String barcodeID) {
     // 2 get foodproduct, you must pass barcode(String) to me
     FoodProduct tempfoodByBarcode;
     var barcodeSnapshots =
-    foodProductCollection.where("barcode", isEqualTo: barcodeID);
+        foodProductCollection.where("barcode", isEqualTo: barcodeID);
     // barcodeSnapshots.get().docs.map((DocumentSnapshot document) {});
     barcodeSnapshots.get().then((value) {
       value.docs.map((DocumentSnapshot document) {
@@ -133,19 +177,12 @@ class _DetailResultState extends State<DetailResult> {
     });
   }
 
-  void _setLoading(bool loading) {
-    setState(() {
-      _loading = loading;
-    });
-  }
 
   void _getProdcutData() async {
     //_setLoading(true);
-    await foodProductCollection.doc("ID1").get().then((snapshot) {
-
-      try {
+    try {
+      await foodProductCollection.doc("Temp milk").get().then((snapshot) {
         foodProductCategory = snapshot.get("category");
-        //print("Figo: " + snapshot.get("volumeOrweight").toDouble().toString());
         tempfood.copy(FoodProduct(
             name: snapshot.get("name"),
             category: foodProductCategory,
@@ -163,25 +200,22 @@ class _DetailResultState extends State<DetailResult> {
             grade: snapshot.get("grade"),
             ingredients: new List<String>.from(snapshot.data()["ingredients"]),
             //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
-            star: snapshot.get("star").toDouble())
-        );
-        print(snapshot.get("volumeOrweight").toDouble().toString());
+            star: snapshot.get("star").toDouble()));
 
-        print("bug 4");
-      } on StateError catch (e) {
-        print("Error: getproduct " + e.message);
-      } finally {
-        //_setLoading(false);
-      }
-    });
-    print("in abc: " + tempfood.name);
+      });
+    } on StateError catch (e) {
+      print("Error-getproduct:  " + e.message);
+    } finally {
+      //_setLoading(false);
+      print("in abc: " + tempfood.name);
+    }
   }
 
   void _getUserInfo() async {
     // 5
     final User _user = FirebaseAuth.instance.currentUser;
     DocumentReference userInfo =
-    FirebaseFirestore.instance.collection('userprofile').doc(_user.uid);
+        FirebaseFirestore.instance.collection('userprofile').doc(_user.uid);
 
     double height, weight;
     String sex;
@@ -196,9 +230,10 @@ class _DetailResultState extends State<DetailResult> {
     }
   }
 
-  void _findMaxMin(String productCategory) {
+  void _findMaxMin(String productCategory) async {
     // 3
     //int dataSize=0;
+    tempDaily.clear();
     List<String> labelTag = [
       "energy",
       "protein",
@@ -209,74 +244,83 @@ class _DetailResultState extends State<DetailResult> {
       "sugars",
       "sodium"
     ];
+    try {
+      var categoryResult =
+          foodProductCollection.where('category', isEqualTo: productCategory);
+      await categoryResult.get().then((value) {
+        print("size bug");
+        print(value.size);
+        print(value.size.runtimeType);
+        dataSize = value.size;
+      });
+      print("size bug2");
+      print(dataSize);
+      if (dataSize == 1 || dataSize == 0) {
+        for (String tempLabel in labelTag) {
+          await categoryResult.get().then((value) => null);
+          tempDaily.add(DailyIntake(
+              nutrient: tempLabel,
+              maxSametype: 5,
+              minSametype: 2,
+              recDaily: 100));
+        }
+      } else {
+        for (String tempLabel in labelTag) {
+          Query maxQ = categoryResult
+              .orderBy(tempLabel, descending: true)
+              .limit(1); //find max
+          Query minQ = categoryResult
+              .orderBy(tempLabel, descending: false)
+              .limit(1); //find min
 
-    var categoryResult =
-    foodProductCollection.where('category', isEqualTo: productCategory);
-    categoryResult.get().then((value) {
-      print("size bug");
-      print(value.size);
-      print(value.size.runtimeType);
-      dataSize = value.size;
-    });
-    print("size bug2");
-    print(dataSize);
-    if (dataSize == 1 || dataSize ==0) {
-      for (String tempLabel in labelTag) {
-        categoryResult.get().then((value) => null);
-        tempDaily.add(DailyIntake(
-            nutrient: tempLabel,
-            maxSametype: 5,
-            minSametype: 0,
-            recDaily: 100));
+          double max, min;
+
+          await maxQ.get().then((value) {
+            max = value.docs.first.data()[tempLabel].toDouble();
+            print("give me somthing");
+            print(value.docs.first.data()[tempLabel].runtimeType);
+            print(value.docs.first.data()[tempLabel].toDouble());
+            print(max);
+          });
+          print("out");
+          print(max);
+          //max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
+
+          await minQ.get().then(
+              (value) => min = value.docs.first.data()[tempLabel].toDouble());
+
+          log("findmaxmin3 max: " + max.toString());
+          print("game");
+          print(max);
+          print(min);
+          log("findmaxmin3 min: " + min.toString());
+          tempDaily.add(DailyIntake(
+              nutrient: tempLabel,
+              maxSametype: max,
+              minSametype: min,
+              recDaily: 100));
+        }
       }
-    } else {
-
-      for (String tempLabel in labelTag) {
-        Query maxQ = categoryResult
-            .orderBy(tempLabel, descending: true)
-            .limit(1); //find max
-        Query minQ = categoryResult
-            .orderBy(tempLabel, descending: false)
-            .limit(1); //find min
-
-        double max, min;
-
-        maxQ.get().then((value) {
-          max = value.docs.first.data()[tempLabel].toDouble();
-          print("give me somthing");
-          print(value.docs.first.data()[tempLabel]);
-        });
-        //max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
-
-
-        minQ.get().then((value) => min = value.docs.first.data()[tempLabel].toDouble());
-
-        log("findmaxmin3 max: " + max.toString());
-        print("game");
-        print(max);
-        log("findmaxmin3 min: " + min.toString());
-        tempDaily.add(DailyIntake(
-            nutrient: tempLabel,
-            maxSametype: max,
-            minSametype: min,
-            recDaily: 100));
-      }
+    } on StateError catch (e) {
+      print("Error - findmaxmin: " + e.message);
     }
+    print(tempDaily.length);
   }
 
   void _findAlt2product() {
     // todo: can change to random later
+    alt2product.clear();
     try {
-      var getalt2product = foodProductCollection.where(
-          'category', isEqualTo: foodProductCategory).limit(2);
+      var getalt2product = foodProductCollection
+          .where('category', isEqualTo: foodProductCategory)
+          .limit(2);
 
       getalt2product.get().then((value) {
         for (DocumentSnapshot document in value.docs) {
           log("name: " + document.data()["name"]);
           log("image: " + document.data()["image"]);
-          alt2product.add(
-              AlternativeProduct(name: document.data()["name"],
-                  image: document.data()["image"]));
+          alt2product.add(AlternativeProduct(
+              name: document.data()["name"], image: document.data()["image"]));
         }
       });
     } on StateError catch (e) {
@@ -284,5 +328,3 @@ class _DetailResultState extends State<DetailResult> {
     }
   }
 }
-
-
