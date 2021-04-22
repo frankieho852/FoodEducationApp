@@ -15,7 +15,6 @@ enum AuthFlowStatus {
   login,
   signUp,
   verificationEmail,
-  verificationPhone,
   verified,
   session,
   resetPW,
@@ -65,50 +64,8 @@ class AuthService {
   void signUpWithCredentials() async {
     final state = AuthState(authFlowStatus: AuthFlowStatus.verificationEmail);
     authStateController.add(state);
-    /*
-    User user = FirebaseAuth.instance.currentUser;
-    FirebaseFirestore.instance
-        .collection('userprofile')
-        .doc(user.uid)
-        .set({'done': false
-    }).then((userInfoValue) {
-    });
-
-    if (!user.emailVerified) {
-      var actionCodeSettings = ActionCodeSettings(
-        url: 'https://fyptest1.page.link/verifyemail/?email=${user.email}',
-        dynamicLinkDomain: "fyptest1.page.link",
-        androidPackageName: "com.example.fyp_firebase_login",
-        androidInstallApp: true,
-        handleCodeInApp: true,
-        iOSBundleId: "com.example.fyp_firebase_login"
-      );
-
-      await user.sendEmailVerification(actionCodeSettings);
-
-      final state = AuthState(authFlowStatus: AuthFlowStatus.verificationEmail);
-      authStateController.add(state);
-
-    } else {
-      print('signUpWithCredentials - ERROR');
-      Fluttertoast.showToast(
-          msg: "Error.",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.TOP,
-          backgroundColor: Colors.red,
-          textColor: Colors.white);
-    }
-
-     */
   }
 
-  //  todo: Sam remark remove
-  void verifyCodeViaPhoneNum(String verificationCode) async {
-    User user = FirebaseAuth.instance.currentUser;
-    if (!user.emailVerified) {
-      await user.sendEmailVerification();
-    }
-  }
 
   void logOut() async{
     try {

@@ -1,18 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_education_app/auth/signup/signup_page_logic.dart';
 import 'package:food_education_app/auth_service.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 class SignUpPage extends StatefulWidget {
-  final VoidCallback didProvideEmail;
   final VoidCallback shouldShowLogin;
   final AuthService authService;
 
-  SignUpPage({Key key, this.didProvideEmail, this.shouldShowLogin, @required this.authService})
+  SignUpPage({Key key, this.shouldShowLogin, @required this.authService})
       : super(key: key);
 
   @override
@@ -56,20 +53,27 @@ class _SignUpPageState extends State<SignUpPage> {
               minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
               child: SingleChildScrollView(
                   child: Column(children: [
-                // Sign Up Form
-                _signUpForm(),
-
-                // Login Button
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: TextButton(
-                      onPressed: widget.shouldShowLogin,
-                      child: Text('Already have an account? Login.'),
-                      style: TextButton.styleFrom(
-                        primary: Colors.grey[800],
-                      )),
-                )
-              ]))),
+                    Image.asset("assets/images/foodcheck_app_logo_auth.png"),
+                    Text("Be Our Member",
+                      style: TextStyle(
+                        fontSize: 30.0
+                      ),
+                    ),
+                    // Sign Up Form
+                    _signUpForm(),
+                    // Login Button
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      child: TextButton(
+                          onPressed: widget.shouldShowLogin,
+                          child: Text('Already have an account? Login.'),
+                          style: TextButton.styleFrom(
+                            primary: Colors.grey[800],
+                          )),
+                    )
+                  ])
+              )
+      ),
     );
   }
 
@@ -269,72 +273,5 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return regExp.hasMatch(password);
   }
-
-
-  void _signUp() async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
-    try {
-      setState(() {
-        _loading = true;
-      });
-
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password).then((value)
-            async {
-              User _user = FirebaseAuth.instance.currentUser;
-              FirebaseFirestore.instance
-                  .collection('userProfile')
-                  .doc(_user.uid)
-                  .set({'completedProfile': false});
-
-              if (!_user.emailVerified) {
-
-
-                var actionCodeSettings = ActionCodeSettings(
-                    url:
-                    'https://foodeducation.page.link/verifyemail/?email=${_user.email}',
-                    dynamicLinkDomain: "foodeducation.page.link",
-                    androidPackageName: "com.example.food_education_app",
-                    androidInstallApp: true,
-                    handleCodeInApp: false,
-                    iOSBundleId: "com.example.food_education_app");
-
-                await _user.sendEmailVerification(actionCodeSettings);
-                widget.didProvideEmail();
-              } else {
-                Fluttertoast.showToast(
-                    msg: "Fail to send email.",
-                    toastLength: Toast.LENGTH_LONG,
-                    gravity: ToastGravity.TOP,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white);
-              }
-            });
-
-
-    } on FirebaseAuthException catch (authError) {
-      if (authError.code == 'weak-password') {
-        // might remove this statement later
-        _showErrorDialog('Weak Password', "The password provided is too weak.");
-      } else if (authError.code == 'email-already-in-use') {
-        _showErrorDialog('Email already in use!',
-            "The account already exists for that email.");
-        print('The account already exists for that email.');
-      } else if (authError.code == 'invalid-email') {
-        _showErrorDialog("Invalid email", "Please enter correct email");
-      } else {
-        _showErrorDialog('Unknown Error', "Error code: " + authError.code);
-      }
-    } catch (e) {
-      print('Failed to sign up - ' + e);
-    } finally {
-      setState(() {
-        _loading = false;
-      });
-    }
-  }
-
 
 }

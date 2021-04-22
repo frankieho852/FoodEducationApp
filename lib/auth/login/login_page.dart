@@ -85,13 +85,21 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Stack(children: [
-      // Login Form
-      _loginForm(),
-      // Sign Up Button
-      GoToSignUpButton(),
-    ]));
+    return Scaffold(
+        body: SafeArea(
+          minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+            child: SingleChildScrollView(
+
+                child: Column(children: [
+                  Image.asset("assets/images/foodcheck_app_logo_auth.png"),
+
+                  // Login Form
+                  _loginForm(),
+                  // Sign Up Button
+                  GoToSignUpButton(),
+                ])))
+        );
+
   }
 
   Widget _loginForm() {

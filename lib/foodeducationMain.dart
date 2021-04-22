@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/auth_service.dart';
 import 'package:food_education_app/pages/home/home_screen.dart';
 
 import 'components/bottom_nav_bar.dart';
 
 // todo: is the pages.home file structure correct?
 class FoodEducationMain extends StatelessWidget {
+  final AuthService authService;
+
+  const FoodEducationMain({Key key, this.authService}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

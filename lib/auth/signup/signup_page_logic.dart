@@ -21,14 +21,12 @@ class SignUpPageLogic {
     _setLoading = loading;
   }
 
-
   void signUp(String email, String password) async {
 
     loadingNotifier.value = true;
     _setLoading(true);
 
     try {
-
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
@@ -49,9 +47,8 @@ class SignUpPageLogic {
             handleCodeInApp: false,
             iOSBundleId: "com.example.food_education_app");
 
-
-       // await _user.sendEmailVerification();
         await _user.sendEmailVerification(actionCodeSettings);
+
         _authService.signUpWithCredentials();
 
       } else {
@@ -78,7 +75,7 @@ class SignUpPageLogic {
     } catch (e) {
       print('Failed to sign up - ' + e);
     } finally {
-            _setLoading(false);
+      _setLoading(false);
     }
 
 

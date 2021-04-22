@@ -58,8 +58,7 @@ class _MyAppState extends State<MyApp> {
                   // Show Sign Up Page
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.signUp)
                     MaterialPage(
-                        child: SignUpPage(
-                          didProvideEmail: _authService.signUpWithCredentials,
+                        child: SignUpPage(authService: _authService,
                           shouldShowLogin: _authService.showLogin,
                         )),
 
@@ -69,15 +68,6 @@ class _MyAppState extends State<MyApp> {
                         child: VerificationPageEmail(
                             backButton: _authService.showSignUp,
                             shouldShowLogin: _authService.showLogin)),
-
-                  if (snapshot.data.authFlowStatus ==
-                      AuthFlowStatus.verificationPhone)
-                    MaterialPage(
-                        child: VerificationPagePhone(
-                          didProvideVerificationCode:
-                          _authService.verifyCodeViaPhoneNum,
-                          backButton: _authService.showSignUp,
-                        )),
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.verified)
                     MaterialPage(
@@ -98,10 +88,7 @@ class _MyAppState extends State<MyApp> {
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
                     MaterialPage(
-                        child:FoodEducationMain()),
-                        //FoodEducationFlow(shouldLogOut: _authService.logOut,
-                          //showFoodEducation: _authService.showFoodEducation)),  //FoodEducationMain()
-
+                        child:FoodEducationMain(authService: _authService)),
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );
