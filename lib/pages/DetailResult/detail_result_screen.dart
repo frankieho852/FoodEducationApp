@@ -33,9 +33,9 @@ class _DetailResultState extends State<DetailResult> {
     super.initState();
   //  _setLoading(true);
 
-    testdown();
+    //testdown();
 
-    /*
+
     //todo:function 1 and store in tempfood
     //print(foodProductCategory);
     _getProdcutData();
@@ -52,7 +52,7 @@ class _DetailResultState extends State<DetailResult> {
 
    // _setLoading(false);
 
-     */
+
   }
 
   @override
@@ -83,10 +83,16 @@ class _DetailResultState extends State<DetailResult> {
     return Scaffold(
 
         appBar: buildAppBar(tempfood.name),
-        body: // Center(child: CircularProgressIndicator()):
-          FutureBuilder<String>(
+        body: Body (
+          product: tempfood,
+          daily: tempDaily,
+          alt2product: alt2product,
+        ),// Center(child: CircularProgressIndicator()):
+
+      /*
+          FutureBuilder<bool>(
             future: testdown(),
-            builder: (BuildContext context,  AsyncSnapshot<String> snapshot){
+            builder: (BuildContext context,  AsyncSnapshot<bool> snapshot){
               if(snapshot.connectionState == ConnectionState.waiting){
                 return Center(child: CircularProgressIndicator());
               }else{
@@ -103,10 +109,9 @@ class _DetailResultState extends State<DetailResult> {
               }
             }
           ),
-      /*
 
+       */
 
-*/
         //bottomNavigationBar: MyBottomNavBar(),
         );
   }
@@ -124,22 +129,28 @@ class _DetailResultState extends State<DetailResult> {
     );
   }
 
-  Future<String> testdown() async{
+  Future<bool> testdown() async{
 //todo:function 1 and store in tempfood
+  /*
     //print(foodProductCategory);
-    _getProdcutData();
+    Future<bool> finishGetProduct = _getProdcutData();
     //tempfood.calculateTotalNutrient();
     //tempfood.printproduct();
 
     //todo: function 5 get current user height weight sex->calculate recDaily
-    _getUserInfo();
+    Future<bool> finishGetUserInfo =  _getUserInfo();
 
     //todo: function 4 get maxSametype,minSametype by category
-    _findMaxMin(foodProductCategory);
+    Future<bool> finishFindMaxMin = _findMaxMin(foodProductCategory);
     //todo:function 3 and store in alt2product
-    _findAlt2product();
+    Future<bool> finishFindAlt2Product = _findAlt2product();
 
-    return "ready";
+    //if(finishGetProduct&&finishGetUserInfo)
+    //var x = finishGetProduct&finishGetUserInfo;
+
+   // return finishGetProduct&finishGetUserInfo&finishFindMaxMin&finishFindAlt2Product;
+
+   */
   }
 
 
@@ -205,10 +216,12 @@ class _DetailResultState extends State<DetailResult> {
       });
     } on StateError catch (e) {
       print("Error-getproduct:  " + e.message);
+   //   return false;
     } finally {
       //_setLoading(false);
       print("in abc: " + tempfood.name);
     }
+  //  return true;
   }
 
   void _getUserInfo() async {
@@ -227,7 +240,9 @@ class _DetailResultState extends State<DetailResult> {
       });
     } on StateError catch (e) {
       print("Error: UserInfo");
+     // return false;
     }
+  //  return true;
   }
 
   void _findMaxMin(String productCategory) async {
@@ -303,11 +318,13 @@ class _DetailResultState extends State<DetailResult> {
       }
     } on StateError catch (e) {
       print("Error - findmaxmin: " + e.message);
+     // return false;
     }
     print(tempDaily.length);
+   // return true;
   }
 
-  void _findAlt2product() {
+  void _findAlt2product() async {
     // todo: can change to random later
     alt2product.clear();
     try {
@@ -315,7 +332,7 @@ class _DetailResultState extends State<DetailResult> {
           .where('category', isEqualTo: foodProductCategory)
           .limit(2);
 
-      getalt2product.get().then((value) {
+      await getalt2product.get().then((value) {
         for (DocumentSnapshot document in value.docs) {
           log("name: " + document.data()["name"]);
           log("image: " + document.data()["image"]);
@@ -325,6 +342,8 @@ class _DetailResultState extends State<DetailResult> {
       });
     } on StateError catch (e) {
       print("Error: getalt2product");
+      //return false;
     }
+  //  return true;
   }
 }

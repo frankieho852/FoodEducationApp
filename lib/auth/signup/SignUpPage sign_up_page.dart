@@ -37,7 +37,13 @@ class _SignUpPageState extends State<SignUpPage> {
     // TODO: implement initState
     super.initState();
     final signupLogic = getIt<SignUpPageLogic>();
-    signupLogic.setup(widget.authService, _showErrorDialog, _loading);
+    signupLogic.setup(widget.authService, _showErrorDialog, _setLoading);
+  }
+
+  void _setLoading(bool loading) {
+    setState(() {
+      _loading = loading;
+    });
   }
 
   @override
@@ -186,6 +192,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
+                    //_signUp();
                     final signupLogic = getIt<SignUpPageLogic>();
                     signupLogic.signUp(_emailController.text.trim(), _passwordController.text.trim()); //
                   }
@@ -263,6 +270,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return regExp.hasMatch(password);
   }
 
+
   void _signUp() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
@@ -273,34 +281,39 @@ class _SignUpPageState extends State<SignUpPage> {
       });
 
       await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email, password: password).then((value)
+            async {
+              User _user = FirebaseAuth.instance.currentUser;
+              FirebaseFirestore.instance
+                  .collection('userProfile')
+                  .doc(_user.uid)
+                  .set({'completedProfile': false});
 
-      User _user = FirebaseAuth.instance.currentUser;
-      FirebaseFirestore.instance
-          .collection('userProfile')
-          .doc(_user.uid)
-          .set({'completedProfile': false}).then((userInfoValue) {});
+              if (!_user.emailVerified) {
 
-      if (!_user.emailVerified) {
-        var actionCodeSettings = ActionCodeSettings(
-            url:
-                'https://foodeducation.page.link/verifyemail/?email=${_user.email}',
-            dynamicLinkDomain: "foodeducation.page.link",
-            androidPackageName: "com.example.food_education_app",
-            androidInstallApp: true,
-            handleCodeInApp: false,
-            iOSBundleId: "com.example.fyp_firebase_login");
 
-        await _user.sendEmailVerification(actionCodeSettings);
-        widget.didProvideEmail();
-      } else {
-        Fluttertoast.showToast(
-            msg: "Fail to send email.",
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.TOP,
-            backgroundColor: Colors.red,
-            textColor: Colors.white);
-      }
+                var actionCodeSettings = ActionCodeSettings(
+                    url:
+                    'https://foodeducation.page.link/verifyemail/?email=${_user.email}',
+                    dynamicLinkDomain: "foodeducation.page.link",
+                    androidPackageName: "com.example.food_education_app",
+                    androidInstallApp: true,
+                    handleCodeInApp: false,
+                    iOSBundleId: "com.example.food_education_app");
+
+                await _user.sendEmailVerification(actionCodeSettings);
+                widget.didProvideEmail();
+              } else {
+                Fluttertoast.showToast(
+                    msg: "Fail to send email.",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.TOP,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white);
+              }
+            });
+
+
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'weak-password') {
         // might remove this statement later
@@ -322,4 +335,6 @@ class _SignUpPageState extends State<SignUpPage> {
       });
     }
   }
+
+
 }

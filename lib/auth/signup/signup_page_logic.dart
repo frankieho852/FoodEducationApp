@@ -2,34 +2,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_education_app/auth_service.dart';
 
 typedef ShowDialogCallback = void Function(String title, String content);
+typedef ShowLoading = void Function(bool loading);
 
 class SignUpPageLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
-  bool _loading;
+  ShowLoading _setLoading;
   AuthService _authService;
   ShowDialogCallback _onSignupError;
 
-  void setup(AuthService authService, ShowDialogCallback onSignupError, bool loading) {
+  void setup(AuthService authService, ShowDialogCallback onSignupError, ShowLoading loading) {
     _authService = authService;
     _onSignupError = onSignupError;
-    _loading = loading;
+    _setLoading = loading;
   }
 
 
   void signUp(String email, String password) async {
-    /*
+
     loadingNotifier.value = true;
-    //_setLoading(true);
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
+    _setLoading(true);
 
     try {
-
-        _loading = true;
-
 
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -41,6 +39,7 @@ class SignUpPageLogic {
           .set({'completedProfile': false}).then((userInfoValue) {});
 
       if (!_user.emailVerified) {
+
         var actionCodeSettings = ActionCodeSettings(
             url:
             'https://foodeducation.page.link/verifyemail/?email=${_user.email}',
@@ -48,10 +47,13 @@ class SignUpPageLogic {
             androidPackageName: "com.example.food_education_app",
             androidInstallApp: true,
             handleCodeInApp: false,
-            iOSBundleId: "com.example.fyp_firebase_login");
+            iOSBundleId: "com.example.food_education_app");
 
+
+       // await _user.sendEmailVerification();
         await _user.sendEmailVerification(actionCodeSettings);
-        widget.didProvideEmail();
+        _authService.signUpWithCredentials();
+
       } else {
         Fluttertoast.showToast(
             msg: "Fail to send email.",
@@ -63,25 +65,23 @@ class SignUpPageLogic {
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'weak-password') {
         // might remove this statement later
-        _showDialog('Weak Password', "The password provided is too weak.");
+        _onSignupError('Weak Password', "The password provided is too weak.");
       } else if (authError.code == 'email-already-in-use') {
-        _showDialog('Email already in use!',
+        _onSignupError('Email already in use!',
             "The account already exists for that email.");
         print('The account already exists for that email.');
       } else if (authError.code == 'invalid-email') {
-        _showDialog("Invalid email", "Please enter correct email");
+        _onSignupError("Invalid email", "Please enter correct email");
       } else {
-        _showDialog('Unknown Error', "Error code: " + authError.code);
+        _onSignupError('Unknown Error', "Error code: " + authError.code);
       }
     } catch (e) {
       print('Failed to sign up - ' + e);
     } finally {
-      setState(() {
-        _loading = false;
-      });
+            _setLoading(false);
     }
 
-     */
+
   }
 
 }

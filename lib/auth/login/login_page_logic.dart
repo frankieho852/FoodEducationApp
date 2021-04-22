@@ -23,9 +23,9 @@ class LoginPageLogic {
   }
 
   void fbLogin() async {
+    loadingNotifier.value = true;
+    _setLoading(true);
     try {
-      loadingNotifier.value = true;
-      _setLoading(true);
       // Trigger the sign-in
       final LoginResult result = await FacebookAuth.instance.login();
 
@@ -75,9 +75,9 @@ class LoginPageLogic {
   }
 
   void googleLogin() async {
+    loadingNotifier.value = true;
+    _setLoading(true);
     try {
-      loadingNotifier.value = true;
-      _setLoading(true);
       // Trigger the authentication flow
       final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
@@ -130,9 +130,10 @@ class LoginPageLogic {
   }
 
   void emailLogin(String email, String password) async {
+    loadingNotifier.value = true;
+    _setLoading(true);
     try {
-      loadingNotifier.value = true;
-      _setLoading(true);
+
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       final User _user = FirebaseAuth.instance.currentUser;
@@ -152,12 +153,12 @@ class LoginPageLogic {
         }
       } else {
         var actionCodeSettings = ActionCodeSettings(
-            url: 'https://fyptest1.page.link/verifyemail/?email=${_user.email}',
-            dynamicLinkDomain: "fyptest1.page.link",
-            androidPackageName: "com.example.fyp_firebase_login",
+            url: 'https://foodeducation.page.link/verifyemail/?email=${_user.email}',
+            dynamicLinkDomain: "foodeducation.page.link",
+            androidPackageName: "com.example.food_education_app",
             androidInstallApp: true,
             handleCodeInApp: false,
-            iOSBundleId: "com.example.fyp_firebase_login");
+            iOSBundleId: "com.example.food_education_app");
         //await _user.sendEmailVerification();
 
         await _user.sendEmailVerification(actionCodeSettings);
