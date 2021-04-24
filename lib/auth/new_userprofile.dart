@@ -56,6 +56,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
   }
 
   Widget _userProfileForm() {
+    Size size = MediaQuery.of(context).size;
     return Form(
         key: _formKeyUserProfile,
         child: Column(
@@ -69,25 +70,10 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
               },
               child: CircleAvatar(
                 backgroundImage:
-                    AssetImage("assets/icons/default-user-icon.jpg"),
+                    AssetImage("assets/icons/default_user_icon.jpg"),
                 backgroundColor: Colors.transparent,
                 radius: 60.0,
               ),
-            ),
-            CircleAvatar(
-              backgroundImage:
-              AssetImage("assets/icons/default_avatar_free_icon.png"),//assets/icons/default-user-icon.jpg"
-              backgroundColor: Colors.transparent,
-              radius: 60.0,
-            ),
-            CircularProfileAvatar(
-              "https://firebasestorage.googleapis.com/v0/b/food-education-383e1.appspot.com/o/default_avatar_free_icon.svg?alt=media&token=a0e4f329-b236-4930-b5bf-838d86c9ada0",
-              //"assets/images/bread.jpg"
-              borderWidth: 4,
-              radius: 100.0,
-              elevation: 8,
-              animateFromOldImageOnUrlChange: true,
-              onTap: _chooseProfileAvatar,
             ),
             _formField(TextFormField(
                 controller: _nicknameController,
@@ -164,15 +150,27 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
                 Text("Female"),
               ],
             ),
-            TextButton(
-              onPressed: () {
-                if (_formKeyUserProfile.currentState.validate()) {
-                  _submitProfile();
-                }
-              },
-              child: Text("Next"),
-              // color: Theme.of(context).accentColor),
-            )
+            Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                width: size.width * 0.9,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(29),
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 40),
+                          backgroundColor: Colors.blue,
+                        ),
+                        onPressed: () {
+                          if (_formKeyUserProfile.currentState.validate()) {
+                            _submitProfile();
+                            // loginPageLogic.emailLogin(email, password);
+                          }
+                        },
+                        child: Text(
+                          'Next',
+                          style: TextStyle(color: Colors.white),
+                        )))),
           ],
         ));
   }
