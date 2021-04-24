@@ -1,6 +1,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_education_app/auth/components/login_form.dart';
+import 'package:food_education_app/constants.dart';
 
 class forgotPW extends StatefulWidget {
 
@@ -41,37 +43,77 @@ class _forgotPWState extends State<forgotPW> {
   }
 
   Widget _forgotPWForm() {
+    Size size = MediaQuery.of(context).size;
     return Form(
         key: _formKeyForgotPW,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Title: Forgot Password"),
-            TextFormField(
-                controller: _emailController,
-                decoration:
-                InputDecoration(icon: Icon(Icons.mail), labelText: 'Email'),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter your Email';
-                  }
-                  return null;
-                }),
+            Text("Forgot your password?",
+              style: TextStyle(
+                fontSize: 20.0
+              ),
+            ),
+            //SizedBox();
+            Text("Don't worry! Just fill in your email and",
+              style: TextStyle(
+                  fontSize: 15.0
+              ),
+            ),Text("we'll send you a link to reset your password.",
+              style: TextStyle(
+                  fontSize: 15.0
+              ),
+            ),
+
+   //     Size size = MediaQuery.of(context).size;
+            EmailFormField(emailController: _emailController),
 
             // Verify Button
-            FlatButton(
-                onPressed: () {
-                  if (_formKeyForgotPW.currentState.validate()) {
-                    _resetPW();
-                    _emailController.clear();
-                  }
-                },
-                child: Text("Submit"),
-                color: Theme
-                    .of(context)
-                    .accentColor),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              width: size.width * 0.9,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(29),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                    backgroundColor: Colors.red,
+                  ),
+                  onPressed: () {
+                    if (_formKeyForgotPW.currentState.validate()) {
+                      _resetPW();
+                      _emailController.clear();
+                    }
+                  },
+                  child: Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
           ],
         ));
+  }
+
+
+  InputDecoration _decoration(Icon icon, String hintText) {
+    return InputDecoration(
+      icon: icon,
+      hintText: hintText,
+      hintStyle: TextStyle(
+        color: kPrimaryColor,
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
+    );
   }
 
   void _resetPW() async {
@@ -101,7 +143,6 @@ class _forgotPWState extends State<forgotPW> {
     }
   }
 
-  // todo: forgotPW page dialog
   void _showErrorDialog(String title, String content) {
     showDialog<void>(
         context: context,

@@ -61,7 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     // Sign Up Form
                     _signUpForm(),
-                    // Login Button
+                    // Goto login Button
                     Container(
                       alignment: Alignment.bottomCenter,
                       child: TextButton(
