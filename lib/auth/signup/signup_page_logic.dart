@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:food_education_app/auth_service.dart';
+import 'package:food_education_app/auth/auth_service.dart';
 
 typedef ShowDialogCallback = void Function(String title, String content);
 typedef ShowLoading = void Function(bool loading);

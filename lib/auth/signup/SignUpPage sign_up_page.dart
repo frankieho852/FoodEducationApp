@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:food_education_app/auth/signup/signup_page_logic.dart';
-import 'package:food_education_app/auth_service.dart';
+import 'package:food_education_app/auth/auth_service.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/services/service_locator.dart';
 

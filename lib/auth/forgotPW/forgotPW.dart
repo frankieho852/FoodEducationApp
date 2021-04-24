@@ -82,7 +82,6 @@ class _forgotPWState extends State<forgotPW> {
                   onPressed: () {
                     if (_formKeyForgotPW.currentState.validate()) {
                       _resetPW();
-                      _emailController.clear();
                     }
                   },
                   child: Text(
@@ -97,24 +96,6 @@ class _forgotPWState extends State<forgotPW> {
   }
 
 
-  InputDecoration _decoration(Icon icon, String hintText) {
-    return InputDecoration(
-      icon: icon,
-      hintText: hintText,
-      hintStyle: TextStyle(
-        color: kPrimaryColor,
-      ),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: kPrimaryColor),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: kPrimaryColor),
-      ),
-      border: UnderlineInputBorder(
-        borderSide: BorderSide(color: kPrimaryColor),
-      ),
-    );
-  }
 
   void _resetPW() async {
     final email = _emailController.text.trim();
@@ -140,6 +121,8 @@ class _forgotPWState extends State<forgotPW> {
       } else {
         _showErrorDialog("Error", "Error code: ${authError.code}");
       }
+    } finally{
+      _emailController.clear();
     }
   }
 
@@ -162,4 +145,27 @@ class _forgotPWState extends State<forgotPW> {
           );
         });
   }
+
+/*
+  InputDecoration _decoration(Icon icon, String hintText) {
+    return InputDecoration(
+      icon: icon,
+      hintText: hintText,
+      hintStyle: TextStyle(
+        color: kPrimaryColor,
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: kPrimaryColor),
+      ),
+    );
+  }
+
+ */
+
 }

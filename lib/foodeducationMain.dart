@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_education_app/auth_service.dart';
+import 'package:food_education_app/auth/auth_service.dart';
 import 'package:food_education_app/pages/home/home_screen.dart';
 
 import 'components/bottom_nav_bar.dart';

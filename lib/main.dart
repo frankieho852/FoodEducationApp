@@ -3,17 +3,14 @@ import 'package:food_education_app/auth/forgotPW/forgotPW.dart';
 import 'package:food_education_app/auth/login/login_page.dart';
 import 'package:food_education_app/auth/signup/SignUpPage%20sign_up_page.dart';
 
-import 'package:food_education_app/foodeducation_flow.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
-import 'package:food_education_app/tempRubbishBin/Verification_page_phone.dart';
-
-import 'Verification_page_email.dart';
+import 'auth/Verification_page_email.dart';
 import 'tempRubbishBin/Verification_page_succeed.dart';
-import 'auth_service.dart';
+import 'auth/auth_service.dart';
 import 'foodeducationMain.dart';
 
-import 'new_userprofile.dart';
+import 'auth/new_userprofile.dart';
 
 void main() {
   setup();
