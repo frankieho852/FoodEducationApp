@@ -1,8 +1,11 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path_provider/path_provider.dart';
 
 class newUserProfilePage extends StatefulWidget {
   final VoidCallback logOutBtn;
@@ -32,6 +35,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
 
   final _formKeyUserProfile = GlobalKey<FormState>();
 
+  bool _showBottomSheet = false;
   bool _loading = false;
 
   @override
@@ -52,6 +56,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(child: _userProfileForm()),
       ),
+      // bottomSheet: _showBottomSheet? _bottomSheet() : null
     );
   }
 
@@ -65,6 +70,9 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
             Text("Create User Profile"),
             GestureDetector(
               onTap: () {
+                setState(() {
+                  //_showBottomSheet = true;
+                });
                 _chooseProfileAvatar();
                 //do what you want here
               },
@@ -227,7 +235,34 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
         });
   }
 
-  void _submitProfile() {
+  void _bottomSheet(context) {
+    showModalBottomSheet(
+        // isScrollControlled: true,
+        // elevation: 5,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              child: Wrap(children: [
+            ListTile(
+                leading: Icon(Icons.collections),
+                title: Text("Gallery"),
+                onTap: () {
+
+                  Navigator.of(context).pop();
+                }),
+
+            ListTile(
+                leading: Icon(Icons.photo_camera),
+                title: Text("Take Photo"),
+                onTap: () {
+
+                  Navigator.of(context).pop();
+                })
+          ]));
+        });
+  }
+
+  Future<void> _submitProfile() async {
     final nickname = _nicknameController.text.trim();
     final age = _ageController.text.trim();
     final height = _heightController.text.trim();
@@ -238,8 +273,19 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
         _loading = true;
       });
 
+      // upload photo
+      firebase_storage.FirebaseStorage storage =
+          firebase_storage.FirebaseStorage.instance;
+      firebase_storage.Reference ref =
+          firebase_storage.FirebaseStorage.instance.ref('/notes.txt]');
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String filePath = '${appDocDir.absolute}/file-to-upload.png';
+
       User user = FirebaseAuth.instance.currentUser;
-      FirebaseFirestore.instance.collection('userProfile').doc(user.uid).set({
+      await FirebaseFirestore.instance
+          .collection('userProfile')
+          .doc(user.uid)
+          .set({
         'name': nickname,
         'age': age,
         'height': height,

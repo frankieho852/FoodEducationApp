@@ -5,6 +5,7 @@ import 'package:food_education_app/constants.dart';
 
 import 'package:food_education_app/services/service_locator.dart';
 // can remove
+/*
 class SignUpButton extends StatelessWidget {
   SignUpButton({
     Key key,
@@ -50,3 +51,5 @@ class SignUpButton extends StatelessWidget {
     );
   }
 }
+
+ */
