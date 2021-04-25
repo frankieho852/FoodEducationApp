@@ -35,7 +35,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
 
   final _formKeyUserProfile = GlobalKey<FormState>();
 
-  bool _showBottomSheet = false;
+ // bool _showBottomSheet = false;
   bool _loading = false;
 
   @override
@@ -70,10 +70,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
             Text("Create User Profile"),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  //_showBottomSheet = true;
-                });
-                _chooseProfileAvatar();
+                _bottomSheet(context);
                 //do what you want here
               },
               child: CircleAvatar(
@@ -247,7 +244,8 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
                 leading: Icon(Icons.collections),
                 title: Text("Gallery"),
                 onTap: () {
-
+                  // todo: choose user icon from gallery
+                  _chooseProfileAvatar();
                   Navigator.of(context).pop();
                 }),
 
@@ -255,7 +253,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
                 leading: Icon(Icons.photo_camera),
                 title: Text("Take Photo"),
                 onTap: () {
-
+                    // todo: take photo for icon
                   Navigator.of(context).pop();
                 })
           ]));
@@ -273,13 +271,15 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
         _loading = true;
       });
 
-      // upload photo
+
+      /*
       firebase_storage.FirebaseStorage storage =
           firebase_storage.FirebaseStorage.instance;
       firebase_storage.Reference ref =
           firebase_storage.FirebaseStorage.instance.ref('/notes.txt]');
       Directory appDocDir = await getApplicationDocumentsDirectory();
       String filePath = '${appDocDir.absolute}/file-to-upload.png';
+       */
 
       User user = FirebaseAuth.instance.currentUser;
       await FirebaseFirestore.instance
