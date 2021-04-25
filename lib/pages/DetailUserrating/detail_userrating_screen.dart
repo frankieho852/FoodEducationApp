@@ -34,12 +34,16 @@ class DetailUserrating extends StatelessWidget {
           //Text("Loading");
         }
 
-        List<Userrating> ratinglist=[//todo: temp value
+
+        List<Userrating> ratinglist=[];
+        //todo: temp value
+        /*
           Userrating(productname:product.name,name:"Figo",image:"assets/images/tempUserpicture.jpg",star:4,comment:"It taste sweet"),
           Userrating(productname:product.name,name:"Sam",image:"assets/images/tempUserpicture1.jpg",star:2.5,comment:"It taste so bad"),
           Userrating(productname:product.name,name:"Ray",image:"assets/images/tempUserpicture2.jpg",star:3.5,comment:"It taste ok"),
           Userrating(productname:product.name,name:"Frankie",image:"assets/images/tempUserpicture3.jpg",star:1,comment:"I hate lemon tea and this is worst lemon tea ever."),
-        ];
+
+           */
         snapshot.data.docs.map((DocumentSnapshot productDoc) {
 
           productDoc.reference.collection('commentSet').get().then((snapshot) {
@@ -60,22 +64,6 @@ class DetailUserrating extends StatelessWidget {
             }
           });
         });
-
-        /*
-        List<Userrating> ratinglist = [
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/tempUserpicture.jpg",star:5.0,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu2 very long nammmmmmmmmmmmmmmmmmmme",image:"assets/images/tempUserpicture.jpg",star:1,comment:"It taste shit"),
-          Userrating(productname:product.name,name:"Figo Liu3",image:"assets/images/tempUserpicture.jpg",star:3.5,comment:"It taste ok"),
-          Userrating(productname:product.name,name:"Figo Liu4",image:"assets/images/tempUserpicture.jpg",star:1.5,comment:"Long commentIt taste sweet ddkfsdfl sdljfkdj ldd k l sljsfksjf ks kjk j ljf lkfskjslkjiwo weojejfwjfo jwjejfijfef  foefijwifwiefefifjw  wfojfw"),
-          Userrating(productname:product.name,name:"Figo Liu5",image:"assets/images/bread.jpg",star:4.1,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Figo Liu",image:"assets/images/bread.jpg",star:3.4,comment:"It taste sweet"),
-        ];
-         */
 
         return new Scaffold(
           appBar: buildAppBar(product.name),

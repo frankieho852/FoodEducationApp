@@ -16,6 +16,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     SizeConfig().init(context);// this is important for using proportionatescreen function
     return Container(
       // explanation: margin between this container and "Recommended section title

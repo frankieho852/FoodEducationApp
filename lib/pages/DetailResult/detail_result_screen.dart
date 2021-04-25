@@ -35,7 +35,6 @@ class _DetailResultState extends State<DetailResult> {
 
     //testdown();
 
-
     //todo:function 1 and store in tempfood
     //print(foodProductCategory);
     _getProdcutData();
@@ -51,8 +50,6 @@ class _DetailResultState extends State<DetailResult> {
     _findAlt2product();
 
    // _setLoading(false);
-
-
   }
 
   @override
@@ -109,9 +106,7 @@ class _DetailResultState extends State<DetailResult> {
               }
             }
           ),
-
        */
-
         //bottomNavigationBar: MyBottomNavBar(),
         );
   }
