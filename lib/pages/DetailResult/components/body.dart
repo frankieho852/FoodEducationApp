@@ -15,7 +15,7 @@ class Body extends StatelessWidget {
   }) : super(key: key);
   final FoodProduct product;
   final List<DailyIntake> daily;
-  final List<AlternativeProduct> alt2product;
+  final List <AlternativeProduct> alt2product;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Header(size: size, product: product, scoreArray: scoreArray),
+          Header(size: size,product:product,scoreArray:scoreArray),
           SizedBox(height: size.height * 0.02),
           NutritionBox(
             size: size,

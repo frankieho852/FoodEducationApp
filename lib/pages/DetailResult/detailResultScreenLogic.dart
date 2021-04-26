@@ -13,27 +13,50 @@ typedef ShowLoading = void Function(bool loading);
 class DetailResultScreenLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
   ShowLoading _setLoading;
-  // AuthService _authService;
   ShowDialogCallback _onGetDataError;
+
+  FoodProduct product;
+  List<DailyIntake> tempDaily = [];
+  List<AlternativeProduct> alt2product = [];
+
+  String foodProductCategory;
 
   CollectionReference foodProductCollection =
   FirebaseFirestore.instance.collection('foodProduct');
 
+//ShowDialogCallback onGetDataError, ShowLoading loading
+  Future<bool> setup(String searchname) async {
+    // _authService = authService;
+    // _onGetDataError = onGetDataError;
+    // _setLoading = loading;
 
-  void setup(ShowDialogCallback onGetDataError, ShowLoading loading) {
-   // _authService = authService;
-    _onGetDataError = onGetDataError;
-    _setLoading = loading;
+    // getUserInfo();
+    //findMaxMin();
+    //findAlt2product();
+//Vita TM Low Sugar Lemon Tea Drink
+    bool a = await getProductData(searchname).then((value) => true);
+    bool b = await getUserInfo().then((value) => true);
+    bool c = await findMaxMin().then((value) => true);
+    bool d = await findAlt2product().then((value) => true);
+    print("checkbool");
+    print(a); print(b);
+    print("checkmaxmin");
+    print(c); print(d);
+
+    if( a&&b&&c&&d){
+
+      return true;
+    }
+    return null;
   }
 
   Future<void> getProductData(String searchname) async{
-
     try {                             //searchname
-      await foodProductCollection.doc("Temp milk").get().then((snapshot) {
-       // foodProductCategory = ;
-        return FoodProduct(
+      await foodProductCollection.doc(searchname).get().then((snapshot) {
+        foodProductCategory = snapshot.get("category");
+        product = new FoodProduct(
             name: snapshot.get("name"),
-            category: snapshot.get("category"),
+            category: foodProductCategory,
             volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
             energy: snapshot.get("energy").toDouble(),
             protein: snapshot.get("protein").toDouble(),
@@ -48,7 +71,10 @@ class DetailResultScreenLogic {
             grade: snapshot.get("grade"),
             ingredients: new List<String>.from(snapshot.data()["ingredients"]),
             //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
-            star: snapshot.get("star").toDouble());
+            star: snapshot.get("star").toDouble()
+        );
+        product.calculateTotalNutrient();
+        product.printproduct();
       });
     } on StateError catch (e) {
       print("Error-getproduct:  " + e.message);
@@ -80,10 +106,9 @@ class DetailResultScreenLogic {
     //  return true;
   }
 
-  Future<List<DailyIntake>> findMaxMin(String productCategory) async {
+  Future<void> findMaxMin() async {
     // 3
     int dataSize;
-    List<DailyIntake> tempDaily = [];
 
     List<String> labelTag = [
       "energy",
@@ -98,22 +123,27 @@ class DetailResultScreenLogic {
 
     try {
       var categoryResult =
-      foodProductCollection.where('category', isEqualTo: productCategory);
+      foodProductCollection.where('category', isEqualTo: foodProductCategory);
       await categoryResult.get().then((value) {
         print("size bug");
         print(value.size);
         print(value.size.runtimeType);
-        //dataSize = value.size;
+        dataSize = value.size;
       });
 
       if (dataSize == 1 || dataSize == 0) {
         for (String tempLabel in labelTag) {
-          await categoryResult.get().then((value) => null);
-          tempDaily.add(DailyIntake(
-              nutrient: tempLabel,
-              maxSametype: 5,
-              minSametype: 2,
-              recDaily: 100));
+          await categoryResult.get().then((value) {
+
+
+
+            tempDaily.add(DailyIntake(
+                nutrient: tempLabel,
+                maxSametype: value.docs.first.data()[tempLabel].toDouble(),
+                minSametype: value.docs.first.data()[tempLabel].toDouble(),
+                recDaily: 100));
+          });
+
         }
       } else {
         for (String tempLabel in labelTag) {
@@ -141,7 +171,6 @@ class DetailResultScreenLogic {
                   (value) => min = value.docs.first.data()[tempLabel].toDouble());
 
           log("findmaxmin3 max: " + max.toString());
-          print("game");
           print(max);
           print(min);
           log("findmaxmin3 min: " + min.toString());
@@ -152,22 +181,20 @@ class DetailResultScreenLogic {
               recDaily: 100));
         }
       }
-      return tempDaily;
+      //return tempDaily;
     } on StateError catch (e) {
       print("Error - findmaxmin: " + e.message);
-      // return false;
+
     }
     print(tempDaily.length);
     // return true;
   }
 
-  Future<List<AlternativeProduct>> findAlt2product() async {
+  Future<void> findAlt2product() async {
     // todo: can change to random later
-    List<AlternativeProduct> alt2product = [];
-    alt2product.clear();
     try {
       var getalt2product = foodProductCollection
-          .where('category', isEqualTo: "foodProductCategory")
+          .where('category', isEqualTo: foodProductCategory)
           .limit(2);
 
       await getalt2product.get().then((value) {
@@ -178,12 +205,9 @@ class DetailResultScreenLogic {
               name: document.data()["name"], image: document.data()["image"]));
         }
       });
-
-      return alt2product;
+     // return alt2product;
     } on StateError catch (e) {
       print("Error: getalt2product");
-      //return false;
     }
-    //  return true;
   }
 }

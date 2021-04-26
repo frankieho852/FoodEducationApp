@@ -13,30 +13,32 @@ import 'package:food_education_app/services/service_locator.dart';
 class DetailResult extends StatefulWidget {
   final String searchname;
 
-  DetailResult({Key key, @required this.searchname}) : super(key: key);
+  const DetailResult({Key key, @required this.searchname}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _DetailResultState();
+  State<StatefulWidget> createState() => _DetailResultState(); //searchName: this.searchname
+
 }
 
 class _DetailResultState extends State<DetailResult> {
+  //String searchName;
+ // _DetailResultState({this.searchName});
+  //Color passedColor;
+  //   String passedColorName;
+  //   _PageTwoState({this.passedColor, this.passedColorName});
   CollectionReference foodProductCollection =
       FirebaseFirestore.instance.collection('foodProduct');
 
   int dataSize;
   String foodProductCategory;
   bool _loading = false;
-  FoodProduct tempfood = new FoodProduct();
-  List<DailyIntake> tempDaily = [];
-  List<AlternativeProduct> alt2product = [];
 
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    final detailResultLogic = getIt<DetailResultScreenLogic>();
+    //detailResultLogic.
     //detailResultLogic.setup((title, content) { }, (loading) { })
-
     /*
     //  _setLoading(true);
     //todo:function 1 and store in tempfood
@@ -44,51 +46,27 @@ class _DetailResultState extends State<DetailResult> {
     _getProdcutData();
     //tempfood.calculateTotalNutrient();
     //tempfood.printproduct();
-
     //todo: function 5 get current user height weight sex->calculate recDaily
     _getUserInfo();
-
     //todo: function 4 get maxSametype,minSametype by category
     _findMaxMin(foodProductCategory);
     //todo:function 3 and store in alt2product
     _findAlt2product();
     // _setLoading(false);
-    
      */
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    print("start");
 
-   // _getProdcutData();
-   // _findMaxMin(foodProductCategory);
+    final detailResultLogic = getIt<DetailResultScreenLogic>();
 
-    //  print(dataSize);
-    // _setLoading(false);
-    //print("searchname: " + widget.searchname);
-    // print("TempObject2: " + tempfood.name);
-    //  print("TempObject2: " + tempfood.category);
-    //   print("alt2: "+ alt2product.last.name);
-    //tempfood.calculateTotalNutrient();
-    print("HIHI");
-   // print(tempDaily.length);
-    if (tempfood.name == null) {
-      log("tempfood is null");
-    } else if (tempDaily.isEmpty) {
-      log("tempDaily is null");
-    } else if (alt2product.isEmpty) {
-      log("alt2product is null");
-    } else {
-      log("other bug");
-    }
-
-    /*
-    return FutureBuilder<QuerySnapshot>(
-        future: detailResultLogic.test1("searchname"),
-        builder: (BuildContext context, snapshot) { //AsyncSnapshot<QuerySnapshot> snapshot
+    return FutureBuilder<bool>(
+        future: detailResultLogic.setup(widget.searchname),
+        builder: (BuildContext context, snapshot) {
+          //AsyncSnapshot<QuerySnapshot> snapshot
           if (snapshot.hasError) {
+            log(snapshot.error.toString());
             return Container(
               alignment: Alignment.center,
               child: Text('Error'),
@@ -102,12 +80,13 @@ class _DetailResultState extends State<DetailResult> {
             );
             //Text("Loading");
           }
-     */
+
+          print("alt2product length:" + detailResultLogic.alt2product.length.toString());
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
               title: Text(
-                tempfood.name,
+                widget.searchname, //tempfood.name
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -115,17 +94,19 @@ class _DetailResultState extends State<DetailResult> {
               ),
             ),
 
-            body: Body(   // snapshot[0-3]
-              product: tempfood,
-              daily: tempDaily,
-              alt2product: alt2product,
+            body: Body(
+              // snapshot[0-3]
+              product: detailResultLogic.product,  //detailResultLogic
+              daily: detailResultLogic.tempDaily,
+              alt2product: detailResultLogic.alt2product,
             ), // Center(child: CircularProgressIndicator()):
 
             //bottomNavigationBar: MyBottomNavBar(),
           );
+        });
   }
 
-  /*
+/*
   // todo: nned to update barcode search function later
   void _barcodeSearch(String barcodeID) {
     // 2 get foodproduct, you must pass barcode(String) to me
