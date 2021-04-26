@@ -66,6 +66,7 @@ class _DetailResultState extends State<DetailResult> {
         builder: (BuildContext context, snapshot) {
           //AsyncSnapshot<QuerySnapshot> snapshot
           if (snapshot.hasError) {
+            log("Steam error");
             log(snapshot.error.toString());
             return Container(
               alignment: Alignment.center,

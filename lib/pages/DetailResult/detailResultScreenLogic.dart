@@ -34,6 +34,7 @@ class DetailResultScreenLogic {
     //findMaxMin();
     //findAlt2product();
 //Vita TM Low Sugar Lemon Tea Drink
+    loadingNotifier.value = true;
     bool a = await getProductData(searchname).then((value) => true);
     bool b = await getUserInfo().then((value) => true);
     bool c = await findMaxMin().then((value) => true);
@@ -42,16 +43,17 @@ class DetailResultScreenLogic {
     print(a); print(b);
     print("checkmaxmin");
     print(c); print(d);
-
+    loadingNotifier.value = false;
     if( a&&b&&c&&d){
 
       return true;
     }
-    return null;
+    return true;
   }
 
   Future<void> getProductData(String searchname) async{
     try {                             //searchname
+      log("SearchnameinLogic: "+ searchname);
       await foodProductCollection.doc(searchname).get().then((snapshot) {
         foodProductCategory = snapshot.get("category");
         product = new FoodProduct(
@@ -192,6 +194,7 @@ class DetailResultScreenLogic {
 
   Future<void> findAlt2product() async {
     // todo: can change to random later
+    alt2product.clear();
     try {
       var getalt2product = foodProductCollection
           .where('category', isEqualTo: foodProductCategory)
