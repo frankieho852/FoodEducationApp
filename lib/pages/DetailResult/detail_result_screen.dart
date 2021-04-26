@@ -33,6 +33,11 @@ class _DetailResultState extends State<DetailResult> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    final detailResultLogic = getIt<DetailResultScreenLogic>();
+    //detailResultLogic.setup((title, content) { }, (loading) { })
+
+    /*
     //  _setLoading(true);
     //todo:function 1 and store in tempfood
     //print(foodProductCategory);
@@ -48,19 +53,17 @@ class _DetailResultState extends State<DetailResult> {
     //todo:function 3 and store in alt2product
     _findAlt2product();
     // _setLoading(false);
+    
+     */
+    
   }
 
   @override
   Widget build(BuildContext context) {
     print("start");
-    /*
-    getIt
-        .isReady<AppModel>()
-        .then((_) => getIt<AppModel>().addListener(update));
-     */
 
-    _getProdcutData();
-    _findMaxMin(foodProductCategory);
+   // _getProdcutData();
+   // _findMaxMin(foodProductCategory);
 
     //  print(dataSize);
     // _setLoading(false);
@@ -70,7 +73,7 @@ class _DetailResultState extends State<DetailResult> {
     //   print("alt2: "+ alt2product.last.name);
     //tempfood.calculateTotalNutrient();
     print("HIHI");
-    print(tempDaily.length);
+   // print(tempDaily.length);
     if (tempfood.name == null) {
       log("tempfood is null");
     } else if (tempDaily.isEmpty) {
@@ -81,8 +84,7 @@ class _DetailResultState extends State<DetailResult> {
       log("other bug");
     }
 
-    final detailResultLogic = getIt<DetailResultScreenLogic>();
-
+    /*
     return FutureBuilder<QuerySnapshot>(
         future: detailResultLogic.test1("searchname"),
         builder: (BuildContext context, snapshot) { //AsyncSnapshot<QuerySnapshot> snapshot
@@ -100,7 +102,7 @@ class _DetailResultState extends State<DetailResult> {
             );
             //Text("Loading");
           }
-
+     */
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
@@ -121,9 +123,9 @@ class _DetailResultState extends State<DetailResult> {
 
             //bottomNavigationBar: MyBottomNavBar(),
           );
-        });
   }
 
+  /*
   // todo: nned to update barcode search function later
   void _barcodeSearch(String barcodeID) {
     // 2 get foodproduct, you must pass barcode(String) to me
@@ -314,4 +316,5 @@ class _DetailResultState extends State<DetailResult> {
     }
     //  return true;
   }
+   */
 }

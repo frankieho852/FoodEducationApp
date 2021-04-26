@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:food_education_app/alternativeproduct.dart';
+import 'package:food_education_app/dailyintake.dart';
 import 'package:food_education_app/foodproduct.dart';
 
 typedef ShowDialogCallback = void Function(String title, String content);
@@ -9,23 +14,24 @@ class DetailResultScreenLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
   ShowLoading _setLoading;
   // AuthService _authService;
-  ShowDialogCallback _onSignupError;
+  ShowDialogCallback _onGetDataError;
+
+  CollectionReference foodProductCollection =
+  FirebaseFirestore.instance.collection('foodProduct');
 
 
-  void setup(ShowDialogCallback onSignupError, ShowLoading loading) {
+  void setup(ShowDialogCallback onGetDataError, ShowLoading loading) {
    // _authService = authService;
-    _onSignupError = onSignupError;
+    _onGetDataError = onGetDataError;
     _setLoading = loading;
   }
 
+  Future<void> getProductData(String searchname) async{
 
-  Future<void> test1(String searchname) async{
-    CollectionReference foodProductCollection =
-    FirebaseFirestore.instance.collection('foodProduct');
-    try {
+    try {                             //searchname
       await foodProductCollection.doc("Temp milk").get().then((snapshot) {
        // foodProductCategory = ;
-        tempfood.copy(FoodProduct(
+        return FoodProduct(
             name: snapshot.get("name"),
             category: snapshot.get("category"),
             volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
@@ -42,7 +48,7 @@ class DetailResultScreenLogic {
             grade: snapshot.get("grade"),
             ingredients: new List<String>.from(snapshot.data()["ingredients"]),
             //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
-            star: snapshot.get("star").toDouble()));
+            star: snapshot.get("star").toDouble());
       });
     } on StateError catch (e) {
       print("Error-getproduct:  " + e.message);
@@ -53,47 +59,11 @@ class DetailResultScreenLogic {
     }
   }
 
-
-  /*
-   void _getProdcutData() async {
-    //_setLoading(true);
-    try {
-      await foodProductCollection.doc("Temp milk").get().then((snapshot) {
-        foodProductCategory = snapshot.get("category");
-        tempfood.copy(FoodProduct(
-            name: snapshot.get("name"),
-            category: foodProductCategory,
-            volumeOrweight: snapshot.get("volumeOrweight").toDouble(),
-            energy: snapshot.get("energy").toDouble(),
-            protein: snapshot.get("protein").toDouble(),
-            totalFat: snapshot.get("totalFat").toDouble(),
-            saturatedFat: snapshot.get("saturatedFat").toDouble(),
-            transFat: snapshot.get("transFat").toDouble(),
-            carbohydrates: snapshot.get("carbohydrates").toDouble(),
-            dietarytFibre: snapshot.get("dietarytFibre").toDouble(),
-            sugars: snapshot.get("sugars").toDouble(),
-            sodium: snapshot.get("sodium").toDouble(),
-            image: snapshot.get("image"),
-            grade: snapshot.get("grade"),
-            ingredients: new List<String>.from(snapshot.data()["ingredients"]),
-            //snapshot.data()["ingredients"],//List.castFrom(snapshot.data()["ingredients"]), //
-            star: snapshot.get("star").toDouble()));
-      });
-    } on StateError catch (e) {
-      print("Error-getproduct:  " + e.message);
-      //   return false;
-    } finally {
-      //_setLoading(false);
-      print("in abc: " + tempfood.name);
-    }
-    //  return true;
-  }
-
-  void _getUserInfo() async {
+  Future<void> getUserInfo() async {
     // 5
     final User _user = FirebaseAuth.instance.currentUser;
     DocumentReference userInfo =
-        FirebaseFirestore.instance.collection('userprofile').doc(_user.uid);
+    FirebaseFirestore.instance.collection('userprofile').doc(_user.uid);
 
     double height, weight;
     String sex;
@@ -110,10 +80,11 @@ class DetailResultScreenLogic {
     //  return true;
   }
 
-  void _findMaxMin(String productCategory) async {
+  Future<List<DailyIntake>> findMaxMin(String productCategory) async {
     // 3
-    //int dataSize=0;
-    tempDaily.clear();
+    int dataSize;
+    List<DailyIntake> tempDaily = [];
+
     List<String> labelTag = [
       "energy",
       "protein",
@@ -124,17 +95,17 @@ class DetailResultScreenLogic {
       "sugars",
       "sodium"
     ];
+
     try {
       var categoryResult =
-          foodProductCollection.where('category', isEqualTo: productCategory);
+      foodProductCollection.where('category', isEqualTo: productCategory);
       await categoryResult.get().then((value) {
         print("size bug");
         print(value.size);
         print(value.size.runtimeType);
-        dataSize = value.size;
+        //dataSize = value.size;
       });
-      print("size bug2");
-      print(dataSize);
+
       if (dataSize == 1 || dataSize == 0) {
         for (String tempLabel in labelTag) {
           await categoryResult.get().then((value) => null);
@@ -167,7 +138,7 @@ class DetailResultScreenLogic {
           //max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
 
           await minQ.get().then(
-              (value) => min = value.docs.first.data()[tempLabel].toDouble());
+                  (value) => min = value.docs.first.data()[tempLabel].toDouble());
 
           log("findmaxmin3 max: " + max.toString());
           print("game");
@@ -181,6 +152,7 @@ class DetailResultScreenLogic {
               recDaily: 100));
         }
       }
+      return tempDaily;
     } on StateError catch (e) {
       print("Error - findmaxmin: " + e.message);
       // return false;
@@ -189,12 +161,13 @@ class DetailResultScreenLogic {
     // return true;
   }
 
-  void _findAlt2product() async {
+  Future<List<AlternativeProduct>> findAlt2product() async {
     // todo: can change to random later
+    List<AlternativeProduct> alt2product = [];
     alt2product.clear();
     try {
       var getalt2product = foodProductCollection
-          .where('category', isEqualTo: foodProductCategory)
+          .where('category', isEqualTo: "foodProductCategory")
           .limit(2);
 
       await getalt2product.get().then((value) {
@@ -205,11 +178,12 @@ class DetailResultScreenLogic {
               name: document.data()["name"], image: document.data()["image"]));
         }
       });
+
+      return alt2product;
     } on StateError catch (e) {
       print("Error: getalt2product");
       //return false;
     }
     //  return true;
   }
-   */
 }
