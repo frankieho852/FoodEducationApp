@@ -34,7 +34,9 @@ class DetailResultScreenLogic {
     //findMaxMin();
     //findAlt2product();
 //Vita TM Low Sugar Lemon Tea Drink
-    loadingNotifier.value = true;
+    loadingNotifier.value = true;   //Temp milk
+    print("show your name: " + searchname);
+
     bool a = await getProductData(searchname).then((value) => true);
     bool b = await getUserInfo().then((value) => true);
     bool c = await findMaxMin().then((value) => true);
@@ -45,10 +47,11 @@ class DetailResultScreenLogic {
     print(c); print(d);
     loadingNotifier.value = false;
     if( a&&b&&c&&d){
-
       return true;
+    //  yield true;
+      //return true;
     }
-    return true;
+    return null;
   }
 
   Future<void> getProductData(String searchname) async{
@@ -212,5 +215,9 @@ class DetailResultScreenLogic {
     } on StateError catch (e) {
       print("Error: getalt2product");
     }
+  }
+
+  void clearData(){
+
   }
 }
