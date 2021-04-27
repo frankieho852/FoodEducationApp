@@ -118,7 +118,7 @@ class _SearchpageState extends State<Searchpage> {
     FirebaseFirestore.instance.collection('foodProduct');
 
     // method 2
-    foodProductCollection.orderBy('name').startAt([_searchText]).get().then((value) {
+    foodProductCollection.orderBy('name').startAt([_searchText]).endAt([_searchText +"\uf8ff"]).get().then((value) {
       List tempList=[];
       //print(value.docsd);
       for(DocumentSnapshot product in value.docs){
@@ -129,7 +129,7 @@ class _SearchpageState extends State<Searchpage> {
         names = tempList;
         print("names:");
         print(names);
-        names.sort();
+        names.sort(); // todo: can remove
         filteredNames = [];// not showing any result when initstate
       });
     });
