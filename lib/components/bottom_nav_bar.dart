@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 import 'package:food_education_app/pages/home/home_screen.dart';
-
+import 'package:provider/provider.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 import 'package:food_education_app/pages/Search/searchpage.dart';
 
@@ -31,58 +31,76 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _state.selected,
-        children: <Widget>[
-          HomeScreen(),
-          HomeScreen(),
-          HomeScreen(),
+    return ChangeNotifierProvider(
+        create: (_) => _state,
+        builder: (context, child) {
+          context.watch<SSBottomBarState>();
+          return Scaffold(
+            body: IndexedStack(
+              index: _state.selected,
+              children: <Widget>[
+                HomeScreen(),
+                HomeScreen(),
+                HomeScreen(),
 
-        ],
-      ),
-      bottomNavigationBar: SSBottomNav(
-        items: items,
-        state: _state,
-        color: Color(0xFF00A299),
-        selectedColor: Colors.white,
-        unselectedColor: Colors.grey[700],
-        visible: _isVisible,
-        bottomSheetWidget: _bottomSheet(),
-        showBottomSheetAt: 1,
-      ),
+              ],
+            ),
+            bottomNavigationBar: SSBottomNav(
+              items: items,
+              state: _state,
+              color: Color(0xFF00A299),
+              selectedColor: Colors.white,
+              unselectedColor: Colors.grey[700],
+              visible: _isVisible,
+              bottomSheetWidget: _bottomSheet(),
+              showBottomSheetAt: 1,
+            ),
+          );
+        },
     );
+
   }
 
-  Widget _bottomSheet() => Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            ListTile(
-              leading: Icon(Icons.print),
-              title: Text('UI Testing'),
-              onTap: () => Navigator.push(//temp location for editing detail result page (figo)
-                  context,
-                  MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.camera_alt),
-              title: Text('Barcode Scanner'),//todo:ray can add your barcode here
-              // onTap: () => Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
-              // ),
-            ),
-            ListTile(
-              leading: Icon(Icons.title),
-              title: Text('Text Input'),
-              onTap: () => Navigator.push(//temp location for editing detail result page (figo)
-                context,
-                MaterialPageRoute(builder: (context)=> Searchpage())
-              ),
-            ),
-          ],
-        ),
-      );
+  Widget _bottomSheet() {
+
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          ListTile(
+            leading: Icon(Icons.print),
+            title: Text('UI Testing'),
+            onTap: () =>
+                Navigator
+                    .push( //temp location for editing detail result page (figo)
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailResult(searchname: "vita",))
+                ),
+          ),
+          ListTile(
+            leading: Icon(Icons.camera_alt),
+            title: Text('Barcode Scanner'), //todo:ray can add your barcode here
+             onTap: () => Navigator.maybePop(context)
+            //Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
+            // ),
+          ),
+          ListTile(
+            leading: Icon(Icons.title),
+            title: Text('Text Input'),
+            onTap: () =>
+                Navigator
+                    .push( //temp location for editing detail result page (figo)
+                    context,
+                    MaterialPageRoute(builder: (context) => Searchpage())
+                ),
+          ),
+        ],
+      ),
+    );
+
+
+  }
 }
