@@ -3,6 +3,7 @@
 class FoodProduct {
   String name;
   String category;
+  String barcode;
   double volumeOrweight;
 
   double energy = 0;
@@ -35,6 +36,7 @@ class FoodProduct {
     this.name,
     this.category,
     this.volumeOrweight,
+    this.barcode,
     this.energy,
     this.protein,
     this.totalFat,
@@ -64,6 +66,7 @@ class FoodProduct {
   FoodProduct copy(FoodProduct temp){
     this.name = temp.name;
     this.category = temp.category;
+    this.barcod=temp.barcode;
     this.volumeOrweight= temp.volumeOrweight;
 
     this.energy = temp.energy;
@@ -214,7 +217,7 @@ class FoodProduct {
       this.saturatedFat_100 = this.saturatedFat / this.volumeOrweight;
       this.transFat_100 = this.transFat / this.volumeOrweight;
       this.carbohydrates_100 = this.carbohydrates / this.volumeOrweight;
-      //this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
+      this.dietarytFibre_100 = this.dietarytFibre / this.volumeOrweight;
       this.sugars_100 = this.sugars / this.volumeOrweight;
       this.sodium_100 = this.sodium / this.volumeOrweight;
 
