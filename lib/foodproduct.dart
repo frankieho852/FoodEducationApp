@@ -66,7 +66,7 @@ class FoodProduct {
   FoodProduct copy(FoodProduct temp){
     this.name = temp.name;
     this.category = temp.category;
-    this.barcod=temp.barcode;
+    this.barcode=temp.barcode;
     this.volumeOrweight= temp.volumeOrweight;
 
     this.energy = temp.energy;
