@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class Searchpage extends StatefulWidget {
   @override
@@ -61,7 +61,7 @@ class _SearchpageState extends State<Searchpage> {
       actions: [
         Flexible(
             child: InkWell(
-              // onTap:(){scanBarcodeNormal();},
+              onTap:(){scanBarcodeNormal();},
               child: Container(
                 margin: const EdgeInsets.all(8.0),
                 width: 30,
@@ -104,21 +104,29 @@ class _SearchpageState extends State<Searchpage> {
       },
     );
   }
-  // Future<void> scanBarcodeNormal() async {
-  //   String barcodeScanRes;
-  //   try {
-  //     barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-  //         "#ff6666", "Cancel", true, ScanMode.BARCODE);
-  //     print(barcodeScanRes);
-  //   } on PlatformException {
-  //     barcodeScanRes = 'Failed to get platform version.';
-  //   }
-  //
-  //   if (!mounted) return;
-  //   setState(() {
-  //     _scanBarcode = barcodeScanRes;
-  //   });
-  // }
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+      //todo:use barcodeScanRes to find the specific product and them
+      String name="todo";
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailResult(
+                searchname: name,
+              )));
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
