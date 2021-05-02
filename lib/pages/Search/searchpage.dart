@@ -145,8 +145,8 @@ class _SearchpageState extends State<Searchpage> {
     CollectionReference foodProductCollection =
     FirebaseFirestore.instance.collection('foodProduct');
 
-    List<String> x = ["brand", "a", "Tee"];
-    List<String> b = _searchText.split(' ');
+//   List<String> x = ["brand", "a", "Tee"];
+  //  List<String> b = _searchText.split(' ');
     // method 2
 
     // foodProductCollection.orderBy('name').where('keywords', arrayContainsAny:b).limit(10).get().then((value) {
