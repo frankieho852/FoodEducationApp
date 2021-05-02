@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class Searchpage extends StatefulWidget {
   @override
@@ -10,6 +13,7 @@ class Searchpage extends StatefulWidget {
 class _SearchpageState extends State<Searchpage> {
   final TextEditingController _filter = new TextEditingController();
   String _searchText = "";
+  String _scanBarcode='unknown';
   List names=[];
   List filteredNames = [];
   Icon _searchIcon = new Icon(Icons.search);
@@ -54,6 +58,16 @@ class _SearchpageState extends State<Searchpage> {
         icon: _searchIcon,
         onPressed: _searchPressed,
       ),
+      actions: [
+        Flexible(
+            child: InkWell(
+              onTap:(){scanBarcodeNormal();},
+              child: Container(
+                margin: const EdgeInsets.all(8.0),
+                width: 30,
+                  child: SvgPicture.asset('assets/icons/qr-code.svg')),
+            )),
+      ],
     );
   }
 
@@ -90,7 +104,29 @@ class _SearchpageState extends State<Searchpage> {
       },
     );
   }
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+      //todo:use barcodeScanRes to find the specific product and them
+      String name="todo";
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DetailResult(
+                searchname: name,
+              )));
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
 
+    if (!mounted) return;
+    setState(() {
+      _scanBarcode = barcodeScanRes;
+    });
+  }
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
