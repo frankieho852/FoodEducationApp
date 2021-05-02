@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/auth/forgotPW/forgotPW.dart';
 import 'package:food_education_app/auth/login/login_page.dart';
 import 'package:food_education_app/auth/signup/SignUpPage%20sign_up_page.dart';
-import 'package:food_education_app/pages/home/home_screen.dart';
 
 import 'package:food_education_app/services/service_locator.dart';
 
@@ -85,14 +84,15 @@ class _MyAppState extends State<MyApp> {
                             _authService.loginWithCredentials)),
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
-                    MaterialPage(child:FoodEducationMain()//HomeScreen()
-                        ), //  authService: _authService
+                    MaterialPage(
+                        child:FoodEducationMain()), //authService: _authService
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );
             } else {
               return Container(
                 alignment: Alignment.center,
+                color: Colors.amber[600],
                 child: CircularProgressIndicator(),
               );
             }
