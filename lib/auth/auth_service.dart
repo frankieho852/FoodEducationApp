@@ -80,7 +80,6 @@ class AuthService {
   }
 
   void checkAuthStatus() async {
-    log("Start App now");
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
