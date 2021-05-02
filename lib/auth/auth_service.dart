@@ -80,7 +80,7 @@ class AuthService {
   }
 
   void checkAuthStatus() async {
-
+    log("Start App now");
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
@@ -90,23 +90,23 @@ class AuthService {
       // check if the user has an active session (FB token expire or not?)
       final accessToken = await FacebookAuth.instance.accessToken;
 
-      if(_auth.currentUser == null || accessToken == null){
+      if(_auth.currentUser == null ){ //|| accessToken == null
+        log("NO currentUser");
        // await _auth.signOut();
         final state = AuthState(authFlowStatus: AuthFlowStatus.login);
         authStateController.add(state);
         print('User is currently signed out!');
 
       } else if(_auth.currentUser.emailVerified){
-
         bool completedUserProfile = false;
         final User user = _auth.currentUser;
 
-        CollectionReference userprofile =
-        FirebaseFirestore.instance.collection('userprofile');
+        CollectionReference userProfile =
+        FirebaseFirestore.instance.collection('userProfile');
 
-        DocumentReference documentReference = userprofile.doc(user.uid);
+        DocumentReference documentReference = userProfile.doc(user.uid);
         await documentReference.get().then((snapshot){
-          completedUserProfile = snapshot.get('done');
+          completedUserProfile = snapshot.get('completedProfile');
 
           if(completedUserProfile) {
             print('User is signed in! ' + _auth.currentUser.displayName);

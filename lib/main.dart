@@ -37,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Food Education',
+      title: 'FoodCheck',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Color(0xFF00A299),visualDensity: VisualDensity.adaptivePlatformDensity),
       home: StreamBuilder<AuthState>(
@@ -85,13 +85,14 @@ class _MyAppState extends State<MyApp> {
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
                     MaterialPage(
-                        child:FoodEducationMain(authService: _authService)),
+                        child:FoodEducationMain()), //authService: _authService
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );
             } else {
               return Container(
                 alignment: Alignment.center,
+                color: Colors.amber[600],
                 child: CircularProgressIndicator(),
               );
             }

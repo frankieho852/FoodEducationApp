@@ -5,13 +5,19 @@ import 'package:food_education_app/pages/home/home_screen.dart';
 import 'components/bottom_nav_bar.dart';
 
 // todo: is the pages.home file structure correct?
-class FoodEducationMain extends StatelessWidget {
-  final AuthService authService;
+class FoodEducationMain extends StatefulWidget {
+  //final AuthService authService;
 
-  const FoodEducationMain({Key key, this.authService}) : super(key: key);
+  const FoodEducationMain({Key key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _FoodEducationMainState();
+}
+
+class _FoodEducationMainState extends State<FoodEducationMain> {
+  @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "FoodEdu App",
