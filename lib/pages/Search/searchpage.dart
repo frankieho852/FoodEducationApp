@@ -154,7 +154,7 @@ class _SearchpageState extends State<Searchpage> {
     FirebaseFirestore.instance.collection('foodProduct');
 
     // method 2
-    foodProductCollection.orderBy('name').startAt([_searchText]).get().then((value) {
+    foodProductCollection.orderBy('name').startAt([_searchText.toUpperCase()]).get().then((value) {
       List tempList=[];
       //print(value.docsd);
       for(DocumentSnapshot product in value.docs){
