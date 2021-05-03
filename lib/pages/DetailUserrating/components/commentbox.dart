@@ -11,11 +11,14 @@ class Commentbox extends StatelessWidget {
   int commentlength;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   double star;
+  double uploadstar;
+  String productname;
   final TextEditingController _textEditingController = TextEditingController();
 
   Commentbox({
     Key key,
     @required this.size,
+    @required this.productname,
     @required this.commentlength,
     @required this.star,
   }) : super(key: key);
@@ -23,6 +26,7 @@ class Commentbox extends StatelessWidget {
   Future<String> createTextBox(BuildContext context) {
 
     //double newcommentstar; use for star bar
+    double uploadstar2=3;
     bool isChecked = false;
     return showDialog(
         context: context,
@@ -47,6 +51,33 @@ class Commentbox extends StatelessWidget {
                           InputDecoration(hintText: "Enter Your Comment"),
                     ),
                     Text("put a star bar here for choseing star here"),
+                  RatingBar(
+                    initialRating: 3,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    ratingWidget: RatingWidget(
+                      full: Icon(
+                        Icons.star,
+                        color: kPrimaryColor,
+                      ),
+                      half: Icon(
+                        Icons.star_half,
+                        color: kPrimaryColor,
+                      ),
+                      empty: Icon(
+                        Icons.star_border,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    onRatingUpdate: (rating) {
+                      setState(() {
+                        uploadstar2 = rating;
+                      });
+                      print(rating);
+                    },
+                  ),
                     Checkbox(
                         value: isChecked,
                         onChanged: (checked) {
@@ -65,8 +96,29 @@ class Commentbox extends StatelessWidget {
                     if (_formKey.currentState.validate()) {
                       Navigator.of(context).pop(
                           _textEditingController.text.toString() +
-                              " " +
-                              isChecked.toString()); //todo:
+                              " " + uploadstar2.toString()+
+                              isChecked.toString());
+                      final User _user = FirebaseAuth.instance.currentUser;
+
+                      try{
+                        CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc("product name").collection("commentSet");
+                        DocumentReference productCommentByUser = productComment.doc(_user.uid);
+                        productCommentByUser.get().then((doc) {
+                          if (doc.exists) { // if the user already has a comment in firebase -> update
+                            productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": 0})
+                                .then((value) => print("Comment Updated"))
+                                .catchError((error) => print("Failed to update your comment: $error"));
+
+                          } else {  // if not, create one
+                            productComment.doc(_user.uid).set({
+                              'comment': _textEditingController.text.trim(), 'star': star})
+                                .then((value) => print("New comment"))
+                                .catchError((error) => print("Failed to post your comment: $error"));
+                          }
+                        });
+                      } catch(error){
+                        print("Error getting document:" + error);
+                      }//todo:
                     };
                   },
                 ),
@@ -138,6 +190,8 @@ class Commentbox extends StatelessWidget {
                           //todo: if user already passed before, the button change to another function to edit the comment in firestore
 
                           // todo: I need product name
+                          //String temp= createTextBox(context);
+                          print("done upload function");
                           final User _user = FirebaseAuth.instance.currentUser;
 
                           try{

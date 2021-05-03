@@ -8,9 +8,11 @@ class Body extends StatelessWidget {
     @required this.ratinglist,
     @required this.image,
     @required this.star,
+    @required this.productname,
   }) : super(key: key);
 
   List<Userrating> ratinglist;
+  String productname;
   String image;
   double star;
   @override
@@ -31,7 +33,7 @@ class Body extends StatelessWidget {
               )
             ),
           ),
-          Header(image:image,size: size,ratinglist:ratinglist,star:star),
+          Header(productname:productname,image:image,size: size,ratinglist:ratinglist,star:star),
         ],
       ),
     );

@@ -68,7 +68,7 @@ class DetailUserrating extends StatelessWidget {
         return new Scaffold(
           appBar: buildAppBar(product.name),
           body: Body(
-              image: product.image, ratinglist: ratinglist, star: product.star),//todo: used temp pic here
+              image: product.image, ratinglist: ratinglist, star: product.star,productname: product.name,),
           //bottomNavigationBar: MyBottomNavBar(),
         );
       },

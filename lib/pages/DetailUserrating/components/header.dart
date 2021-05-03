@@ -12,10 +12,12 @@ class Header extends StatelessWidget {
     @required this.ratinglist,
     @required this.image,
     @required this.star,
+    @required this.productname,
   }) : super(key: key);
 
   final Size size;
   List<Userrating> ratinglist;
+  String productname;
   String image;
   double star;
 
@@ -76,7 +78,7 @@ class Header extends StatelessWidget {
                           image: DecorationImage(
                               image: NetworkImage(image), fit: BoxFit.fitHeight)),
                     ),
-                    Commentbox(size: size,commentlength:ratinglist.length,star:star),
+                    Commentbox(productname:productname,size: size,commentlength:ratinglist.length,star:star),
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(kDefaultPadding / 2,
