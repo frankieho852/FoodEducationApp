@@ -88,7 +88,7 @@ class _HeaderState extends State<Header> {
                           borderRadius: BorderRadius.circular(14),
                           border: Border.all(color: Colors.grey.withOpacity(0.3)),
                           image: DecorationImage(
-                              image: AssetImage("assets/images/Vita TM Lemon Tea Drink.jpg"),
+                              image: NetworkImage(widget.product.image),
                               fit: BoxFit.fitHeight)),
                     ),
                     Container(

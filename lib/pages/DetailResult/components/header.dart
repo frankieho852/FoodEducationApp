@@ -89,7 +89,7 @@ class Header extends StatelessWidget {
                               borderRadius: BorderRadius.circular(14),
                               image: DecorationImage(
                                 //todo: add picture
-                                  image: AssetImage("assets/images/Vita TM Lemon Tea Drink.jpg"),
+                                  image: NetworkImage(product.image),
                                   fit: BoxFit.fitHeight)),
                         ),
                         SizedBox(width: 8),

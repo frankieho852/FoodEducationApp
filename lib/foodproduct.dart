@@ -190,16 +190,16 @@ class FoodProduct {
     String gradeimage;
     print("calling getGradeImage() " + grade); //testing
     if (grade == "A") {
-      gradeimage = "assets/images/A-1.svg";
+      gradeimage = "assets/icons/A-1.svg";
     }
     if (grade == "B") {
-      gradeimage = "assets/images/B-2.svg";
+      gradeimage = "assets/icons/B-2.svg";
     }
     if (grade == "C") {
-      gradeimage = "assets/images/C-3.svg";
+      gradeimage = "assets/icons/C-3.svg";
     }
     if (grade == "D") {
-      gradeimage = "assets/images/D-4.svg";
+      gradeimage = "assets/icons/D-4.svg";
     }
     return gradeimage;
   }

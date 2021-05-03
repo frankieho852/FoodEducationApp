@@ -326,7 +326,7 @@ class Triplebox extends StatelessWidget {
                                 width: size.height *
                                     0.08, // ensure the circle is in a squared box
                                 //color: Colors.green,
-                                child: SvgPicture.asset('assets/icons/C-3.svg'),
+                                child: SvgPicture.asset(product.getGradeImage()),
                                 // decoration: new BoxDecoration(
                                 //     shape: BoxShape.circle,
                                 //     image: DecorationImage(
