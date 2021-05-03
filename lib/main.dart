@@ -84,16 +84,15 @@ class _MyAppState extends State<MyApp> {
                             _authService.loginWithCredentials)),
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.session)
-                    MaterialPage(
-                        child:FoodEducationMain()), //authService: _authService
+                    MaterialPage(child:FoodEducationMain()
+                        ), //authService: _authService child:FoodEducationMain()
                 ],
                 onPopPage: (route, result) => route.didPop(result),
               );
             } else {
               return Container(
                 alignment: Alignment.center,
-                color: Colors.amber[600],
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(backgroundColor: Colors.white),
               );
             }
           }),

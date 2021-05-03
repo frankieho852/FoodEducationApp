@@ -80,6 +80,7 @@ class AuthService {
   }
 
   void checkAuthStatus() async {
+    log("Start App now");
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
@@ -89,7 +90,7 @@ class AuthService {
       // check if the user has an active session (FB token expire or not?)
       final accessToken = await FacebookAuth.instance.accessToken;
 
-      if(_auth.currentUser == null ){ //|| accessToken == null
+      if(_auth.currentUser == null || accessToken == null ){ //
         log("NO currentUser");
        // await _auth.signOut();
         final state = AuthState(authFlowStatus: AuthFlowStatus.login);

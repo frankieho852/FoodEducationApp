@@ -33,11 +33,34 @@ class _DetailResultState extends State<DetailResult> {
   String foodProductCategory;
   bool _loading = false;
 
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    //detailResultLogic.
+    //detailResultLogic.setup((title, content) { }, (loading) { })
+    /*
+    //  _setLoading(true);
+    //todo:function 1 and store in tempfood
+    //print(foodProductCategory);
+    _getProdcutData();
+    //tempfood.calculateTotalNutrient();
+    //tempfood.printproduct();
+    //todo: function 5 get current user height weight sex->calculate recDaily
+    _getUserInfo();
+    //todo: function 4 get maxSametype,minSametype by category
+    _findMaxMin(foodProductCategory);
+    //todo:function 3 and store in alt2product
+    _findAlt2product();
+    // _setLoading(false);
+     */
+  }
+
   @override
   Widget build(BuildContext context) {
 
     final detailResultLogic = getIt<DetailResultScreenLogic>();
-//StreamBuilder
+
     return FutureBuilder<bool>(
         future: detailResultLogic.setup(widget.searchname),
         builder: (BuildContext context, snapshot) {
@@ -60,8 +83,6 @@ class _DetailResultState extends State<DetailResult> {
           }
 
           print("alt2product length:" + detailResultLogic.alt2product.length.toString());
-          log("printoutproductname: "+ detailResultLogic.product.name);
-         // setState(() {});
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
