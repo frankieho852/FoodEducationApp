@@ -19,13 +19,12 @@ class Commentbox extends StatelessWidget {
     @required this.size,
     @required this.productname,
     @required this.commentlength,
-    @required this.star,//this star is overall star in firebase
+    @required this.star, //this star is overall star in firebase
   }) : super(key: key);
 
   Future<String> createTextBox(BuildContext context) {
-
     //double newcommentstar; use for star bar
-    double uploadstar2=3;
+    double uploadstar2 = 3;
     bool isChecked = false;
     return showDialog(
         context: context,
@@ -49,36 +48,36 @@ class Commentbox extends StatelessWidget {
                       decoration:
                           InputDecoration(hintText: "Enter Your Comment"),
                     ),
-                  RatingBar(
-                    initialRating: 3,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    ratingWidget: RatingWidget(
-                      full: Icon(
-                        Icons.star,
-                        color: kPrimaryColor,
-                        size: 2,
+                    RatingBar(
+                      initialRating: 3,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      ratingWidget: RatingWidget(
+                        full: Icon(
+                          Icons.star,
+                          color: kPrimaryColor,
+                          size: 2,
+                        ),
+                        half: Icon(
+                          Icons.star_half,
+                          color: kPrimaryColor,
+                          size: 2,
+                        ),
+                        empty: Icon(
+                          Icons.star_border,
+                          color: kPrimaryColor,
+                          size: 2,
+                        ),
                       ),
-                      half: Icon(
-                        Icons.star_half,
-                        color: kPrimaryColor,
-                        size: 2,
-                      ),
-                      empty: Icon(
-                        Icons.star_border,
-                        color: kPrimaryColor,
-                        size: 2,
-                      ),
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      onRatingUpdate: (rating) {
+                        setState(() {
+                          uploadstar2 = rating;
+                        });
+                        //print(rating);
+                      },
                     ),
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    onRatingUpdate: (rating) {
-                      setState(() {
-                        uploadstar2 = rating;
-                      });
-                      //print(rating);
-                    },
-                  ),
                     // Checkbox(
                     //     value: isChecked,
                     //     onChanged: (checked) {
@@ -96,30 +95,65 @@ class Commentbox extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       final User _user = FirebaseAuth.instance.currentUser;
-                      try{
-                        CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc(productname).collection("commentSet");
-                        DocumentReference productCommentByUser = productComment.doc(_user.uid);
+                      try {
+                        CollectionReference productComment = FirebaseFirestore
+                            .instance
+                            .collection('foodProduct')
+                            .doc(productname)
+                            .collection("commentSet");
+                        DocumentReference productCommentByUser =
+                            productComment.doc(_user.uid);
                         productCommentByUser.get().then((doc) {
-                          if (doc.exists) { // if the user already has a comment in firebase -> update
-                            productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": uploadstar2})
-                                .then((value) => print("Comment Updated"+uploadstar2.toString()))
-                                .catchError((error) => print("Failed to update your comment: $error"));
-
-                          } else {  // if not, create one
-                            productComment.doc(_user.uid).set({
-                              'comment': _textEditingController.text.trim(), 'star': uploadstar2})
+                          if (doc.exists) {
+                            // if the user already has a comment in firebase -> update
+                            productCommentByUser
+                                .update({
+                                  'comment': _textEditingController.text.trim(),
+                                  "star": uploadstar2
+                                })
+                                .then((value) => print(
+                                    "Comment Updated" + uploadstar2.toString()))
+                                .catchError((error) => print(
+                                    "Failed to update your comment: $error"));
+                            //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
+                            double updatestar = 0;
+                            FirebaseFirestore.instance
+                                .collection('foodProduct')
+                                .doc(productname)
+                                .set({
+                              'star': updatestar,
+                            });
+                          } else {
+                            // if not, create one
+                            productComment
+                                .doc(_user.uid)
+                                .set({
+                                  'comment': _textEditingController.text.trim(),
+                                  'star': uploadstar2
+                                })
                                 .then((value) => print("New comment"))
-                                .catchError((error) => print("Failed to post your comment: $error"));
+                                .catchError((error) => print(
+                                    "Failed to post your comment: $error"));
+                            double updatestar = 0;
+                            //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
+                            FirebaseFirestore.instance
+                                .collection('foodProduct')
+                                .doc(productname)
+                                .set({
+                              'star': updatestar,
+                            });
                           }
                         });
-                      } catch(error){
+                      } catch (error) {
                         print("Error getting document:" + error);
                       }
                       Navigator.of(context).pop(
                           _textEditingController.text.toString() +
-                              " " + uploadstar2.toString()+
+                              " " +
+                              uploadstar2.toString() +
                               isChecked.toString());
-                    };
+                    }
+                    ;
                   },
                 ),
               ],
@@ -169,8 +203,8 @@ class Commentbox extends StatelessWidget {
                         ),
                         itemCount: 5,
                         itemSize: size.height * 0.025,
-                        direction: Axis.horizontal,),
-
+                        direction: Axis.horizontal,
+                      ),
                     ],
                   ),
                   Row(
