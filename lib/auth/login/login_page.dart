@@ -20,15 +20,11 @@ class LoginPage extends StatefulWidget {
   State<StatefulWidget> createState() => _LoginPageState();
 }
 
-//  todo: Login page UI
-// todo: Support email & FB & google now. If you want to support phone number, you can design related UI to login page and sign up page
-
 class _LoginPageState extends State<LoginPage> {
   bool _loading = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     final loginLogic = getIt<LoginPageLogic>();
     loginLogic.setup(widget.authService, _showErrorDialog, _setLoading);

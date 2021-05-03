@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
@@ -53,12 +55,19 @@ class DetailUserrating extends StatelessWidget {
                   .doc(commentData.id);
 
               userProfile.get().then((userData) {
+                log("Show comment now");
+                log(productDoc.data()['name']);
+                log(userData.get("nicknanme"));
+                log(userData.get("photoURL"));
+                log(commentData.data()['star']);
+                log(commentData.data()['comment']);
+
 
                 ratinglist.add(Userrating(
                     productname: productDoc.data()['name'],
                     name: userData.get("nicknanme"),
                     image: userData.get("photoURL"),
-                    star: commentData.data()['star'],
+                    star: commentData.data()['star'].toDouble(),
                     comment: commentData.data()['comment']));
               });
             }

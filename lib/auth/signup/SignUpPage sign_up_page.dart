@@ -31,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _loading = false;
 
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     final signupLogic = getIt<SignUpPageLogic>();
     signupLogic.setup(widget.authService, _showErrorDialog, _setLoading);
