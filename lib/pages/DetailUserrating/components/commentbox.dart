@@ -19,7 +19,7 @@ class Commentbox extends StatelessWidget {
     @required this.size,
     @required this.productname,
     @required this.commentlength,
-    @required this.star,
+    @required this.star,//this star is overall star in firebase
   }) : super(key: key);
 
   Future<String> createTextBox(BuildContext context) {
@@ -107,7 +107,7 @@ class Commentbox extends StatelessWidget {
 
                           } else {  // if not, create one
                             productComment.doc(_user.uid).set({
-                              'comment': _textEditingController.text.trim(), 'star': star})
+                              'comment': _textEditingController.text.trim(), 'star': uploadstar2})
                                 .then((value) => print("New comment"))
                                 .catchError((error) => print("Failed to post your comment: $error"));
                           }
