@@ -62,43 +62,42 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _bottomSheet() {
-
     return Container(
       color: Colors.transparent,
-      child: Column(
-        children: [
-          // ListTile(
-          //   leading: Icon(Icons.print),
-          //   title: Text('UI Testing'),
-          //   onTap: () =>
-          //       Navigator
-          //           .push( //temp location for editing detail result page (figo)
-          //           context,
-          //           MaterialPageRoute(
-          //               builder: (context) => DetailResult(searchname: "vita",))
-          //       ),
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.camera_alt),
-          //   title: Text('Barcode Scanner'),
-          //    onTap: () => Navigator.maybePop(context)
-          //   //Navigator.push(
-          //   //     context,
-          //   //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
-          //   // ),
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.title),
-          //   title: Text('Text Input'),
-          //   onTap: () =>
-          //       Navigator
-          //           .push( //temp location for editing detail result page (figo)
-          //           context,
-          //           MaterialPageRoute(builder: (context) => Searchpage())
-          //       ),
-          // ),
-        ],
-      ),
+      // child: Column(
+      //   children: [
+      //     ListTile(
+      //       leading: Icon(Icons.print),
+      //       title: Text('UI Testing'),
+      //       onTap: () =>
+      //           Navigator
+      //               .push( //temp location for editing detail result page (figo)
+      //               context,
+      //               MaterialPageRoute(
+      //                   builder: (context) => DetailResult(searchname: "vita",))
+      //           ),
+      //     ),
+      //     ListTile(
+      //       leading: Icon(Icons.camera_alt),
+      //       title: Text('Barcode Scanner'),
+      //        onTap: () => Navigator.maybePop(context)
+      //       //Navigator.push(
+      //       //     context,
+      //       //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
+      //       // ),
+      //     ),
+      //     ListTile(
+      //       leading: Icon(Icons.title),
+      //       title: Text('Text Input'),
+      //       onTap: () =>
+      //           Navigator
+      //               .push( //temp location for editing detail result page (figo)
+      //               context,
+      //               MaterialPageRoute(builder: (context) => Searchpage())
+      //           ),
+      //     ),
+      //   ],
+      // ),
     );
 
 
