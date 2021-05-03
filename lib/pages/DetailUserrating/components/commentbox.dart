@@ -11,7 +11,6 @@ class Commentbox extends StatelessWidget {
   int commentlength;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   double star;
-  double uploadstar;
   String productname;
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -50,7 +49,6 @@ class Commentbox extends StatelessWidget {
                       decoration:
                           InputDecoration(hintText: "Enter Your Comment"),
                     ),
-                    Text("put a star bar here for choseing star here"),
                   RatingBar(
                     initialRating: 3,
                     direction: Axis.horizontal,
@@ -60,14 +58,17 @@ class Commentbox extends StatelessWidget {
                       full: Icon(
                         Icons.star,
                         color: kPrimaryColor,
+                        size: 2,
                       ),
                       half: Icon(
                         Icons.star_half,
                         color: kPrimaryColor,
+                        size: 2,
                       ),
                       empty: Icon(
                         Icons.star_border,
                         color: kPrimaryColor,
+                        size: 2,
                       ),
                     ),
                     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
@@ -75,16 +76,16 @@ class Commentbox extends StatelessWidget {
                       setState(() {
                         uploadstar2 = rating;
                       });
-                      print(rating);
+                      //print(rating);
                     },
                   ),
-                    Checkbox(
-                        value: isChecked,
-                        onChanged: (checked) {
-                          setState(() {
-                            isChecked = checked;
-                          });
-                        })
+                    // Checkbox(
+                    //     value: isChecked,
+                    //     onChanged: (checked) {
+                    //       setState(() {
+                    //         isChecked = checked;
+                    //       });
+                    //     })
                   ],
                 ),
               ),
@@ -94,19 +95,14 @@ class Commentbox extends StatelessWidget {
                   child: Text('Submit'),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      Navigator.of(context).pop(
-                          _textEditingController.text.toString() +
-                              " " + uploadstar2.toString()+
-                              isChecked.toString());
                       final User _user = FirebaseAuth.instance.currentUser;
-
                       try{
-                        CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc("product name").collection("commentSet");
+                        CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc(productname).collection("commentSet");
                         DocumentReference productCommentByUser = productComment.doc(_user.uid);
                         productCommentByUser.get().then((doc) {
                           if (doc.exists) { // if the user already has a comment in firebase -> update
-                            productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": 0})
-                                .then((value) => print("Comment Updated"))
+                            productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": uploadstar2})
+                                .then((value) => print("Comment Updated"+uploadstar2.toString()))
                                 .catchError((error) => print("Failed to update your comment: $error"));
 
                           } else {  // if not, create one
@@ -118,7 +114,11 @@ class Commentbox extends StatelessWidget {
                         });
                       } catch(error){
                         print("Error getting document:" + error);
-                      }//todo:
+                      }
+                      Navigator.of(context).pop(
+                          _textEditingController.text.toString() +
+                              " " + uploadstar2.toString()+
+                              isChecked.toString());
                     };
                   },
                 ),
@@ -192,27 +192,27 @@ class Commentbox extends StatelessWidget {
                           // todo: I need product name
                           //String temp= createTextBox(context);
                           print("done upload function");
-                          final User _user = FirebaseAuth.instance.currentUser;
-
-                          try{
-                            CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc("product name").collection("commentSet");
-                            DocumentReference productCommentByUser = productComment.doc(_user.uid);
-                            productCommentByUser.get().then((doc) {
-                              if (doc.exists) { // if the user already has a comment in firebase -> update
-                                productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": 0})
-                                    .then((value) => print("Comment Updated"))
-                                    .catchError((error) => print("Failed to update your comment: $error"));
-
-                              } else {  // if not, create one
-                                productComment.doc(_user.uid).set({
-                                  'comment': _textEditingController.text.trim(), 'star': star})
-                                    .then((value) => print("New comment"))
-                                    .catchError((error) => print("Failed to post your comment: $error"));
-                              }
-                            });
-                          } catch(error){
-                            print("Error getting document:" + error);
-                          }
+                          // final User _user = FirebaseAuth.instance.currentUser;
+                          //
+                          // try{
+                          //   CollectionReference productComment = FirebaseFirestore.instance.collection('foodProduct').doc("product name").collection("commentSet");
+                          //   DocumentReference productCommentByUser = productComment.doc(_user.uid);
+                          //   productCommentByUser.get().then((doc) {
+                          //     if (doc.exists) { // if the user already has a comment in firebase -> update
+                          //       productCommentByUser.update({'comment': _textEditingController.text.trim(), "star": 0})
+                          //           .then((value) => print("Comment Updated"))
+                          //           .catchError((error) => print("Failed to update your comment: $error"));
+                          //
+                          //     } else {  // if not, create one
+                          //       productComment.doc(_user.uid).set({
+                          //         'comment': _textEditingController.text.trim(), 'star': star})
+                          //           .then((value) => print("New comment"))
+                          //           .catchError((error) => print("Failed to post your comment: $error"));
+                          //     }
+                          //   });
+                          // } catch(error){
+                          //   print("Error getting document:" + error);
+                          // }
                         },
                         child: FittedBox(child: Icon(Icons.add)),
                       ),
