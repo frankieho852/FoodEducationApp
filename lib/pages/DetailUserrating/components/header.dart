@@ -74,7 +74,7 @@ class Header extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           image: DecorationImage(
-                              image: AssetImage(image), fit: BoxFit.cover)),
+                              image: NetworkImage(image), fit: BoxFit.fitHeight)),
                     ),
                     Commentbox(size: size,commentlength:ratinglist.length,star:star),
                     Expanded(
