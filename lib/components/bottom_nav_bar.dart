@@ -40,9 +40,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
               index: _state.selected,
               children: <Widget>[
                 HomeScreen(),
-                HomeScreen(),
-                HomeScreen(),
-
+                Searchpage(),
+                Searchpage(),
+                Searchpage(),
               ],
             ),
             bottomNavigationBar: SSBottomNav(
@@ -53,7 +53,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               unselectedColor: Colors.grey[700],
               visible: _isVisible,
               bottomSheetWidget: _bottomSheet(),
-              showBottomSheetAt: 1,
+              showBottomSheetAt: 5,
             ),
           );
         },
@@ -62,43 +62,42 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _bottomSheet() {
-
     return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          ListTile(
-            leading: Icon(Icons.print),
-            title: Text('UI Testing'),
-            onTap: () =>
-                Navigator
-                    .push( //temp location for editing detail result page (figo)
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailResult(searchname: "vita",))
-                ),
-          ),
-          ListTile(
-            leading: Icon(Icons.camera_alt),
-            title: Text('Barcode Scanner'), //todo:ray can add your barcode here
-             onTap: () => Navigator.maybePop(context)
-            //Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
-            // ),
-          ),
-          ListTile(
-            leading: Icon(Icons.title),
-            title: Text('Text Input'),
-            onTap: () =>
-                Navigator
-                    .push( //temp location for editing detail result page (figo)
-                    context,
-                    MaterialPageRoute(builder: (context) => Searchpage())
-                ),
-          ),
-        ],
-      ),
+      color: Colors.transparent,
+      // child: Column(
+      //   children: [
+      //     ListTile(
+      //       leading: Icon(Icons.print),
+      //       title: Text('UI Testing'),
+      //       onTap: () =>
+      //           Navigator
+      //               .push( //temp location for editing detail result page (figo)
+      //               context,
+      //               MaterialPageRoute(
+      //                   builder: (context) => DetailResult(searchname: "vita",))
+      //           ),
+      //     ),
+      //     ListTile(
+      //       leading: Icon(Icons.camera_alt),
+      //       title: Text('Barcode Scanner'),
+      //        onTap: () => Navigator.maybePop(context)
+      //       //Navigator.push(
+      //       //     context,
+      //       //     MaterialPageRoute(builder: (context)=> DetailResult(searchname:"vita",))
+      //       // ),
+      //     ),
+      //     ListTile(
+      //       leading: Icon(Icons.title),
+      //       title: Text('Text Input'),
+      //       onTap: () =>
+      //           Navigator
+      //               .push( //temp location for editing detail result page (figo)
+      //               context,
+      //               MaterialPageRoute(builder: (context) => Searchpage())
+      //           ),
+      //     ),
+      //   ],
+      // ),
     );
 
 

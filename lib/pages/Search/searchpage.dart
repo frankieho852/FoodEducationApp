@@ -61,7 +61,7 @@ class _SearchpageState extends State<Searchpage> {
       actions: [
         Flexible(
             child: InkWell(
-              onTap:(){scanBarcodeNormal();},
+              onTap:(){FindBarcode();},
               child: Container(
                 margin: const EdgeInsets.all(8.0),
                 width: 30,
@@ -104,7 +104,7 @@ class _SearchpageState extends State<Searchpage> {
       },
     );
   }
-  Future<void> scanBarcodeNormal() async {
+  Future<void> FindBarcode() async {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -154,7 +154,7 @@ class _SearchpageState extends State<Searchpage> {
     FirebaseFirestore.instance.collection('foodProduct');
 
     // method 2
-    foodProductCollection.orderBy('name').startAt([_searchText]).get().then((value) {
+    foodProductCollection.orderBy('name').startAt([_searchText.toUpperCase()]).get().then((value) {
       List tempList=[];
       //print(value.docsd);
       for(DocumentSnapshot product in value.docs){
