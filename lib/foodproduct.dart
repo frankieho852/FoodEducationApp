@@ -134,6 +134,12 @@ class FoodProduct {
       scoreArray.messagearray
           .add(Message("This product contains trans fat", "cautions"));
     }
+    if (this.transFat_100 > maxTransfat*0.3) {
+      scoreArray.score = scoreArray.score - 2;
+      scoreArray.cautions++;
+      scoreArray.messagearray
+          .add(Message("This product contains too much trans fat", "cautions"));
+    }
     if (this.totalFat > maxFat * 0.3) {
       scoreArray.score = scoreArray.score - 2;
       scoreArray.cautions++;
@@ -184,16 +190,16 @@ class FoodProduct {
     String gradeimage;
     print("calling getGradeImage() " + grade); //testing
     if (grade == "A") {
-      gradeimage = "assets/images/A-minus.jpg";
+      gradeimage = "assets/images/A-1.svg";
     }
     if (grade == "B") {
-      gradeimage = "assets/images/A-minus.jpg";
+      gradeimage = "assets/images/B-2.svg";
     }
     if (grade == "C") {
-      gradeimage = "assets/images/A-minus.jpg";
+      gradeimage = "assets/images/C-3.svg";
     }
     if (grade == "D") {
-      gradeimage = "assets/images/A-minus.jpg";
+      gradeimage = "assets/images/D-4.svg";
     }
     return gradeimage;
   }
