@@ -203,66 +203,58 @@ class _HeaderState extends State<Header> {
                                   ),
                                   Expanded(
                                     flex: 2,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          selected = 'second';
-                                          print("selected = 'second'");
-                                        });
-                                      },
+                                    child: Container(
+                                      height: double.infinity,
+                                      decoration: new BoxDecoration(
+                                        color: Color(0xFFF6FAF9),
+                                        borderRadius:
+                                        BorderRadius.circular(14),
+                                      ),
                                       child: Container(
-                                        height: double.infinity,
-                                        decoration: new BoxDecoration(
-                                          color: Color(0xFFF6FAF9),
-                                          borderRadius:
-                                          BorderRadius.circular(14),
-                                        ),
-                                        child: Container(
-                                          margin: EdgeInsets.only(left: 4,right: 4),
-                                          color: Colors.transparent,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    height: widget.size.height * 0.025,
-                                                    child: FittedBox(
-                                                      fit: BoxFit.fitHeight,
-                                                      child: Text(
-                                                        widget.scoreArray.cautions
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                          color: Colors.orange,
-                                                        ),
+                                        margin: EdgeInsets.only(left: 4,right: 4),
+                                        color: Colors.transparent,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  height: widget.size.height * 0.025,
+                                                  child: FittedBox(
+                                                    fit: BoxFit.fitHeight,
+                                                    child: Text(
+                                                      widget.scoreArray.cautions
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        color: Colors.orange,
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(width:2),
-                                                  Icon(
-                                                    Icons.dangerous,
+                                                ),
+                                                SizedBox(width:2),
+                                                Icon(
+                                                  Icons.dangerous,
+                                                  color: Colors.orange,
+                                                  size: widget.size.height * 0.025,
+                                                ),
+                                              ],
+                                            ),
+                                            Flexible(child:SizedBox(height:4)),
+                                            Container(
+                                              height: widget.size.height*0.025,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitHeight,
+                                                child: Text(
+                                                  "Cautions",
+                                                  style: TextStyle(
                                                     color: Colors.orange,
-                                                    size: widget.size.height * 0.025,
-                                                  ),
-                                                ],
-                                              ),
-                                              Flexible(child:SizedBox(height:4)),
-                                              Container(
-                                                height: widget.size.height*0.025,
-                                                child: FittedBox(
-                                                  fit: BoxFit.fitHeight,
-                                                  child: Text(
-                                                    "Cautions",
-                                                    style: TextStyle(
-                                                      color: Colors.orange,
-                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

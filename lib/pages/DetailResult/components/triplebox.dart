@@ -108,7 +108,7 @@ class Triplebox extends StatelessWidget {
                                           decoration: new BoxDecoration(
                                               //color: Colors.transparent,
                                               image: DecorationImage(
-                                                  image: AssetImage(
+                                                  image: NetworkImage(
                                                       alt2product[index].image),
                                                   fit: BoxFit.fitHeight)),
                                         ),
