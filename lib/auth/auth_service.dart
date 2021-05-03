@@ -10,7 +10,6 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 enum AuthFlowStatus {
   login,
   signUp,
@@ -31,7 +30,7 @@ class AuthState {
 class AuthService {
   final authStateController = StreamController<AuthState>();
 
-  void showFoodEducation(){
+  void showFoodEducation() {
     final state = AuthState(authFlowStatus: AuthFlowStatus.foodEducation);
     authStateController.add(state);
   }
@@ -46,19 +45,19 @@ class AuthService {
     authStateController.add(state);
   }
 
-  void showForgotPW(){
+  void showForgotPW() {
     final state = AuthState(authFlowStatus: AuthFlowStatus.resetPW);
     authStateController.add(state);
   }
 
-  void showNewUserProfile(){
+  void showNewUserProfile() {
     final state = AuthState(authFlowStatus: AuthFlowStatus.newUser);
     authStateController.add(state);
   }
 
   void loginWithCredentials() async {
-     final state = AuthState(authFlowStatus: AuthFlowStatus.session);
-        authStateController.add(state);
+    final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+    authStateController.add(state);
   }
 
   void signUpWithCredentials() async {
@@ -66,8 +65,7 @@ class AuthService {
     authStateController.add(state);
   }
 
-
-  void logOut() async{
+  void logOut() async {
     try {
       await FirebaseAuth.instance.signOut();
       GoogleSignIn().signOut();
@@ -80,7 +78,6 @@ class AuthService {
   }
 
   void checkAuthStatus() async {
-    log("Start App now");
     try {
       // Wait for Firebase to initialize and set `_initialized` state to true
       await Firebase.initializeApp();
@@ -90,34 +87,54 @@ class AuthService {
       // check if the user has an active session (FB token expire or not?)
       final accessToken = await FacebookAuth.instance.accessToken;
 
-      if(_auth.currentUser == null || accessToken == null ){ //
-        log("NO currentUser");
-       // await _auth.signOut();
-        final state = AuthState(authFlowStatus: AuthFlowStatus.login);
-        authStateController.add(state);
-        print('User is currently signed out!');
-
-      } else if(_auth.currentUser.emailVerified){
+      if (accessToken != null) {
         bool completedUserProfile = false;
         final User user = _auth.currentUser;
 
         CollectionReference userProfile =
-        FirebaseFirestore.instance.collection('userProfile');
+            FirebaseFirestore.instance.collection('userProfile');
 
         DocumentReference documentReference = userProfile.doc(user.uid);
-        await documentReference.get().then((snapshot){
+        await documentReference.get().then((snapshot) {
           completedUserProfile = snapshot.get('completedProfile');
 
-          if(completedUserProfile) {
+          if (completedUserProfile) {
             print('User is signed in! ' + _auth.currentUser.displayName);
             final state = AuthState(authFlowStatus: AuthFlowStatus.session);
             authStateController.add(state);
-          } else{
+          } else {
             final state = AuthState(authFlowStatus: AuthFlowStatus.newUser);
             authStateController.add(state);
           }
         });
 
+      } else if (_auth.currentUser == null) {
+        //|| accessToken == null
+
+        final state = AuthState(authFlowStatus: AuthFlowStatus.login);
+        authStateController.add(state);
+        print('User is currently signed out!');
+
+      } else if (_auth.currentUser.emailVerified) {
+        bool completedUserProfile = false;
+        final User user = _auth.currentUser;
+
+        CollectionReference userProfile =
+            FirebaseFirestore.instance.collection('userProfile');
+
+        DocumentReference documentReference = userProfile.doc(user.uid);
+        await documentReference.get().then((snapshot) {
+          completedUserProfile = snapshot.get('completedProfile');
+
+          if (completedUserProfile) {
+            print('User is signed in! ' + _auth.currentUser.displayName);
+            final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+            authStateController.add(state);
+          } else {
+            final state = AuthState(authFlowStatus: AuthFlowStatus.newUser);
+            authStateController.add(state);
+          }
+        });
       } else {
         await FirebaseAuth.instance.signOut();
         GoogleSignIn().signOut();
@@ -127,49 +144,49 @@ class AuthService {
         authStateController.add(state);
         print('User is currently signed out!');
       }
-
-    } catch(e) {
+    } catch (e) {
       // Set `_error` state to true if Firebase initialization fails
       print(e);
     }
   }
 
+
   void initDynamicLinks() async {
     // This is called when app comes from background
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData dynamicLink) async {
-          print('We have a dynamic link :');
-          print(dynamicLink.toString());
+      print('We have a dynamic link :');
+      print(dynamicLink.toString());
 
-          final Uri deepLink = dynamicLink
-              ?.link; //dynamicLink!=null?dynamicLink.link : null
+      final Uri deepLink =
+          dynamicLink?.link; //dynamicLink!=null?dynamicLink.link : null
 
-          if (deepLink != null) {
-            print("1. Here's the deep link URL:\n" + deepLink.toString());
-            String code = deepLink.queryParameters['mode'].toString();
-            print("code" + code);
-            if (code == "verifyEmail") {
-              print('verifyemail');
-              logOut();
-              Fluttertoast.showToast(
-                  msg: "Email Address Verified",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.TOP,
-                  // also possible "TOP" and "CENTER"
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white);
-            } else {
-              showLogin();
-            }
-          }
-        }, onError: (OnLinkErrorException e) async {
+      if (deepLink != null) {
+        print("1. Here's the deep link URL:\n" + deepLink.toString());
+        String code = deepLink.queryParameters['mode'].toString();
+        print("code" + code);
+        if (code == "verifyEmail") {
+          print('verifyemail');
+          logOut();
+          Fluttertoast.showToast(
+              msg: "Email Address Verified",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.TOP,
+              // also possible "TOP" and "CENTER"
+              backgroundColor: Colors.green,
+              textColor: Colors.white);
+        } else {
+          showLogin();
+        }
+      }
+    }, onError: (OnLinkErrorException e) async {
       print('onLinkError');
       print(e.message);
     });
 
     // This is called when app comes from background
-    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance
-        .getInitialLink();
+    final PendingDynamicLinkData data =
+        await FirebaseDynamicLinks.instance.getInitialLink();
     final Uri deepLink = data?.link;
 
     if (deepLink != null) {
@@ -189,5 +206,3 @@ class AuthService {
     }
   }
 }
-
-
