@@ -133,7 +133,7 @@ class Commentbox extends StatelessWidget {
                                 })
                                 .then((value) => print("New comment"))
                                 .catchError((error) => print(
-                                    "Failed to post your comment: $error"));
+                                    "Failed to create your comment: $error"));
                             double updatestar = 0;
                             //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
                             FirebaseFirestore.instance

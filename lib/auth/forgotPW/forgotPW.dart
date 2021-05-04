@@ -15,7 +15,6 @@ class forgotPW extends StatefulWidget {
   State<StatefulWidget> createState() => _forgotPWState();
 }
 
-//  todo: forgot Password UI
 class _forgotPWState extends State<forgotPW> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;

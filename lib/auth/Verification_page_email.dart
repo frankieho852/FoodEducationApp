@@ -17,7 +17,7 @@ class VerificationPageEmail extends StatefulWidget {
   State<StatefulWidget> createState() => _VerificationPageState();
 }
 
-// todo: Verification page for email
+
 class _VerificationPageState extends State<VerificationPageEmail> {
   Timer _timer;
   int _timerStart = 60;
@@ -144,7 +144,7 @@ class _VerificationPageState extends State<VerificationPageEmail> {
             textColor: Colors.white);
 
       } catch(e){
-        // todo: verification page email dialog
+
         showDialog<void>(
             context: context,
             barrierDismissible: false, // user must tap button!
@@ -165,7 +165,6 @@ class _VerificationPageState extends State<VerificationPageEmail> {
       }
 
     } else{
-      // todo: verification page - snackbar, if you dun like snackbar, just change it
       final snackbar = SnackBar(
         content: Text('Your email address is verified'),
         action: SnackBarAction(

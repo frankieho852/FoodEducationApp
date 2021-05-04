@@ -90,15 +90,18 @@ class DetailResultScreenLogic {
   Future<void> getUserInfo() async {
     // 5
     final User _user = FirebaseAuth.instance.currentUser;
+    print("uid: "+_user.uid);
     DocumentReference userInfo =
-    FirebaseFirestore.instance.collection('userprofile').doc(_user.uid);
+    FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
 
     double height, weight;
     String sex;
     try {
       await userInfo.get().then((snapshot) {
-        height = snapshot.get('height');
-        weight = snapshot.get('weight');
+        print("Userinfo");
+
+        height = snapshot.get('height').toDouble();
+        weight = snapshot.get('weight').toDouble();
         sex = snapshot.get('sex');
       });
     } on StateError catch (e) {

@@ -85,7 +85,6 @@ class _SearchpageState extends State<Searchpage> {
       filteredNames = tempList;
     }
 
-
     return ListView.builder(
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {
@@ -146,9 +145,6 @@ class _SearchpageState extends State<Searchpage> {
   }
 
   void _searchProductByName() async {
-    //todo: get all name of all products in firestore and store in templist
-
-    //List tempList;
 
     CollectionReference foodProductCollection =
     FirebaseFirestore.instance.collection('foodProduct');
@@ -156,7 +152,6 @@ class _SearchpageState extends State<Searchpage> {
     // method 2
     foodProductCollection.orderBy('name').startAt([_searchText.toUpperCase()]).get().then((value) {
       List tempList=[];
-      //print(value.docsd);
       for(DocumentSnapshot product in value.docs){
         print("Finding: "+"_searchText:"+_searchText + " "+product.data()["name"]);  //debug
         tempList.add(product.data()['name']);
@@ -169,15 +164,5 @@ class _SearchpageState extends State<Searchpage> {
         filteredNames = [];// not showing any result when initstate
       });
     });
-
-    //names = tempList;
-    // tempList = ["water", "noodle", "apple", "banana", "vita lemon tea","temp","temp","temp","temp","temp","temp"];
-    /*
-    setState(() {
-      names = tempList;
-      //filteredNames = [];// not showing any result when initstate
-    });
-
-     */
   }
 }

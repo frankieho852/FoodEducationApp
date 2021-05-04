@@ -18,7 +18,7 @@ class newUserProfilePage extends StatefulWidget {
   State<StatefulWidget> createState() => _newUserProfilePageState();
 }
 
-//  todo: new user page UI
+
 class _newUserProfilePageState extends State<newUserProfilePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _nicknameController = TextEditingController();
@@ -287,9 +287,9 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
           .doc(user.uid)
           .set({
         'name': nickname,
-        'age': age,
-        'height': height,
-        'weight': weight,
+        'age': double.parse(age),
+        'height': double.parse(height),
+        'weight': double.parse(weight),
         'sex': _genderRadioBtnVal,
         'coupon': 0,
         'completedProfile': true
