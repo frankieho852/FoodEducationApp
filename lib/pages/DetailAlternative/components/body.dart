@@ -15,6 +15,8 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     // it enable scrolling on small device
+    print("altProduct");
+    print(altproductslist.length);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

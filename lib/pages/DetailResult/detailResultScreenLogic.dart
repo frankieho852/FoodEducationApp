@@ -26,17 +26,23 @@ class DetailResultScreenLogic {
 
 //ShowDialogCallback onGetDataError, ShowLoading loading
   Future<bool> setup(String searchname) async {
+    // _authService = authService;
+    // _onGetDataError = onGetDataError;
+    // _setLoading = loading;
 
+    // getUserInfo();
+    //findMaxMin();
+    //findAlt2product();
 //Vita TM Low Sugar Lemon Tea Drink
     loadingNotifier.value = true;
     bool a = await getProductData(searchname).then((value) => true);
     bool b = await getUserInfo().then((value) => true);
     bool c = await findMaxMin().then((value) => true);
     bool d = await findAlt2product().then((value) => true);
-   // print("checkbool");
-   // print(a); print(b);
-   // print("checkmaxmin");
-   // print(c); print(d);
+    print("checkbool");
+    print(a); print(b);
+    print("checkmaxmin");
+    print(c); print(d);
     loadingNotifier.value = false;
     if( a&&b&&c&&d){
 
@@ -85,14 +91,14 @@ class DetailResultScreenLogic {
     // 5
     final User _user = FirebaseAuth.instance.currentUser;
     DocumentReference userInfo =
-    FirebaseFirestore.instance.collection('userprofile').doc(_user.uid);
+    FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
 
     double height, weight;
     String sex;
     try {
       await userInfo.get().then((snapshot) {
-        height = snapshot.get('height');
-        weight = snapshot.get('weight');
+        height = snapshot.get('height').toDouble();
+        weight = snapshot.get('weight').toDouble();
         sex = snapshot.get('sex');
       });
     } on StateError catch (e) {
@@ -121,9 +127,9 @@ class DetailResultScreenLogic {
       var categoryResult =
       foodProductCollection.where('category', isEqualTo: foodProductCategory);
       await categoryResult.get().then((value) {
-        //print("size bug");
-        //print(value.size);
-        //print(value.size.runtimeType);
+        print("size bug");
+        print(value.size);
+        print(value.size.runtimeType);
         dataSize = value.size;
       });
 
@@ -154,22 +160,22 @@ class DetailResultScreenLogic {
 
           await maxQ.get().then((value) {
             max = value.docs.first.data()[tempLabel].toDouble();
-           // print("give me somthing");
-         //   print(value.docs.first.data()[tempLabel].runtimeType);
-          //  print(value.docs.first.data()[tempLabel].toDouble());
-           // print(max);
+            print("give me somthing");
+            print(value.docs.first.data()[tempLabel].runtimeType);
+            print(value.docs.first.data()[tempLabel].toDouble());
+            print(max);
           });
-          //print("out");
-          //print(max);
+          print("out");
+          print(max);
           //max = value.docs.first.data()[tempLabel].toDouble()); //double.parse(value.docs.first.data()[tempLabel])
 
           await minQ.get().then(
                   (value) => min = value.docs.first.data()[tempLabel].toDouble());
 
-          //log("findmaxmin3 max: " + max.toString());
-          //print(max);
-          //print(min);
-          //log("findmaxmin3 min: " + min.toString());
+          log("findmaxmin3 max: " + max.toString());
+          print(max);
+          print(min);
+          log("findmaxmin3 min: " + min.toString());
           tempDaily.add(DailyIntake(
               nutrient: tempLabel,
               maxSametype: max,

@@ -85,7 +85,6 @@ class _SearchpageState extends State<Searchpage> {
       filteredNames = tempList;
     }
 
-
     return ListView.builder(
       itemCount: names == null ? 0 : filteredNames.length,
       itemBuilder: (BuildContext context, int index) {

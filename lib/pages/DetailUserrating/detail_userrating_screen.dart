@@ -6,28 +6,35 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailUserrating/components/body.dart';
 import 'package:food_education_app/Userrating.dart';
-class DetailUserrating extends StatelessWidget {
+import 'package:food_education_app/pages/DetailUserrating/components/detail_userrating_logic.dart';
+import 'package:food_education_app/services/service_locator.dart';
+class DetailUserrating extends StatefulWidget {
   final FoodProduct product;
   DetailUserrating({Key key,@required this.product}) : super(key:key);
+  @override
+  _DetailUserratingState createState() => _DetailUserratingState();
+}
+
+  class _DetailUserratingState extends State<DetailUserrating> {
+
+    List<Userrating> ratinglist=[];
+
   @override
   Widget build(BuildContext context) {
     // todo: a function to search database by product.name -> create a list object with all comments
 
-    CollectionReference foodProductCollection =
-    FirebaseFirestore.instance.collection('foodProduct');
+    final detailUserratingLogic = getIt<DetailUserratingLogic>();
 
-    return StreamBuilder<QuerySnapshot>(
-      stream: foodProductCollection
-          .where('name', isEqualTo: product.name)
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+
+    return FutureBuilder<bool>(
+      future: detailUserratingLogic.setup(widget.product.name), //foodProductCollection          .where('name', isEqualTo: product.name)        .snapshots()
+      builder: (BuildContext context, snapshot) {
         if (snapshot.hasError) {
           return Container(
             alignment: Alignment.center,
             child: Text('Error'),
           );
         }
-
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
             alignment: Alignment.center,
@@ -36,48 +43,24 @@ class DetailUserrating extends StatelessWidget {
           //Text("Loading");
         }
 
-
-        List<Userrating> ratinglist=[];
-        //todo: temp value
         /*
-          Userrating(productname:product.name,name:"Figo",image:"assets/images/tempUserpicture.jpg",star:4,comment:"It taste sweet"),
-          Userrating(productname:product.name,name:"Sam",image:"assets/images/tempUserpicture1.jpg",star:2.5,comment:"It taste so bad"),
-          Userrating(productname:product.name,name:"Ray",image:"assets/images/tempUserpicture2.jpg",star:3.5,comment:"It taste ok"),
-          Userrating(productname:product.name,name:"Frankie",image:"assets/images/tempUserpicture3.jpg",star:1,comment:"I hate lemon tea and this is worst lemon tea ever."),
+        List<Userrating> ratinglist=[
+        //todo: temp value
 
-           */
-        snapshot.data.docs.map((DocumentSnapshot productDoc) {
+          Userrating(productname:widget.product.name,name:"Figo",image:"assets/images/tempUserpicture.jpg",star:4,comment:"It taste sweet"),
+          Userrating(productname:widget.product.name,name:"Sam",image:"assets/images/tempUserpicture1.jpg",star:2.5,comment:"It taste so bad"),
+          Userrating(productname:widget.product.name,name:"Ray",image:"assets/images/tempUserpicture2.jpg",star:3.5,comment:"It taste ok"),
+          Userrating(productname:widget.product.name,name:"Frankie",image:"assets/images/tempUserpicture3.jpg",star:1,comment:"I hate lemon tea and this is worst lemon tea ever."),
+        ];
 
-          productDoc.reference.collection('commentSet').get().then((snapshot) {
-            for (DocumentSnapshot commentData in snapshot.docs) {
-              DocumentReference userProfile = FirebaseFirestore.instance
-                  .collection('userProfile')
-                  .doc(commentData.id);
+         */
 
-              userProfile.get().then((userData) {
-                log("Show comment now");
-                log(productDoc.data()['name']);
-                log(userData.get("nicknanme"));
-                log(userData.get("photoURL"));
-                log(commentData.data()['star']);
-                log(commentData.data()['comment']);
-
-
-                ratinglist.add(Userrating(
-                    productname: productDoc.data()['name'],
-                    name: userData.get("nicknanme"),
-                    image: userData.get("photoURL"),
-                    star: commentData.data()['star'].toDouble(),
-                    comment: commentData.data()['comment']));
-              });
-            }
-          });
-        });
+        log("NOWprintuserratin in screen:" + detailUserratingLogic.ratinglist.length.toString());
 
         return new Scaffold(
-          appBar: buildAppBar(product.name),
-          body: Body(
-              image: product.image, ratinglist: ratinglist, star: product.star,productname: product.name,),
+          appBar: buildAppBar(widget.product.name),
+          body:  Body(     //  ratinglist
+              image: widget.product.image, ratinglist: detailUserratingLogic.ratinglist, star: widget.product.star,productname: widget.product.name),
           //bottomNavigationBar: MyBottomNavBar(),
         );
       },

@@ -35,10 +35,9 @@ class _DetailResultState extends State<DetailResult> {
     return FutureBuilder<bool>(
         future: detailResultLogic.setup(widget.searchname),
         builder: (BuildContext context, snapshot) {
-          //AsyncSnapshot<QuerySnapshot> snapshot
           if (snapshot.hasError) {
             log("Steam error");
-            //log(snapshot.error.toString());
+            log(snapshot.error.toString());
 
             return Container(
               alignment: Alignment.center,
