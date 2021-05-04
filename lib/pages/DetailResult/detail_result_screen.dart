@@ -17,7 +17,6 @@ class DetailResult extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _DetailResultState(); //searchName: this.searchname
-
 }
 
 class _DetailResultState extends State<DetailResult> {
@@ -59,7 +58,7 @@ class _DetailResultState extends State<DetailResult> {
             appBar: AppBar(
               elevation: 0,
               title: Text(
-                widget.searchname, //tempfood.name
+                widget.searchname,
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
@@ -68,11 +67,10 @@ class _DetailResultState extends State<DetailResult> {
             ),
 
             body: Body(
-              // snapshot[0-3]
-              product: detailResultLogic.product,  //detailResultLogic
+              product: detailResultLogic.product,
               daily: detailResultLogic.tempDaily,
               alt2product: detailResultLogic.alt2product,
-            ), // Center(child: CircularProgressIndicator()):
+            ),
 
             //bottomNavigationBar: MyBottomNavBar(),
           );

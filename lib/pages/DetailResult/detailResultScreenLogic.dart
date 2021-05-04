@@ -26,14 +26,7 @@ class DetailResultScreenLogic {
 
 //ShowDialogCallback onGetDataError, ShowLoading loading
   Future<bool> setup(String searchname) async {
-    // _authService = authService;
-    // _onGetDataError = onGetDataError;
-    // _setLoading = loading;
 
-    // getUserInfo();
-    //findMaxMin();
-    //findAlt2product();
-//Vita TM Low Sugar Lemon Tea Drink
     loadingNotifier.value = true;
     bool a = await getProductData(searchname).then((value) => true);
     bool b = await getUserInfo().then((value) => true);
@@ -44,8 +37,8 @@ class DetailResultScreenLogic {
     print("checkmaxmin");
     print(c); print(d);
     loadingNotifier.value = false;
-    if( a&&b&&c&&d){
 
+    if(a&&b&&c&&d){
       return true;
     }
     return true;
@@ -83,7 +76,7 @@ class DetailResultScreenLogic {
       //   return false;
     } finally {
       //_setLoading(false);
-      print("in abc: ");
+
     }
   }
 

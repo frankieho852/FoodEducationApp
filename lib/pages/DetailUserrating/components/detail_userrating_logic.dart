@@ -7,15 +7,13 @@ import 'package:food_education_app/Userrating.dart';
 class DetailUserratingLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
 
-//  ShowLoading _setLoading;
+  // ShowLoading _setLoading;
   // ShowDialogCallback _onGetDataError;
-  List<Userrating> ratinglist = [];
-
+  List<Userrating> ratinglist123 = [];
   CollectionReference foodProductCollection =
       FirebaseFirestore.instance.collection('foodProduct');
 
-
-//ShowDialogCallback onGetDataError, ShowLoading loading
+  //ShowDialogCallback onGetDataError, ShowLoading loading
   Future<bool> setup(String productName) async {
     loadingNotifier.value = true;
     bool a = await getUserrating(productName).then((value) => true);
@@ -27,9 +25,11 @@ class DetailUserratingLogic {
     return true;
   }
 
-  Future<void> getUserrating(String productName) async {
-    ratinglist.clear();
+  Future<List<Userrating>> getUserrating(String productName) async {
+    List<Userrating> ratinglist = [];
     try {
+      CollectionReference foodProductCollection =
+      FirebaseFirestore.instance.collection('foodProduct');
       //var getComment = foodProductCollection.where('name', isEqualTo: productName);
       var productRef = foodProductCollection.doc(productName);
      // productRef.get().then((value) => value.data()['name']);
@@ -57,20 +57,19 @@ class DetailUserratingLogic {
 
             ratinglist.add(Userrating(
                 productname: productName,
-                name: "TEST",
+                name: userData.get("name"),
                 image: "assets/images/tempUserpicture.jpg", //userData.get("name"),   //todo: iconURL
-                star: 45.0,
-                comment: "Test"));
+                star: commentData.data()['star'].toDouble(),
+                comment: commentData.data()['comment']));
           });
         }
       });
-
       // return alt2product;
     } on StateError catch (e) {
       print("Error: getalt2product");
     } finally{
       log("inlogic ratinglist length: " + ratinglist.length.toString());
     }
-
+    return ratinglist;
   }
 }
