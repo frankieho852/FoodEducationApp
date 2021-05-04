@@ -19,20 +19,16 @@ class DetailUserrating extends StatelessWidget {
   _DetailUserratingState createState() => _DetailUserratingState();
 }
 
-
-
   class _DetailUserratingState extends State<DetailUserrating> {
-
    // List<Userrating> ratinglist = [];
     final detailUserratingLogic = getIt<DetailUserratingLogic>();
-
     @override
     void initState() {
       super.initState();
      // detailUserratingLogic.ratinglist.clear();
     }
-
    */
+
   @override
   Widget build(BuildContext context) {
     // todo: a function to search database by product.name -> create a list object with all comments
@@ -62,7 +58,7 @@ class DetailUserrating extends StatelessWidget {
           log("NEW TEST userrating2");
           log(element.data()['star'].toString());
           log(element.data()['comment']);                                                     //todo:commenterIcon
-          ratinglist.add(Userrating(productname:product.name,name:element.data()['commenter'],image:"assets/images/tempUserpicture.jpg",star:element.data()['star'].toDouble(),comment:element.data()['comment']));
+          ratinglist.add(Userrating(productname:product.name,name:element.data()['commenter'], image:"assets/images/tempUserpicture.jpg",star:element.data()['star'].toDouble(),comment:element.data()['comment']));
         });
 
         /*
@@ -76,7 +72,7 @@ class DetailUserrating extends StatelessWidget {
          */
 
         if (snapshot.connectionState == ConnectionState.done) {
-         // log("final bug: " + snapshot.data.length.toString());
+         //log("final bug: " + snapshot.data.length.toString());
           log(snapshot.data.runtimeType.toString());
         }
 

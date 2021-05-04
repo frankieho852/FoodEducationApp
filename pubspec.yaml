@@ -47,6 +47,17 @@ dependencies:
   path_provider: ^2.0.1
   path: ^1.8.0
 
+
+  carousel_pro: ^1.0.0
+
+  image_picker: ^0.7.4
+
+  multi_image_picker: ^4.8.0
+
+  #Handling permissions on Android
+  permission_handler: ^7.1.0
+  image_gallery_saver: ^1.6.9
+
   fluttertoast: ^8.0.3
   cached_network_image: ^2.5.1
 

@@ -1,10 +1,11 @@
 import 'dart:io';
-
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 
 class newUserProfilePage extends StatefulWidget {
@@ -314,3 +315,92 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
 
   void _chooseProfileAvatar() {}
 }
+
+Widget buildGridView() {
+  return GridView.count(
+    shrinkWrap: true,
+    crossAxisCount: 1,
+    children: List.generate(images.length, (index) {
+      Asset asset = images[index];
+      return Padding(
+        padding: EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          child: AssetThumb(
+            asset: asset,
+            width: 300,
+            height: 300,
+            quality: 100,
+
+          ),
+        ),
+      );
+    }),
+  );
+}
+
+Future<void> loadAssets() async {
+  List<Asset> resultList = <Asset>[];
+  String error = 'No Error Dectected';
+  try {
+    resultList = await MultiImagePicker.pickImages(
+      maxImages: 1,
+      enableCamera: true,
+      selectedAssets: images,
+      cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+      materialOptions: MaterialOptions(
+        //actionBarColor: "#abcdef",
+        actionBarTitle: "Select Image",
+        allViewTitle: "All Photos",
+        useDetailsView: false,
+        //selectCircleStrokeColor: "#000000",
+      ),
+    );
+
+
+  } on Exception catch (e) {
+    error = e.toString();
+  }
+
+  // If the widget was removed from the tree while the asynchronous platform
+  // message was in flight, we want to discard the reply rather than calling
+  // setState to update our non-existent appearance.
+  if (!mounted) return;
+  setState(() {
+    images = resultList;
+  });
+}
+
+Future<dynamic> postImage(Asset imageFile) async {
+  User user = FirebaseAuth.instance.currentUser;
+  firebase_storage.Reference reference = firebase_storage.FirebaseStorage.instance.ref('Usericon').child(user.uid).child('icon');
+  firebase_storage.UploadTask uploadTask = reference.putData((await imageFile.getByteData()).buffer.asUint8List());
+  var imageUrl = await (await uploadTask).ref.getDownloadURL();
+  var url = imageUrl.toString();
+  return imageUrl;
+}
+
+
+void uploadImages(){
+  for ( var imageFile in images) {
+    postImage(imageFile).then((downloadUrl) {
+      imageUrls.add(downloadUrl.toString());
+      if (imageUrls.length == images.length) {
+        User user = FirebaseAuth.instance.currentUser;
+        FirebaseFirestore.instance.collection('Usericon').doc(user.uid).set(
+            {
+              'urls': imageUrls
+            }).then((_) {
+          setState(() {
+            images = [];
+            imageUrls = [];
+          });
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+}
+
