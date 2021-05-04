@@ -9,13 +9,14 @@ class DetailUserratingLogic {
 
   // ShowLoading _setLoading;
   // ShowDialogCallback _onGetDataError;
-  List<Userrating> ratinglist123 = [];
+  List<Userrating> ratinglist = [];
   CollectionReference foodProductCollection =
       FirebaseFirestore.instance.collection('foodProduct');
 
   //ShowDialogCallback onGetDataError, ShowLoading loading
   Future<bool> setup(String productName) async {
     loadingNotifier.value = true;
+ //   ratinglist.clear();
     bool a = await getUserrating(productName).then((value) => true);
 
     loadingNotifier.value = false;
@@ -25,8 +26,8 @@ class DetailUserratingLogic {
     return true;
   }
 
-  Future<List<Userrating>> getUserrating(String productName) async {
-    List<Userrating> ratinglist = [];
+  Future<void> getUserrating(String productName) async {
+
     try {
       CollectionReference foodProductCollection =
       FirebaseFirestore.instance.collection('foodProduct');
@@ -54,7 +55,7 @@ class DetailUserratingLogic {
                 star: commentData.data()['star'].toDouble(),
                 comment: commentData.data()['comment']));
              */
-
+            log("inlogic  in in ratinglist length: " + ratinglist.length.toString());
             ratinglist.add(Userrating(
                 productname: productName,
                 name: userData.get("name"),
@@ -63,13 +64,15 @@ class DetailUserratingLogic {
                 comment: commentData.data()['comment']));
           });
         }
+
       });
+    //  return ratinglist;
       // return alt2product;
     } on StateError catch (e) {
       print("Error: getalt2product");
     } finally{
       log("inlogic ratinglist length: " + ratinglist.length.toString());
     }
-    return ratinglist;
+
   }
 }

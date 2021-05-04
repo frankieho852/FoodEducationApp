@@ -1,35 +1,47 @@
 
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_education_app/Userrating.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailUserrating/components/body.dart';
-import 'package:food_education_app/Userrating.dart';
 import 'package:food_education_app/pages/DetailUserrating/components/detail_userrating_logic.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
-class DetailUserrating extends StatefulWidget {
+class DetailUserrating extends StatelessWidget {
 
   final FoodProduct product;
   DetailUserrating({Key key,@required this.product}) : super(key:key);
 
+  /*
   @override
   _DetailUserratingState createState() => _DetailUserratingState();
 }
 
+
+
   class _DetailUserratingState extends State<DetailUserrating> {
 
-    List<Userrating> ratinglist = [];
+   // List<Userrating> ratinglist = [];
     final detailUserratingLogic = getIt<DetailUserratingLogic>();
+
+    @override
+    void initState() {
+      super.initState();
+     // detailUserratingLogic.ratinglist.clear();
+    }
+
+   */
   @override
   Widget build(BuildContext context) {
     // todo: a function to search database by product.name -> create a list object with all comments
 
-
-
-    return FutureBuilder<List<Userrating>>(
-      future: detailUserratingLogic.getUserrating(widget.product.name), //setup(widget.product.name//foodProductCollection          .where('name', isEqualTo: product.name)        .snapshots()
-      builder: (BuildContext context, snapshot) {
+    var ref =
+    FirebaseFirestore.instance.collection('foodProduct').doc(product.name).collection("commentSet");
+    return StreamBuilder<QuerySnapshot>(
+      stream: ref.snapshots(),//detailUserratingLogic.setup(widget.product.name),//foodProductCollection          .where('name', isEqualTo: product.name)        .snapshots()   detailUserratingLogic.getUserrating(widget.product.name)
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot) {
         if (snapshot.hasError) {
           return Container(
             alignment: Alignment.center,
@@ -44,6 +56,15 @@ class DetailUserrating extends StatefulWidget {
           //Text("Loading");
         }
 
+        List<Userrating> ratinglist = [];
+        log("NEW TEST userrating1");
+        snapshot.data.docs.forEach((element) {
+          log("NEW TEST userrating2");
+          log(element.data()['star'].toString());
+          log(element.data()['comment']);                                                     //todo:commenterIcon
+          ratinglist.add(Userrating(productname:product.name,name:element.data()['commenter'],image:"assets/images/tempUserpicture.jpg",star:element.data()['star'].toDouble(),comment:element.data()['comment']));
+        });
+
         /*
         List<Userrating> ratinglist=[
         //todo: temp value
@@ -54,13 +75,15 @@ class DetailUserrating extends StatefulWidget {
         ];
          */
 
-        //log("NOWprintuserratin in screen:" + detailUserratingLogic.ratinglist.length.toString());
-//snapshot.data
-        log("final bug: " + snapshot.data.length.toString());
+        if (snapshot.connectionState == ConnectionState.done) {
+         // log("final bug: " + snapshot.data.length.toString());
+          log(snapshot.data.runtimeType.toString());
+        }
+
         return Scaffold(
-          appBar: buildAppBar(widget.product.name),
+          appBar: buildAppBar(product.name),
           body:  Body(     //  ratinglist // detailUserratingLogic.ratinglist
-              image: widget.product.image, ratinglist: snapshot.data, star: widget.product.star,productname: widget.product.name),
+              image: product.image, ratinglist: ratinglist, star: product.star,productname: product.name),
           //bottomNavigationBar: MyBottomNavBar(),
         );
       },

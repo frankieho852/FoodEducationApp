@@ -125,15 +125,23 @@ class Commentbox extends StatelessWidget {
                             });
                           } else {
                             // if not, create one
+                            DocumentReference user = FirebaseFirestore.instance.collection("userProfile").doc(_user.uid);
+                            user.get().then((value) {
+                              var a = value.data()['name'];
+                              var b = value.data()['userIcon'];
+
                             productComment
                                 .doc(_user.uid)
                                 .set({
+                                  'commenter': value.data()['name'],
+                                  'commenterIcon': "test",  // todo: value.data()['userIcon']
                                   'comment': _textEditingController.text.trim(),
                                   'star': uploadstar2
                                 })
                                 .then((value) => print("New comment"))
                                 .catchError((error) => print(
                                     "Failed to create your comment: $error"));
+                            });
                             double updatestar = 0;
                             //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
                             FirebaseFirestore.instance
