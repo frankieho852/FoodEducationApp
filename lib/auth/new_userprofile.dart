@@ -263,9 +263,9 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
             .doc(user.uid)
             .set({
           'name': nickname,
-          'age': age,
-          'height': height,
-          'weight': weight,
+          'age': double.parse(age),
+          'height': double.parse(height),
+          'weight': double.parse(weight),
           'sex': _genderRadioBtnVal,
           'coupon': 0,
           'completedProfile': true,
@@ -287,9 +287,9 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
                   .doc(user.uid)
                   .set({
                 'name': nickname,
-                'age': age,
-                'height': height,
-                'weight': weight,
+                'age': double.parse(age),
+                'height': double.parse(height),
+                'weight': double.parse(weight),
                 'sex': _genderRadioBtnVal,
                 'coupon': 0,
                 'completedProfile': true,

@@ -120,15 +120,15 @@ class Commentbox extends StatelessWidget {
                             FirebaseFirestore.instance
                                 .collection('foodProduct')
                                 .doc(productname)
-                                .set({
+                                .update({
                               'star': updatestar,
                             });
                           } else {
                             // if not, create one
                             DocumentReference user = FirebaseFirestore.instance.collection("userProfile").doc(_user.uid);
                             user.get().then((value) {
-                              var a = value.data()['name'];
-                              var b = value.data()['userIcon'];
+                              //var a = value.data()['name'];
+                              //var b = value.data()['userIcon'];
 
                             productComment
                                 .doc(_user.uid)
@@ -147,7 +147,7 @@ class Commentbox extends StatelessWidget {
                             FirebaseFirestore.instance
                                 .collection('foodProduct')
                                 .doc(productname)
-                                .set({
+                                .update({
                               'star': updatestar,
                             });
                           }
