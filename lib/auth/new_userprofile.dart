@@ -1,14 +1,19 @@
 import 'dart:io';
 import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:camera/camera.dart';
+
 
 class newUserProfilePage extends StatefulWidget {
+  static String tag = 'newuserprofile-page';
   final VoidCallback logOutBtn;
   final VoidCallback showFoodEducation;
 
@@ -19,7 +24,7 @@ class newUserProfilePage extends StatefulWidget {
   State<StatefulWidget> createState() => _newUserProfilePageState();
 }
 
-
+//  todo: new user page UI
 class _newUserProfilePageState extends State<newUserProfilePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _nicknameController = TextEditingController();
@@ -34,13 +39,19 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
 
   String _genderRadioBtnVal = "";
 
+  List<Asset> images = <Asset>[];
+  List<String> imageUrls = <String>[];
+
   final _formKeyUserProfile = GlobalKey<FormState>();
 
- // bool _showBottomSheet = false;
+  // bool _showBottomSheet = false;
   bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -70,16 +81,17 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
           children: [
             Text("Create User Profile"),
             GestureDetector(
-              onTap: () {
-                _bottomSheet(context);
-                //do what you want here
-              },
-              child: CircleAvatar(
-                backgroundImage:
-                    AssetImage("assets/icons/default_user_icon.jpg"),
-                backgroundColor: Colors.transparent,
-                radius: 60.0,
-              ),
+                onTap: () {
+                  loadAssets();
+                  //_bottomSheet(context);
+                  //do what you want here
+                },
+                child: images.length == 0 ? CircleAvatar(
+                  backgroundImage:
+                  AssetImage("assets/icons/default_user_icon.jpg"),
+                  backgroundColor: Colors.transparent,
+                  radius: 60.0,
+                ) : buildGridView()
             ),
             _formField(TextFormField(
                 controller: _nicknameController,
@@ -233,33 +245,6 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
         });
   }
 
-  void _bottomSheet(context) {
-    showModalBottomSheet(
-        // isScrollControlled: true,
-        // elevation: 5,
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-              child: Wrap(children: [
-            ListTile(
-                leading: Icon(Icons.collections),
-                title: Text("Gallery"),
-                onTap: () {
-                  // todo: choose user icon from gallery
-                  _chooseProfileAvatar();
-                  Navigator.of(context).pop();
-                }),
-
-            ListTile(
-                leading: Icon(Icons.photo_camera),
-                title: Text("Take Photo"),
-                onTap: () {
-                    // todo: take photo for icon
-                  Navigator.of(context).pop();
-                })
-          ]));
-        });
-  }
 
   Future<void> _submitProfile() async {
     final nickname = _nicknameController.text.trim();
@@ -271,31 +256,74 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
       setState(() {
         _loading = true;
       });
+      User user = FirebaseAuth.instance.currentUser;
+      if(images.length==0){
+        await FirebaseFirestore.instance
+            .collection('userProfile')
+            .doc(user.uid)
+            .set({
+          'name': nickname,
+          'age': age,
+          'height': height,
+          'weight': weight,
+          'sex': _genderRadioBtnVal,
+          'coupon': 0,
+          'completedProfile': true,
+          'iconURL': "https://firebasestorage.googleapis.com/v0/b/food-education-383e1.appspot.com/o/Usericon%2Fdefault_user_icon.jpg?alt=media&token=b864d2b9-368f-413d-8e31-8729c5e33d91"
+        });
 
+      }
+      else{
+        //uploadImages();
+
+        for (var imageFile in images) {
+          postImage(imageFile).then((downloadUrl) async {
+            imageUrls.add(downloadUrl.toString());
+            if (imageUrls.length == images.length) {
+
+
+              await FirebaseFirestore.instance
+                  .collection('userProfile')
+                  .doc(user.uid)
+                  .set({
+                'name': nickname,
+                'age': age,
+                'height': height,
+                'weight': weight,
+                'sex': _genderRadioBtnVal,
+                'coupon': 0,
+                'completedProfile': true,
+                'iconURL': imageUrls
+              }).then((_) {
+                setState(() {
+                  images = [];
+                  imageUrls = [];
+                });
+              });
+            }
+          }).catchError((err) {
+            print(err);
+          });
+        }
+      }
 
       /*
-      firebase_storage.FirebaseStorage storage =
-          firebase_storage.FirebaseStorage.instance;
-      firebase_storage.Reference ref =
-          firebase_storage.FirebaseStorage.instance.ref('/notes.txt]');
-      Directory appDocDir = await getApplicationDocumentsDirectory();
-      String filePath = '${appDocDir.absolute}/file-to-upload.png';
-       */
-
       User user = FirebaseAuth.instance.currentUser;
       await FirebaseFirestore.instance
           .collection('userProfile')
           .doc(user.uid)
           .set({
         'name': nickname,
-        'age': double.parse(age),
-        'height': double.parse(height),
-        'weight': double.parse(weight),
+        'age': age,
+        'height': height,
+        'weight': weight,
         'sex': _genderRadioBtnVal,
         'coupon': 0,
         'completedProfile': true
       }).then((userInfoValue) {});
-      user.updateProfile(displayName: nickname, photoURL: null);
+       */
+
+      // user.updateProfile(displayName: nickname, photoURL: null);
       widget.showFoodEducation();
     } catch (e) {
       _showErrorDialog(
@@ -314,93 +342,100 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
   }
 
   void _chooseProfileAvatar() {}
-}
 
-Widget buildGridView() {
-  return GridView.count(
-    shrinkWrap: true,
-    crossAxisCount: 1,
-    children: List.generate(images.length, (index) {
-      Asset asset = images[index];
-      return Padding(
-        padding: EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          child: AssetThumb(
-            asset: asset,
-            width: 300,
-            height: 300,
-            quality: 100,
+  Widget buildGridView() {
+    return GridView.count(
+      shrinkWrap: true,
+      crossAxisCount: 1,
+      children: List.generate(images.length, (index) {
+        Asset asset = images[index];
+        return Padding(
+          padding: EdgeInsets.all(8.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            child: AssetThumb(
+              asset: asset,
+              width: 300,
+              height: 300,
+              quality: 100,
 
+            ),
           ),
-        ),
-      );
-    }),
-  );
-}
-
-Future<void> loadAssets() async {
-  List<Asset> resultList = <Asset>[];
-  String error = 'No Error Dectected';
-  try {
-    resultList = await MultiImagePicker.pickImages(
-      maxImages: 1,
-      enableCamera: true,
-      selectedAssets: images,
-      cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-      materialOptions: MaterialOptions(
-        //actionBarColor: "#abcdef",
-        actionBarTitle: "Select Image",
-        allViewTitle: "All Photos",
-        useDetailsView: false,
-        //selectCircleStrokeColor: "#000000",
-      ),
+        );
+      }),
     );
-
-
-  } on Exception catch (e) {
-    error = e.toString();
   }
 
-  // If the widget was removed from the tree while the asynchronous platform
-  // message was in flight, we want to discard the reply rather than calling
-  // setState to update our non-existent appearance.
-  if (!mounted) return;
-  setState(() {
-    images = resultList;
-  });
-}
+  Future<void> loadAssets() async {
+    List<Asset> resultList = <Asset>[];
+    String error = 'No Error Dectected';
+    try {
+      resultList = await MultiImagePicker.pickImages(
+        maxImages: 1,
+        enableCamera: true,
+        selectedAssets: images,
+        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+        materialOptions: MaterialOptions(
+          //actionBarColor: "#abcdef",
+          actionBarTitle: "Select Image",
+          allViewTitle: "All Photos",
+          useDetailsView: false,
+          //selectCircleStrokeColor: "#000000",
+        ),
+      );
 
-Future<dynamic> postImage(Asset imageFile) async {
-  User user = FirebaseAuth.instance.currentUser;
-  firebase_storage.Reference reference = firebase_storage.FirebaseStorage.instance.ref('Usericon').child(user.uid).child('icon');
-  firebase_storage.UploadTask uploadTask = reference.putData((await imageFile.getByteData()).buffer.asUint8List());
-  var imageUrl = await (await uploadTask).ref.getDownloadURL();
-  var url = imageUrl.toString();
-  return imageUrl;
-}
 
+    } on Exception catch (e) {
+      error = e.toString();
+    }
 
-void uploadImages(){
-  for ( var imageFile in images) {
-    postImage(imageFile).then((downloadUrl) {
-      imageUrls.add(downloadUrl.toString());
-      if (imageUrls.length == images.length) {
-        User user = FirebaseAuth.instance.currentUser;
-        FirebaseFirestore.instance.collection('Usericon').doc(user.uid).set(
-            {
-              'urls': imageUrls
-            }).then((_) {
-          setState(() {
-            images = [];
-            imageUrls = [];
-          });
-        });
-      }
-    }).catchError((err) {
-      print(err);
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+    setState(() {
+      images = resultList;
     });
   }
 
-}
+  Future<dynamic> postImage(Asset imageFile) async {
+    User user = FirebaseAuth.instance.currentUser;
+    firebase_storage.FirebaseStorage.instance.ref('userProfile').child(user.uid).child('icon');
+    firebase_storage.Reference reference = firebase_storage.FirebaseStorage.instance.ref('Usericon').child(user.uid).child('icon');
+    firebase_storage.UploadTask uploadTask = reference.putData((await imageFile.getByteData()).buffer.asUint8List());
+    var imageUrl = await (await uploadTask).ref.getDownloadURL();
+    var url = imageUrl.toString();
+    return imageUrl;
+  }
 
+
+  void uploadImages(){
+    for (var imageFile in images) {
+      postImage(imageFile).then((downloadUrl) {
+        imageUrls.add(downloadUrl.toString());
+        if (imageUrls.length == images.length) {
+          User user = FirebaseAuth.instance.currentUser;
+
+
+
+          //FirebaseFirestore.instance.collection('Usericon').doc(user.uid).set(
+          FirebaseFirestore.instance.collection('userProfile').doc(user.uid).update(
+              {
+                'iconURL': imageUrls
+              }).then((_) {
+            setState(() {
+              images = [];
+              imageUrls = [];
+            });
+          });
+        }
+      }).catchError((err) {
+        print(err);
+      });
+    }
+
+  }
+
+
+
+}

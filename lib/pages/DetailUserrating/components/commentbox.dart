@@ -134,7 +134,7 @@ class Commentbox extends StatelessWidget {
                                 .doc(_user.uid)
                                 .set({
                                   'commenter': value.data()['name'],
-                                  'commenterIcon': "test",  // todo: value.data()['userIcon']
+                                  'commenterIcon': value.data()['iconURL'],  // todo: value.data()['userIcon']
                                   'comment': _textEditingController.text.trim(),
                                   'star': uploadstar2
                                 })
