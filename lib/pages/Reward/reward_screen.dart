@@ -23,7 +23,6 @@ class RewardScreen extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
 
-
           }
 
           String coupon;
