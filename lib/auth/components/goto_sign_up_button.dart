@@ -17,7 +17,7 @@ class GoToSignUpButton extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: TextButton(
         onPressed: logicClass.shouldShowSignUp,
-        child: Text('Don\'t have an account? Sign up.'),
+        child: Text('Don\'t have an account? Sign up with Email'),
         style: TextButton.styleFrom(
           primary: Colors.grey[800],
         ),

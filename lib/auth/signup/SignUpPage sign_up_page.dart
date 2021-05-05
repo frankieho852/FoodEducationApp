@@ -30,6 +30,14 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _obscureConfirmPW = true;
   bool _loading = false;
 
+  final signupLogic = getIt<SignUpPageLogic>();
+  void initState() {
+
+    super.initState();
+
+    signupLogic.setup(widget.authService, _showErrorDialog, _setLoading);
+  }
+
   void _setLoading(bool loading) {
     setState(() {
       _loading = loading;
@@ -190,7 +198,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     //_signUp();
-                    final signupLogic = getIt<SignUpPageLogic>();
+                    //final signupLogic = getIt<SignUpPageLogic>();
                     signupLogic.signUp(_emailController.text.trim(), _passwordController.text.trim()); //
                   }
                 },
