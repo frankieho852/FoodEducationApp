@@ -213,8 +213,8 @@ class _CommentboxState extends State<Commentbox> {
                                   updatestar =uploadstar2;
                                 } else{
                                   updatestar =
-                                      (currentProductStar * totalNumOfStar         ) /
-                                          (currentProductStar);
+                                      ((currentProductStar * totalNumOfStar )+uploadstar2)/
+                                          (totalNumOfStar+1);
                                 }
 
                                 log(updatestar.toString());
