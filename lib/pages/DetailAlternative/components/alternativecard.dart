@@ -57,7 +57,7 @@ class AlternativeCard extends StatelessWidget {
                           height: size.height * 0.13,
                           width: size.width * 0.35,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                            border: Border.all(color: kPrimaryColor.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(14),
                           ),
                           child: CachedNetworkImage(
@@ -91,12 +91,6 @@ class AlternativeCard extends StatelessWidget {
                               width: size.height * 0.05,// ensure the circle is in a squared box
                               color: Colors.transparent,
                               child: SvgPicture.asset(getGradeImage(product.grade)),
-                              // decoration: new BoxDecoration(
-                              //    shape: BoxShape.circle,
-                              //    color: Colors.green,
-                              //    image: DecorationImage(
-                              //        image: AssetImage(),//todo: change by product image
-                              //        fit: BoxFit.cover)),
                               ),
                             //
                 ),
