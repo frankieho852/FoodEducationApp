@@ -115,6 +115,7 @@ class _CommentboxState extends State<Commentbox> {
                         productCommentByUser.get().then((doc) {
                           if (doc.exists) {
                             // if the user already has a comment in firebase -> update
+                            double oldstar=doc.data()['star'];
                             productCommentByUser
                                 .update({
                                   'comment': _textEditingController.text.trim(),
@@ -126,6 +127,7 @@ class _CommentboxState extends State<Commentbox> {
                                     "Failed to update your comment: $error"));
                             //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
                             double updatestar;
+
                             int totalNumOfStar;
                             double currentProductStar;
 
@@ -146,13 +148,12 @@ class _CommentboxState extends State<Commentbox> {
                                 log(currentProductStar.toString());
                                 log(totalNumOfStar.toString());
                                 log(uploadstar2.toString());
-                                if(totalNumOfStar ==1 ||totalNumOfStar ==0 ){
+                                if(totalNumOfStar ==0 ){
                                   updatestar =uploadstar2;
                                 } else{
                                   updatestar =
-                                      (currentProductStar * totalNumOfStar
-                                          ) /
-                                          (currentProductStar);
+                                      ((currentProductStar * totalNumOfStar )-oldstar+uploadstar2)/
+                                          (totalNumOfStar);
                                 }
                                 log(updatestar.toString());
                                 log("END");
