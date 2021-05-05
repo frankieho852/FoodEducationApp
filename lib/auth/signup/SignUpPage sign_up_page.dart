@@ -30,13 +30,6 @@ class _SignUpPageState extends State<SignUpPage> {
   bool _obscureConfirmPW = true;
   bool _loading = false;
 
-  void initState() {
-
-    super.initState();
-    final signupLogic = getIt<SignUpPageLogic>();
-    signupLogic.setup(widget.authService, _showErrorDialog, _setLoading);
-  }
-
   void _setLoading(bool loading) {
     setState(() {
       _loading = loading;
