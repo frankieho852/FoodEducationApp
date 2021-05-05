@@ -125,7 +125,7 @@ class FoodProduct {
     }
     if (this.sugars_100 == 0) {
       scoreArray.score = scoreArray.score + 2;
-      scoreArray.cautions++;
+      scoreArray.checks++;
       scoreArray.messagearray.add(Message("Unsweetened", "checks"));
     }
     if (this.transFat_100 > 0) {
