@@ -7,8 +7,9 @@ class Header extends StatelessWidget {
   const Header({
     Key key,
     @required this.size,
+    @required this.dailyintake,
   }) : super(key: key);
-
+  final List<double> dailyintake;
   final Size size;
 
   @override
@@ -101,7 +102,7 @@ class Header extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text("160g"),
+                                          Text(dailyintake[3].toInt().toString()+"g"),
                                           SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
                                           Text("Carbs")
                                         ]),
@@ -109,7 +110,7 @@ class Header extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text("94g"),
+                                          Text(dailyintake[1].toInt().toString()+"g"),
                                           SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
                                           Text("Protein")
                                         ]),
@@ -117,7 +118,7 @@ class Header extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text("86g"),
+                                          Text(dailyintake[2].toInt().toString()+"g"),
                                           SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
                                           Text("Fat")
                                         ]),

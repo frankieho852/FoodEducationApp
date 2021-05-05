@@ -6,10 +6,10 @@ import 'header.dart';
 import 'package:food_education_app/constants.dart';
 
 class Body extends StatelessWidget {
-  double test;
+  List<double> dailyintake;
   Body({
     Key key,
-    @required this.test,
+    @required this.dailyintake,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Header(size: size),
+          Header(size: size,dailyintake:dailyintake),
           SectionTitle(title: "Recommended", press: () {}),
           RecommendedProduct(),
           SectionTitle(title: "Coupons", press: () {}),
