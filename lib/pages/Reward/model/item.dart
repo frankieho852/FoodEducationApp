@@ -12,7 +12,7 @@ List<Item> items = [
     id: 1,
     price: 210,
     title: "Fridays Caesar Salad",
-    image: "assets/images/Item_1.jpg",
+    image: "assets/images/Item_1.png",
     description:
         "Romaine lettuce tossed with our Caesar dressing, topped with parmesan and garlic butter croutons.",
   ),
