@@ -14,7 +14,6 @@ enum AuthFlowStatus {
   login,
   signUp,
   verificationEmail,
-  verified,
   session,
   resetPW,
   newUser,

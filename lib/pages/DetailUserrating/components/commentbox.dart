@@ -55,7 +55,7 @@ class _CommentboxState extends State<Commentbox> {
                             : "Invalid Empty Comment";
                       },
                       decoration:
-                          InputDecoration(hintText: "Enter Your Comment"),
+                      InputDecoration(hintText: "Enter Your Comment"),
                     ),
                     RatingBar(
                       initialRating: 3,
@@ -111,20 +111,20 @@ class _CommentboxState extends State<Commentbox> {
                             .doc(widget.productname)
                             .collection("commentSet");
                         DocumentReference productCommentByUser =
-                            productComment.doc(_user.uid);
+                        productComment.doc(_user.uid);
                         productCommentByUser.get().then((doc) {
                           if (doc.exists) {
                             // if the user already has a comment in firebase -> update
                             double oldstar=doc.data()['star'];
                             productCommentByUser
                                 .update({
-                                  'comment': _textEditingController.text.trim(),
-                                  "star": uploadstar2
-                                })
+                              'comment': _textEditingController.text.trim(),
+                              "star": uploadstar2
+                            })
                                 .then((value) => print(
-                                    "Comment Updated" + uploadstar2.toString()))
+                                "Comment Updated" + uploadstar2.toString()))
                                 .catchError((error) => print(
-                                    "Failed to update your comment: $error"));
+                                "Failed to update your comment: $error"));
                             //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
                             double updatestar;
 
@@ -136,7 +136,7 @@ class _CommentboxState extends State<Commentbox> {
                                 .doc(widget.productname);
 
                             var commentData =
-                                foodProductRef.collection("commentSet");
+                            foodProductRef.collection("commentSet");
                             foodProductRef.get().then((value) {
                               currentProductStar =
                                   value.data()["star"].toDouble();
@@ -161,11 +161,11 @@ class _CommentboxState extends State<Commentbox> {
                                     .collection('foodProduct')
                                     .doc(widget.productname)
                                     .update({
-                                      'star': updatestar,
-                                    })
+                                  'star': updatestar,
+                                })
                                     .then((value) => print("star1 Added"))
                                     .catchError((error) => print(
-                                        "Failed to update star1: $error"));
+                                    "Failed to update star1: $error"));
                               });
                             });
                           } else {
@@ -177,15 +177,15 @@ class _CommentboxState extends State<Commentbox> {
                               productComment
                                   .doc(_user.uid)
                                   .set({
-                                    'commenter': value.data()['name'],
-                                    'commenterIcon': value.data()['iconURL'],
-                                    'comment':
-                                        _textEditingController.text.trim(),
-                                    'star': uploadstar2
-                                  })
+                                'commenter': value.data()['name'],
+                                'commenterIcon': value.data()['iconURL'],
+                                'comment':
+                                _textEditingController.text.trim(),
+                                'star': uploadstar2
+                              })
                                   .then((value) => print("New comment"))
                                   .catchError((error) => print(
-                                      "Failed to create your comment: $error"));
+                                  "Failed to create your comment: $error"));
                             });
 
                             //todo: calulate the current star by user(eg. user A 5 star, user B, 4 star, overall star=4.5), and update to firestore
@@ -198,7 +198,7 @@ class _CommentboxState extends State<Commentbox> {
                                 .doc(widget.productname);
 
                             var commentData =
-                                foodProductRef.collection("commentSet");
+                            foodProductRef.collection("commentSet");
                             foodProductRef.get().then((value) {
                               currentProductStar =
                                   value.data()["star"].toDouble();
@@ -224,11 +224,11 @@ class _CommentboxState extends State<Commentbox> {
                                     .collection('foodProduct')
                                     .doc(widget.productname)
                                     .update({
-                                      'star': updatestar,
-                                    })
+                                  'star': updatestar,
+                                })
                                     .then((value) => print("star1 Added"))
                                     .catchError((error) => print(
-                                        "Failed to update star1: $error"));
+                                    "Failed to update star1: $error"));
                               });
                             });
                           }

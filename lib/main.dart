@@ -7,7 +7,6 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 import 'auth/Verification_page_email.dart';
-import 'tempRubbishBin/Verification_page_succeed.dart';
 import 'auth/auth_service.dart';
 import 'foodeducationMain.dart';
 
@@ -67,11 +66,6 @@ class _MyAppState extends State<MyApp> {
                             backButton: _authService.showSignUp,
                             shouldShowLogin: _authService.showLogin)),
 
-                  if (snapshot.data.authFlowStatus == AuthFlowStatus.verified)
-                    MaterialPage(
-                        child: VerificationPageSucceed(
-                          shouldShowLogin: _authService.showLogin,
-                        )),
 
                   if (snapshot.data.authFlowStatus == AuthFlowStatus.resetPW)
                     MaterialPage(

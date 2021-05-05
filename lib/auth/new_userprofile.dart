@@ -79,7 +79,9 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Create User Profile"),
+            Text("Create User Profile",style: TextStyle(
+                fontSize: 20.0
+            ),),
             GestureDetector(
                 onTap: () {
                   loadAssets();

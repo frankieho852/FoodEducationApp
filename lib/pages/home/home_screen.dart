@@ -11,35 +11,52 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // double height, weight, age = -1;
-    // final User _user = FirebaseAuth.instance.currentUser;
-    // print("uid: " + _user.uid);
-    var ref = FirebaseFirestore.instance.collection('userProfile');
-    getUserDailyIntake();
-    return StreamBuilder<QuerySnapshot>(
-      stream: ref.snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Container(
-            alignment: Alignment.center,
-            child: Text('Error'),
-          );
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Center(
-                child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
-            ,
-          );
-          //Text("Loading");
-        }
+    final User _user = FirebaseAuth.instance.currentUser;
 
-        return Scaffold(
-          appBar: buildAppBar(),
-          body: Body(dailyintake:dailyintake),
-          //bottomNavigationBar: MyBottomNavBar(),
-        );
-      }
+    var userRef = FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
+    //getUserDailyIntake();
+    return StreamBuilder<DocumentSnapshot>(
+        stream: userRef.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Container(
+              alignment: Alignment.center,
+              child: Text('Error'),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Scaffold(
+              body: Center(
+                  child: CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor))),
+            );
+          }
+          double height,weight,age;
+          String sex;
+          height = snapshot.data.data()['height'].toDouble();
+          weight = snapshot.data.data()['weight'].toDouble();
+          age = snapshot.data.data()['age'].toDouble();
+          sex = snapshot.data.data()['sex'];
+          double maxCalories = -1;
+          if(sex=="Female"){maxCalories=10*weight+6.25*height-5*age+5;}
+          if(sex=="Male"){maxCalories=10*weight+6.25*height-5*age-161;}
+          double maxProtein =
+              maxCalories * 0.15 / 4; //One gram of protein provides 4 kcal.
+          double maxCarbohydrate =
+              maxCalories * 0.75 / 4; //One gram of carbohydrate provides 4 kcal.
+          double maxFat =
+              maxCalories * 0.3 / 9; //Fat provides 9 kcal for each gram of fat.
+          //these 3 values should added up to be 100% of max calories per day, but the percentage can varies,
+          //For example, 100% calories = 15% Proteins+ 55% Carbohydrate +30% Fat
+          //or 100% calories = 10% Proteins+ 70% Carbohydrate +20% Fat are also fine
+          dailyintake=[maxCalories,maxProtein,maxFat,maxCarbohydrate];
+
+          return Scaffold(
+            appBar: buildAppBar(),
+            body: Body(dailyintake:dailyintake),
+            //bottomNavigationBar: MyBottomNavBar(),
+          );
+        }
     );
   }
 
@@ -55,7 +72,8 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-  Future<void> getUserDailyIntake() async {
+  /*
+  Future<void> _getUserDailyIntake() async {
     // 5
     final User _user = FirebaseAuth.instance.currentUser;
     print("uid: "+_user.uid);
@@ -93,4 +111,6 @@ class HomeScreen extends StatelessWidget {
     }
     //  return true;
   }
+
+   */
 }
