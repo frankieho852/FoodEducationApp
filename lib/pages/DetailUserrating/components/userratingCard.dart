@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/Userrating.dart';
@@ -22,7 +23,8 @@ class UserratingCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(width: 1,color: Colors.grey), // grey as border color
+          bottom:
+              BorderSide(width: 1, color: Colors.grey), // grey as border color
         ),
       ),
 
@@ -36,17 +38,49 @@ class UserratingCard extends StatelessWidget {
               crossAxisAlignment:
                   CrossAxisAlignment.start, // make icon stay top left
               children: [
+                CachedNetworkImage(
+                  imageUrl: userrating.image,
+                  imageBuilder: (context, imageProvider) => Container(
+                    //padding: EdgeInsets.all(kDefaultPadding * 0.1),
+                    height: size.height * 0.06,
+                    width: size.height * 0.06, // ensure sqaure container
+                    decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                      image: DecorationImage(
+                        image: NetworkImage(userrating.image),
+                        //imageProvider
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Container(
+                      alignment: Alignment.center,
+                      height: size.height * 0.06,
+                      width: size.height * 0.06,
+                      child: CircularProgressIndicator(
+                          valueColor: new AlwaysStoppedAnimation<Color>(
+                              kPrimaryColor))),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                ),
+/*
                 Container(
                   //padding: EdgeInsets.all(kDefaultPadding * 0.1),
                   height: size.height * 0.06,
                   width: size.height * 0.06, // ensure sqaure container
+
                   decoration: new BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.transparent,
                       image: DecorationImage(
                           image: NetworkImage(userrating.image),
-                          fit: BoxFit.cover)),
+                          fit: BoxFit.cover)
+
+
+                  ),
                 ),
+
+ */
                 SizedBox(
                   width: size.width * 0.02,
                 ),
@@ -55,7 +89,7 @@ class UserratingCard extends StatelessWidget {
                   child: Container(
                     //height: size.height * 0.12,
                     //width: size.width * 0.6,//width expanded
-                   // color: Colors.purple,
+                    // color: Colors.purple,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -140,19 +174,21 @@ class UserratingCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(height: size.height*0.01,),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
                         Container(
                             //height: size.height * 0.05,//height also expanded
                             //width: size.width * 0.4,//width expanded
                             padding: EdgeInsets.only(right: kDefaultPadding),
-                           // color: Colors.yellow,
+                            // color: Colors.yellow,
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 userrating.comment,
                                 style: TextStyle(
                                   fontSize: size.height *
-                                      0.02 , //slightly smaller than product name and star
+                                      0.02, //slightly smaller than product name and star
                                   //fontWeight: FontWeight.bold, no bold here
                                 ),
                               ),

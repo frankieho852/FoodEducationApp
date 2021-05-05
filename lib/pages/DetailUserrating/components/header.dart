@@ -1,4 +1,5 @@
 //import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
 import 'userratingCard.dart';
@@ -36,8 +37,8 @@ class Header extends StatelessWidget {
               bottom: 36 + kDefaultPadding,
             ),
             // explanation: minus 27 to lift this container away up from the wrapping container
-            height: size.height * 0.2 -
-                57, //here not -27,space is used for "Alternative title"
+            height: size.height * 0.2 - 57,
+            //here not -27,space is used for "Alternative title"
             decoration: BoxDecoration(
               color: kPrimaryColor,
               // location: the bottom corner of the teal header block
@@ -69,16 +70,41 @@ class Header extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(kDefaultPadding / 2,
-                          kDefaultPadding / 2, kDefaultPadding / 2, kDefaultPadding / 4),
-                      height: size.height * 0.25,
-                      decoration: BoxDecoration(
+                    CachedNetworkImage(
+                      imageUrl: image,
+                      imageBuilder: (context, imageProvider) => Container(
+                        margin: const EdgeInsets.fromLTRB(
+                            kDefaultPadding / 2,
+                            kDefaultPadding / 2,
+                            kDefaultPadding / 2,
+                            kDefaultPadding / 4),
+                        height: size.height * 0.25,
+                        decoration: new BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
                           image: DecorationImage(
-                              image: NetworkImage(image), fit: BoxFit.fitHeight)),
+                            image: NetworkImage(image), //imageProvider
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      placeholder: (context, url) => Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.fromLTRB(
+                              kDefaultPadding / 2,
+                              kDefaultPadding / 2,
+                              kDefaultPadding / 2,
+                              kDefaultPadding / 4),
+                          height: size.height * 0.25,
+                          child: CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation<Color>(
+                                  kPrimaryColor))),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
-                    Commentbox(productname:productname,size: size,commentlength:ratinglist.length,star:star),
+                    Commentbox(
+                        productname: productname,
+                        size: size,
+                        commentlength: ratinglist.length,
+                        star: star),
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.fromLTRB(kDefaultPadding / 2,

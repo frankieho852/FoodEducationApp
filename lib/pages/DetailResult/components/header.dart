@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/constants.dart';
@@ -18,7 +19,6 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //SizeConfig().init(context);// this is important for using proportionatescreen function
     return Container(
       // explanation: margin between this container and "Recommended section title
@@ -54,8 +54,8 @@ class Header extends StatelessWidget {
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 10),
-                height:
-                    size.height * 0.18, //use dynamic value(change by figo 25/2)
+                height: size.height * 0.18,
+                //use dynamic value(change by figo 25/2)
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
@@ -79,6 +79,34 @@ class Header extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       children: [
+                        CachedNetworkImage(
+                          imageUrl: product.image,
+                          imageBuilder: (context, imageProvider) => Container(
+                            height: size.height * 0.2,
+                            width: size.width * 0.4,
+                            //color: Colors.green,
+                            decoration: new BoxDecoration(
+                              color: Colors.transparent,
+                              // border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                              borderRadius: BorderRadius.circular(14),
+                              image: DecorationImage(
+                                image: NetworkImage(product.image),
+                                //imageProvider
+                                fit: BoxFit.fitHeight,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => Container(
+                              alignment: Alignment.center,
+                              height: size.height * 0.2,
+                              width: size.width * 0.4,
+                              child: CircularProgressIndicator(
+                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                      kPrimaryColor))),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+/*
                         Container(
                           height: size.height * 0.2,
                           width: size.width * 0.4,
@@ -91,11 +119,14 @@ class Header extends StatelessWidget {
                                   image: NetworkImage(product.image),
                                   fit: BoxFit.fitHeight)),
                         ),
+
+ */
                         SizedBox(width: 8),
                         Expanded(
                           child: Container(
                             //color: Colors.red,
-                            padding: const EdgeInsets.only(left:8.0,right:8.0),
+                            padding:
+                                const EdgeInsets.only(left: 8.0, right: 8.0),
                             decoration: new BoxDecoration(
                               color: Color(0xFFF6FAF9),
                               borderRadius: BorderRadius.circular(14),
@@ -103,13 +134,17 @@ class Header extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                SizedBox(height: 8.0,),
+                                SizedBox(
+                                  height: 8.0,
+                                ),
                                 Flexible(
                                   child: Container(
-                                    height: size.height*0.05,
+                                    height: size.height * 0.05,
                                     child: FittedBox(
                                       child: Text(
-                                        "Is this product"+"\n"+"good for you?",
+                                        "Is this product" +
+                                            "\n" +
+                                            "good for you?",
                                         style: TextStyle(
                                           //fontWeight: FontWeight.bold,
                                           fontSize: 14,
@@ -124,7 +159,7 @@ class Header extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    height: size.height*0.06,
+                                    height: size.height * 0.06,
                                     width: double.infinity,
                                     color: Colors.transparent,
                                     child: Row(
@@ -141,45 +176,53 @@ class Header extends StatelessWidget {
                                                   BorderRadius.circular(14),
                                             ),
                                             child: Container(
-                                              margin: EdgeInsets.only(left: 4,right: 4),
+                                              margin: EdgeInsets.only(
+                                                  left: 4, right: 4),
                                               color: Colors.transparent,
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Container(
-                                                        height: size.height * 0.025,
+                                                        height:
+                                                            size.height * 0.025,
                                                         child: FittedBox(
                                                           fit: BoxFit.fitHeight,
                                                           child: Text(
                                                             scoreArray.checks
                                                                 .toString(),
                                                             style: TextStyle(
-                                                              color: kPrimaryColor,
+                                                              color:
+                                                                  kPrimaryColor,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(width:2),
+                                                      SizedBox(width: 2),
                                                       Icon(
                                                         Icons.check,
                                                         color: kPrimaryColor,
-                                                        size: size.height * 0.025,
+                                                        size:
+                                                            size.height * 0.025,
                                                       ),
                                                     ],
                                                   ),
-                                                  Flexible(child:SizedBox(height:4)),
+                                                  Flexible(
+                                                      child:
+                                                          SizedBox(height: 4)),
                                                   Container(
-                                                    height: size.height*0.025,
+                                                    height: size.height * 0.025,
                                                     child: FittedBox(
                                                       fit: BoxFit.fitHeight,
                                                       child: Text(
                                                         "Checks",
                                                         style: TextStyle(
-                                                      color: kPrimaryColor,
+                                                          color: kPrimaryColor,
                                                         ),
                                                       ),
                                                     ),
@@ -189,7 +232,9 @@ class Header extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(width: 4,),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
                                         Expanded(
                                           flex: 2,
                                           child: Container(
@@ -197,42 +242,50 @@ class Header extends StatelessWidget {
                                             decoration: new BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
-                                              BorderRadius.circular(14),
+                                                  BorderRadius.circular(14),
                                             ),
                                             child: Container(
-                                              margin: EdgeInsets.only(left: 4,right: 4),
+                                              margin: EdgeInsets.only(
+                                                  left: 4, right: 4),
                                               color: Colors.transparent,
                                               child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Container(
-                                                        height: size.height * 0.025,
+                                                        height:
+                                                            size.height * 0.025,
                                                         child: FittedBox(
                                                           fit: BoxFit.fitHeight,
                                                           child: Text(
                                                             scoreArray.cautions
                                                                 .toString(),
                                                             style: TextStyle(
-                                                              color: Colors.orange,
+                                                              color:
+                                                                  Colors.orange,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                      SizedBox(width:2),
+                                                      SizedBox(width: 2),
                                                       Icon(
                                                         Icons.dangerous,
                                                         color: Colors.orange,
-                                                        size: size.height * 0.025,
+                                                        size:
+                                                            size.height * 0.025,
                                                       ),
                                                     ],
                                                   ),
-                                                  Flexible(child:SizedBox(height:4)),
+                                                  Flexible(
+                                                      child:
+                                                          SizedBox(height: 4)),
                                                   Container(
-                                                    height: size.height*0.025,
+                                                    height: size.height * 0.025,
                                                     child: FittedBox(
                                                       fit: BoxFit.fitHeight,
                                                       child: Text(
@@ -252,7 +305,9 @@ class Header extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 8.0,),
+                                SizedBox(
+                                  height: 8.0,
+                                ),
                               ],
                             ),
                           ),

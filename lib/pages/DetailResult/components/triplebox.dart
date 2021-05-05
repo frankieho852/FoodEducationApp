@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/alternativeproduct.dart';
 import 'package:food_education_app/foodproduct.dart';
@@ -19,13 +20,15 @@ class Triplebox extends StatelessWidget {
   final FoodProduct product;
   final ScoreArray scoreArray;
   final List<AlternativeProduct> alt2product;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
       //padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/10),
-      height: size.height * 0.25, //use dynamic value(change by figo 25/2)
+      height: size.height * 0.25,
+      //use dynamic value(change by figo 25/2)
       decoration: BoxDecoration(
         //color: Colors.green,
         borderRadius: BorderRadius.circular(14),
@@ -102,7 +105,38 @@ class Triplebox extends StatelessWidget {
                                     children: [
                                       Align(
                                         alignment: Alignment.topCenter,
-                                        child: Container(
+                                        child: CachedNetworkImage(
+                                          imageUrl: alt2product[index].image,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            height: size.height * 0.104,
+                                            width: size.width * 0.25,
+                                            decoration: new BoxDecoration(
+                                              // color: Colors.transparent,
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    alt2product[index].image),
+                                                //imageProvider
+                                                fit: BoxFit.fitHeight,
+                                              ),
+                                            ),
+                                          ),
+                                          placeholder: (context, url) => Container(
+                                              alignment: Alignment.center,
+                                              height: size.height * 0.104,
+                                              width: size.width * 0.25,
+                                              child: CircularProgressIndicator(
+                                                  valueColor:
+                                                      new AlwaysStoppedAnimation<
+                                                              Color>(
+                                                          kPrimaryColor))),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+
+                                        /*
+                                        Container(
                                           height: size.height * 0.104,
                                           width: size.width * 0.25,
                                           decoration: new BoxDecoration(
@@ -112,7 +146,10 @@ class Triplebox extends StatelessWidget {
                                                       alt2product[index].image),
                                                   fit: BoxFit.fitHeight)),
                                         ),
+
+                                             */
                                       ),
+
                                       Align(
                                         alignment: Alignment.topLeft,
                                         child: Container(
@@ -120,8 +157,8 @@ class Triplebox extends StatelessWidget {
                                               EdgeInsets.only(top: 2, left: 8),
                                           padding: EdgeInsets.all(3),
                                           height: size.height * 0.03,
-                                          width: size.height *
-                                              0.03, // ensure the circle is in a squared box
+                                          width: size.height * 0.03,
+                                          // ensure the circle is in a squared box
                                           decoration: new BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(6),
@@ -155,7 +192,8 @@ class Triplebox extends StatelessWidget {
                                   height: 1,
                                   width: double.infinity,
                                   child: const DecoratedBox(
-                                    decoration: const BoxDecoration(color: Colors.grey),
+                                    decoration:
+                                        const BoxDecoration(color: Colors.grey),
                                   ),
                                 ),
                               ],
@@ -323,10 +361,11 @@ class Triplebox extends StatelessWidget {
                             Expanded(
                               child: Container(
                                 height: size.height * 0.08,
-                                width: size.height *
-                                    0.08, // ensure the circle is in a squared box
+                                width: size.height * 0.08,
+                                // ensure the circle is in a squared box
                                 //color: Colors.green,
-                                child: SvgPicture.asset(product.getGradeImage()),
+                                child:
+                                    SvgPicture.asset(product.getGradeImage()),
                                 // decoration: new BoxDecoration(
                                 //     shape: BoxShape.circle,
                                 //     image: DecorationImage(
