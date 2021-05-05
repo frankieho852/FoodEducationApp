@@ -67,6 +67,11 @@ class _DetailResultState extends State<DetailResult> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              leading: BackButton(
+                onPressed: () {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                },
+              ),
             ),
 
             body: Body(

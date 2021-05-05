@@ -87,7 +87,7 @@ class Header extends StatelessWidget {
                             //color: Colors.green,
                             decoration: new BoxDecoration(
                               color: Colors.transparent,
-                              // border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                              border: Border.all(color: kPrimaryColor.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(14),
                               image: DecorationImage(
                                 image: NetworkImage(product.image),

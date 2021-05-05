@@ -288,7 +288,7 @@ class _CommentboxState extends State<Commentbox> {
                               width: kDefaultPadding / 10,
                             ),
                             RatingBarIndicator(
-                              rating: snapshot.data.data()['star'], //widget.star
+                              rating: snapshot.data.data()['star'].toDouble(), //widget.star
                               itemBuilder: (context, index) => Icon(
                                 Icons.star,
                                 color: kPrimaryColor,
