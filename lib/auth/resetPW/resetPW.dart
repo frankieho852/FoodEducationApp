@@ -1,22 +1,18 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/auth/components/login_form.dart';
 import 'package:food_education_app/constants.dart';
 
 class resetPW extends StatefulWidget {
-
   final VoidCallback shouldLogOut;
 
-  resetPW({Key key, this.shouldLogOut})
-      : super(key: key);
+  resetPW({Key key, this.shouldLogOut}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _resetPWState();
 }
 
 class _resetPWState extends State<resetPW> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -32,20 +28,19 @@ class _resetPWState extends State<resetPW> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: _loading
-          ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
+          ? Center(
+              child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
           : SafeArea(
-          minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-          child: SingleChildScrollView(
-              child: Column(children: [
+              minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+              child: SingleChildScrollView(
+                  child: Column(children: [
                 // Sign Up Form
                 _resetPWForm(),
                 // Goto login Button
-              ])
-          )
-      ),
+              ]))),
     );
 
     /*
@@ -73,25 +68,12 @@ class _resetPWState extends State<resetPW> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Reset your password",
-              style: TextStyle(
-                  fontSize: 20.0
-              ),
+            SizedBox(height: 20),
+            Text(
+              "Reset your password",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
-            //SizedBox();
-            /*
-            Text("Don't worry! Just fill in your email and",
-              style: TextStyle(
-                  fontSize: 15.0
-              ),
-            ),Text("we'll send you a link to reset your password.",
-              style: TextStyle(
-                  fontSize: 15.0
-              ),
-            ),
-
-             */
-
+            SizedBox(height: 50),
             FormField(
               TextFormField(
                 controller: _passwordController,
@@ -126,7 +108,6 @@ class _resetPWState extends State<resetPW> {
                 },
               ),
             ),
-
             FormField(
               TextFormField(
                   controller: _confirmPasswordController,
@@ -147,14 +128,13 @@ class _resetPWState extends State<resetPW> {
                       return 'Please enter your Confirm Password';
                     } else if (value.contains(" ")) {
                       return 'Should not contain space';
-                    } else if (_passwordController.text.trim() != value.trim()) {
+                    } else if (_passwordController.text.trim() !=
+                        value.trim()) {
                       return "Those passwords didn't match. Try again.";
                     }
                     return null;
                   }),
             ),
-
-
             Container(
               margin: EdgeInsets.symmetric(vertical: 10),
               width: size.width * 0.9,
@@ -163,7 +143,7 @@ class _resetPWState extends State<resetPW> {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    backgroundColor: Colors.red,
+                    backgroundColor: kPrimaryColor,
                   ),
                   onPressed: () {
                     if (_formKeyResetPW.currentState.validate()) {
@@ -204,13 +184,13 @@ class _resetPWState extends State<resetPW> {
     } on FirebaseAuthException catch (authError) {
       if (authError.code == 'weak-password') {
         _showErrorDialog('Password Issue', "The password is not strong enough");
-
-      } else if(authError.code == 'requires-recent-login'){
-        _showErrorDialog('Security Issue', "Your last sign-in time does not meet the security threshold. You can re-login.");
-      }else {
+      } else if (authError.code == 'requires-recent-login') {
+        _showErrorDialog('Security Issue',
+            "Your last sign-in time does not meet the security threshold. You can re-login.");
+      } else {
         _showErrorDialog("Error", "Error code: ${authError.code}");
       }
-    } finally{
+    } finally {
       _passwordController.clear();
       _confirmPasswordController.clear();
       _setLoading(false);
@@ -277,5 +257,4 @@ class _resetPWState extends State<resetPW> {
 
     return regExp.hasMatch(password);
   }
-
 }
