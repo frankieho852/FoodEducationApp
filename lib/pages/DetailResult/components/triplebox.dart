@@ -299,7 +299,7 @@ class Triplebox extends StatelessWidget {
                                           width: size.width * 0.12,
                                           child: FittedBox(
                                               child: Text(
-                                                  product.star.toString()))),
+                                                  product.star.toStringAsFixed(1)))),
                                     ),
                                     SizedBox(
                                       width: 8,
