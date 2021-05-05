@@ -31,11 +31,7 @@ class _BodyState extends State<Body> {
       children: [
         ProfilePic(),
         SizedBox(height: 20),
-        ProfileMenu(
-          text: "My Account",
-          icon: "assets/icons/User Icon.svg",
-          press: () => {},
-        ),
+
         ProfileMenu(
           text: "Reset Password",
           icon: "assets/icons/rotation-lock.svg",
@@ -47,16 +43,7 @@ class _BodyState extends State<Body> {
                     )));
           },
         ),
-        ProfileMenu(
-          text: "Settings",
-          icon: "assets/icons/Settings.svg",
-          press: () {},
-        ),
-        ProfileMenu(
-          text: "Help Center",
-          icon: "assets/icons/Question mark.svg",
-          press: () {},
-        ),
+
         ProfileMenu(
           text: "Log Out",
           icon: "assets/icons/Log out.svg",
