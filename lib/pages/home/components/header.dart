@@ -69,7 +69,7 @@ class Header extends StatelessWidget {
                       SizedBox(
                         width: size.width*0.05,//this box avoid the graph goees out border(change by figo 25/2)
                       ),
-                      DailyTargetGraph(),
+                      DailyTargetGraph(dailycalorie:dailyintake[0],),
                       SizedBox(
                         width: size.width*0.05,
                       ),
@@ -102,25 +102,25 @@ class Header extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(dailyintake[3].toInt().toString()+"g"),
+                                          Text(dailyintake[3].toInt().toString()+"g",style: TextStyle(color: Color(0xFFF38134)),),
                                           SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
-                                          Text("Carbs")
+                                          Text("Carbs",style: TextStyle(color: Color(0xFFF38134)),)
                                         ]),
                                     Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(dailyintake[1].toInt().toString()+"g"),
+                                          Text(dailyintake[1].toInt().toString()+"g",style: TextStyle(color: Color(0xFF8245CF)),),
                                           SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
-                                          Text("Protein")
+                                          Text("Protein",style: TextStyle(color: Color(0xFF8245CF)),)
                                         ]),
                                     Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Text(dailyintake[2].toInt().toString()+"g"),
+                                          Text(dailyintake[2].toInt().toString()+"g",style: TextStyle(color:Color(0xFF1B70BE)),),
                                           SizedBox(height: size.height*0.01),//use dynamic value(change by figo 25/2)
-                                          Text("Fat")
+                                          Text("Fat",style: TextStyle(color: Color(0xFF1B70BE)),)
                                         ]),
                                   ],
                                 ),
