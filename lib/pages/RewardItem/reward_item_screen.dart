@@ -25,16 +25,15 @@ class RewardItemScreen extends StatelessWidget {
       elevation: 0,
       leading: IconButton(
         padding: EdgeInsets.only(left: kDefaultPadding),
-        icon: Icon(Icons.arrow_back),
+        icon: Icon(
+          Icons.arrow_back,
+          color: kPrimaryColor,
+        ),
         onPressed: () {
           Navigator.pop(context);
         },
       ),
       centerTitle: false,
-      title: Text(
-        'Back'.toUpperCase(),
-        style: Theme.of(context).textTheme.bodyText2,
-      ),
     );
   }
 }

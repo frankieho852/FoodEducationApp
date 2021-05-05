@@ -41,7 +41,8 @@ class _CategoryListState extends State<CategoryList> {
             ),
             child: Text(
               categories[index],
-              style: TextStyle(color: Colors.white),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ),
