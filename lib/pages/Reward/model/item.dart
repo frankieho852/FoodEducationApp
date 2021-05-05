@@ -28,7 +28,7 @@ List<Item> items = [
     id: 3,
     price: 400,
     title: "Reusable Bamboo Lunch Box",
-    image: "assets/images/Item_3.jpg",
+    image: "assets/images/Item_3.png",
     description:
         "This eco friendly lunchbox has a capacity of 700ml and is made from both natural bamboo and bamboo fibre, with an elastic band and food-grade silicone seal. The bamboo has naturally anti-bacterial properties and it's BPA-free.",
   ),
