@@ -105,20 +105,29 @@ class _SearchpageState extends State<Searchpage> {
   }
   Future<void> FindBarcode() async {
     String barcodeScanRes;
+    String productName;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.BARCODE);
       print(barcodeScanRes);
       //todo:use barcodeScanRes to find the specific product and them
-      String name="todo";
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DetailResult(
-                searchname: name,
-              )));
+      var ref =
+      FirebaseFirestore.instance.collection('foodProduct').where('barcode', isEqualTo: barcodeScanRes);
+      await ref.get().then((value) {
+        productName = value.docs.first.data()['name'];
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailResult(
+                  searchname: productName,
+                )));
+      });
+
+
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
+    } on StateError catch (e) {
+      print("Error-barcode:" + e.toString());
     }
 
     if (!mounted) return;
