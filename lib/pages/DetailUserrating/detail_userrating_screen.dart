@@ -58,7 +58,7 @@ class DetailUserrating extends StatelessWidget {
           log("NEW TEST userrating2");
           log(element.data()['star'].toString());
           log(element.data()['comment']);                                                     //todo:commenterIcon
-          ratinglist.add(Userrating(productname:product.name,name:element.data()['commenter'], image:element.data()['iconURL'],star:element.data()['star'].toDouble(),comment:element.data()['comment']));
+          ratinglist.add(Userrating(productname:product.name,name:element.data()['commenter'], image:element.data()['commenterIcon'],star:element.data()['star'].toDouble(),comment:element.data()['comment']));
         });
 
         /*

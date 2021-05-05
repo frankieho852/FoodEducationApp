@@ -44,7 +44,7 @@ class UserratingCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: Colors.transparent,
                       image: DecorationImage(
-                          image: AssetImage(userrating.image),
+                          image: NetworkImage(userrating.image),
                           fit: BoxFit.cover)),
                 ),
                 SizedBox(

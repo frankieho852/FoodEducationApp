@@ -293,7 +293,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
                 'sex': _genderRadioBtnVal,
                 'coupon': 0,
                 'completedProfile': true,
-                'iconURL': imageUrls
+                'iconURL': imageUrls[0]
               }).then((_) {
                 setState(() {
                   images = [];
