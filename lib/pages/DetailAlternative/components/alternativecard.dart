@@ -107,7 +107,7 @@ class AlternativeCard extends StatelessWidget {
                             child: Row(
                               children: [
                                 Text(
-                                  product.star.toString(),
+                                  product.star.toStringAsFixed(1),
                                   style: TextStyle(
                                     fontSize: size.width * 0.04,
                                     fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class AlternativeCard extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                product.calories.toString() + " Calories",
+                                product.calories.toStringAsFixed(0) + " Calories",
                                 style: TextStyle(
                                   fontSize: size.width *
                                       0.035, //slightly smaller than product name and star
