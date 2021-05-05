@@ -418,9 +418,6 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
         if (imageUrls.length == images.length) {
           User user = FirebaseAuth.instance.currentUser;
 
-
-
-          //FirebaseFirestore.instance.collection('Usericon').doc(user.uid).set(
           FirebaseFirestore.instance.collection('userProfile').doc(user.uid).update(
               {
                 'iconURL': imageUrls

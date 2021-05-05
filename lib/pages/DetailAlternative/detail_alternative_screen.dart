@@ -38,15 +38,11 @@ class _DetailAlternativeState extends State<DetailAlternative> {
 
   @override
   Widget build(BuildContext context) {
-    // todo: a function to search database by product.catergory -> create a list object with simular products
-
-    CollectionReference foodProductCollection =
-        FirebaseFirestore.instance.collection('foodProduct');
 
     final detailAltLogic = getIt<DetailAlternativeLogic>();
 
     return FutureBuilder<bool>(
-      future: detailAltLogic.setup(widget.product.category), //foodProductCollection.where('category', isEqualTo: foodProductCategory).snapshots(),
+      future: detailAltLogic.setup(widget.product.category),
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasError) {
           return Container(
@@ -63,57 +59,6 @@ class _DetailAlternativeState extends State<DetailAlternative> {
             ,
           );
         }
-
-        /*
-        log("Show alt2 product now");
-        log("Cat: " +foodProductCategory);
-        var getaltproduct = foodProductCollection.where('category',
-            isEqualTo: foodProductCategory);
-
-        getaltproduct.get().then((value) {
-          for (DocumentSnapshot document in value.docs) {
-            log("Alt2: " + document.data()['name']);
-            log("Alt2: " + document.data()["image"]);
-            log("Alt2: " + document.data()["energy"].toString());
-            log("Alt2: " + document.data()["grade"]);
-            log("Alt2: " + document.data()["star"].toString());
-
-            tempaltproductslist.add(AlternativeProduct(
-                name: document.data()["name"],
-                image: document.data()["image"],
-                calories: document.data()["energy"].toDouble(),
-                grade: document.data()["grade"],
-                star: document.data()["star"].toDouble()
-            ));
-
-          }
-          log("SIZE: " + tempaltproductslist.length.toString());
-        });
-
-
-////////////////////////////////////////////////////////////////////
-
-        snapshot.data.docs.map((DocumentSnapshot document) {
-
-          log(document.data()['name']);
-          log(document.data()["nicknanme"]);
-          log(document.data()["photoURL"]);
-          tempaltproductslist.add(AlternativeProduct(
-              name: document.data()["name"],
-              image: document.data()["image"],
-              calories: document.data()["energy"],
-              grade: document.data()["grade"]));
-        });
-tempaltproductslist = [
-            AlternativeProduct(name:"Vita TM Cold Brew No Sugar Jasmine Tea",grade:"assets/icons/A-1.svg",image:"assets/images/Vita TM Cold Brew No Sugar Jasmine Tea.jpg",star:4.0,calories:0),
-            AlternativeProduct(name:"Vita TM Cold Brew No Sugar Dong Ding Oolong Tea",grade:"assets/icons/A-1.svg",image:"assets/images/Vita TM Cold Brew No Sugar Dong Ding Oolong Tea.jpg",star:3,calories:0),
-            AlternativeProduct(name:"Vita TM Low Sugar Lemon Tea Drink",grade:"assets/icons/C-3.svg",image:"assets/images/Vitalemontea.jpg",star:3,calories:75),
-            AlternativeProduct(name:"Vita TM Lemon Tea Drink",grade:"assets/icons/C-3.svg",image:"assets/images/Vita TM Lemon Tea Drink.jpg",star:4.5,calories:206),
-            AlternativeProduct(name:"Vita Chrysanthemum Tea Drink",grade:"assets/icons/C-3.svg",image:"assets/images/Vita Chrysanthemum Tea Drink.jpg",star:3.4,calories:131),
-          ];
- */
-
-
 
         return Scaffold(
           appBar: buildAppBar(widget.product.name),
@@ -136,6 +81,4 @@ tempaltproductslist = [
       ),
     );
   }
-
-
 }

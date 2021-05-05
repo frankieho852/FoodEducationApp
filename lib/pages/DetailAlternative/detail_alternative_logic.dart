@@ -6,19 +6,14 @@ import 'package:food_education_app/alternativeproduct.dart';
 
 class DetailAlternativeLogic {
   final loadingNotifier = ValueNotifier<bool>(false);
-//  ShowLoading _setLoading;
- // ShowDialogCallback _onGetDataError;
+
 
   List<AlternativeProduct> tempaltproductslist = [];
-
-  //String foodProductCategory;
 
   CollectionReference foodProductCollection =
   FirebaseFirestore.instance.collection('foodProduct');
 
-//ShowDialogCallback onGetDataError, ShowLoading loading
   Future<bool> setup(String foodProductCategory) async {
-//Vita TM Low Sugar Lemon Tea Drink
 
     loadingNotifier.value = true;
     bool a = await getAltproduct(foodProductCategory).then((value) => true);

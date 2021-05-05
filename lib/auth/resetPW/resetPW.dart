@@ -43,16 +43,6 @@ class _resetPWState extends State<resetPW> {
               ]))),
     );
 
-    /*
-    return Scaffold(
-
-      body: SafeArea(
-        minimum: EdgeInsets.symmetric(horizontal: 40),
-        child: _resetPWForm(),
-      ),
-    );
-
-     */
   }
 
   void _setLoading(bool loading) {
