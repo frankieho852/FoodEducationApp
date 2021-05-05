@@ -142,11 +142,20 @@ class _CommentboxState extends State<Commentbox> {
                               commentData.get().then((value) {
                                 totalNumOfStar = value.size.toInt();
                                 widget.commentlength = totalNumOfStar;
-
-                                updatestar =
-                                    (currentProductStar * totalNumOfStar +
-                                            uploadstar2) /
-                                        (currentProductStar + 1);
+                                log("GGG");
+                                log(currentProductStar.toString());
+                                log(totalNumOfStar.toString());
+                                log(uploadstar2.toString());
+                                if(totalNumOfStar ==1 ||totalNumOfStar ==0 ){
+                                  updatestar =uploadstar2;
+                                } else{
+                                  updatestar =
+                                      (currentProductStar * totalNumOfStar
+                                          ) /
+                                          (currentProductStar);
+                                }
+                                log(updatestar.toString());
+                                log("END");
                                 FirebaseFirestore.instance
                                     .collection('foodProduct')
                                     .doc(widget.productname)
@@ -196,11 +205,20 @@ class _CommentboxState extends State<Commentbox> {
                               commentData.get().then((value) {
                                 totalNumOfStar = value.size.toInt();
                                 widget.commentlength = totalNumOfStar;
+                                log("GGG");
+                                log(currentProductStar.toString());
+                                log(totalNumOfStar.toString());
+                                log(uploadstar2.toString());
+                                if(totalNumOfStar ==1 ||totalNumOfStar ==0){
+                                  updatestar =uploadstar2;
+                                } else{
+                                  updatestar =
+                                      (currentProductStar * totalNumOfStar         ) /
+                                          (currentProductStar);
+                                }
 
-                                updatestar =
-                                    (currentProductStar * totalNumOfStar +
-                                            uploadstar2) /
-                                        (currentProductStar + 1);
+                                log(updatestar.toString());
+                                log("END");
                                 FirebaseFirestore.instance
                                     .collection('foodProduct')
                                     .doc(widget.productname)
