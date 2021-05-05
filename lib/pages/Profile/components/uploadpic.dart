@@ -101,12 +101,20 @@ class _UploadPicState extends State<UploadPic> {
             ElevatedButton(
               child: Text("Pick an image"),
               onPressed: loadAssets,
+              style: ElevatedButton.styleFrom(
+                primary: kPrimaryColor, // background
+                onPrimary: Colors.white, // foreground
+              ),
             ),
             Expanded(
               child: buildGridView(),
             ),
             ElevatedButton(
               child: Text("Upload User Icon"),
+              style: ElevatedButton.styleFrom(
+                primary: kPrimaryColor, // background
+                onPrimary: Colors.white, // foreground
+              ),
               onPressed: uploadIcon,
             ),
           ],
