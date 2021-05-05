@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/alternativeproduct.dart';
+import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailResult/components/body.dart';
 import 'package:food_education_app/dailyintake.dart';
@@ -46,11 +47,13 @@ class _DetailResultState extends State<DetailResult> {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Container(
-              alignment: Alignment.center,
-              child: CircularProgressIndicator(backgroundColor: Colors.white),
+            return Scaffold(
+              body: Center(
+                  child: CircularProgressIndicator(
+                      valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
+                  ,
             );
-            //Text("Loading");
+
           }
 
           print("alt2product length:" + detailResultLogic.alt2product.length.toString());

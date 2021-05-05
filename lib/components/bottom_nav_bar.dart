@@ -58,6 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         );
       },
     );
+
   }
 
   Widget _bottomSheet() {
@@ -98,5 +99,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       //   ],
       // ),
     );
+
+
   }
 }

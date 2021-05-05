@@ -105,11 +105,34 @@ class _VerificationPageState extends State<VerificationPageEmail> {
   }
 
   Widget _buildResendButton() {
+    Size size = MediaQuery.of(context).size;
+    return new Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      width: size.width * 0.9,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(29),
+        child: TextButton(
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+            backgroundColor: Colors.red,
+          ),
+          onPressed:_isButtonDisabled ? null : _resendCode,
+          child: Text(
+          'Resend',
+          style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+
+    /*
     return new FlatButton(
       textColor: _isButtonDisabled ? Colors.grey:Colors.black,
       child: Text('Resend'),
       onPressed: _isButtonDisabled ? null : _resendCode,
       );
+
+     */
   }
 
   void _resendCode() async{

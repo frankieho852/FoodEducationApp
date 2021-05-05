@@ -6,6 +6,7 @@ import 'package:food_education_app/auth/components/login_form.dart';
 import 'package:food_education_app/auth/components/social_media_row.dart';
 import 'package:food_education_app/auth/login/login_page_logic.dart';
 import 'package:food_education_app/auth/auth_service.dart';
+import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/services/service_locator.dart';
 
 class LoginPage extends StatefulWidget {
@@ -33,7 +34,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loading ? Center(child: CircularProgressIndicator()) : LoginForm(),
+      body: _loading
+          ? Center(
+              child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
+          : LoginForm(),
     );
   }
 
@@ -83,19 +88,16 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-          minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+            minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
             child: SingleChildScrollView(
-
                 child: Column(children: [
-                  Image.asset("assets/images/foodcheck_app_logo_auth.png"),
+              Image.asset("assets/images/foodcheck_app_logo_auth.png"),
 
-                  // Login Form
-                  _loginForm(),
-                  // Sign Up Button
-                  GoToSignUpButton(),
-                ])))
-        );
-
+              // Login Form
+              _loginForm(),
+              // Sign Up Button
+              GoToSignUpButton(),
+            ]))));
   }
 
   Widget _loginForm() {

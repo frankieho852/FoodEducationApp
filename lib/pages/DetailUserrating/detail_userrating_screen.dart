@@ -6,28 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:food_education_app/Userrating.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailUserrating/components/body.dart';
-import 'package:food_education_app/pages/DetailUserrating/components/detail_userrating_logic.dart';
-import 'package:food_education_app/services/service_locator.dart';
 
 class DetailUserrating extends StatelessWidget {
 
   final FoodProduct product;
   DetailUserrating({Key key,@required this.product}) : super(key:key);
 
-  /*
-  @override
-  _DetailUserratingState createState() => _DetailUserratingState();
-}
-
-  class _DetailUserratingState extends State<DetailUserrating> {
-   // List<Userrating> ratinglist = [];
-    final detailUserratingLogic = getIt<DetailUserratingLogic>();
-    @override
-    void initState() {
-      super.initState();
-     // detailUserratingLogic.ratinglist.clear();
-    }
-   */
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +20,7 @@ class DetailUserrating extends StatelessWidget {
     var ref =
     FirebaseFirestore.instance.collection('foodProduct').doc(product.name).collection("commentSet");
     return StreamBuilder<QuerySnapshot>(
-      stream: ref.snapshots(),//detailUserratingLogic.setup(widget.product.name),//foodProductCollection          .where('name', isEqualTo: product.name)        .snapshots()   detailUserratingLogic.getUserrating(widget.product.name)
+      stream: ref.snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot) {
         if (snapshot.hasError) {
           return Container(
@@ -57,7 +41,7 @@ class DetailUserrating extends StatelessWidget {
         snapshot.data.docs.forEach((element) {
           log("NEW TEST userrating2");
           log(element.data()['star'].toString());
-          log(element.data()['comment']);                                                     //todo:commenterIcon
+          log(element.data()['comment']);
           ratinglist.add(Userrating(productname:product.name,name:element.data()['commenter'], image:element.data()['commenterIcon'],star:element.data()['star'].toDouble(),comment:element.data()['comment']));
         });
 
@@ -78,7 +62,7 @@ class DetailUserrating extends StatelessWidget {
 
         return Scaffold(
           appBar: buildAppBar(product.name),
-          body:  Body(     //  ratinglist // detailUserratingLogic.ratinglist
+          body:  Body(
               image: product.image, ratinglist: ratinglist, star: product.star,productname: product.name),
           //bottomNavigationBar: MyBottomNavBar(),
         );

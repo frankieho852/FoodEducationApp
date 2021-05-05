@@ -65,7 +65,7 @@ class _newUserProfilePageState extends State<newUserProfilePage> {
       body: SafeArea(
         minimum: EdgeInsets.symmetric(horizontal: 40),
         child: _loading
-            ? Center(child: CircularProgressIndicator())
+            ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
             : SingleChildScrollView(child: _userProfileForm()),
       ),
       // bottomSheet: _showBottomSheet? _bottomSheet() : null

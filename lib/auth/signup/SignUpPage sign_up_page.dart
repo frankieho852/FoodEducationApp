@@ -48,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
     //Scaffold SingleChildScrollView
     return Scaffold(
       body: _loading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
           : SafeArea(
               minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
               child: SingleChildScrollView(
