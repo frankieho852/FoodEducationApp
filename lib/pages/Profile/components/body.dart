@@ -18,7 +18,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    checkProvider();
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 20),

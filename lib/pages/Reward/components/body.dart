@@ -8,9 +8,13 @@ import 'reward_card.dart';
 import 'coupon_box.dart';
 
 class Body extends StatelessWidget {
+
+  String coupon;
+  Body({Key key, this.coupon}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    String coupon="1800000";
+
     return SafeArea(
       bottom: false,
       child: Column(

@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     final User _user = FirebaseAuth.instance.currentUser;
 
     var userRef = FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
-    //getUserDailyIntake();
+
     return StreamBuilder<DocumentSnapshot>(
         stream: userRef.snapshots(),
         builder: (context, snapshot) {
@@ -25,17 +25,13 @@ class HomeScreen extends StatelessWidget {
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Scaffold(
-              body: Center(
-                  child: CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor))),
-            );
+
           }
           double height,weight,age;
           String sex;
-          height = double.parse(snapshot.data.data()['height']);
-          weight = double.parse(snapshot.data.data()['weight']);
-          age = double.parse(snapshot.data.data()['age']);
+          height = snapshot.data.data()['height'].toDouble();
+          weight = snapshot.data.data()['weight'].toDouble();
+          age = snapshot.data.data()['age'].toDouble();
           sex = snapshot.data.data()['sex'];
           double maxCalories = -1;
           if(sex=="Female"){maxCalories=10*weight+6.25*height-5*age+5;}
