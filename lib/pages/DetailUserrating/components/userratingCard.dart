@@ -63,24 +63,7 @@ class UserratingCard extends StatelessWidget {
                               kPrimaryColor))),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-/*
-                Container(
-                  //padding: EdgeInsets.all(kDefaultPadding * 0.1),
-                  height: size.height * 0.06,
-                  width: size.height * 0.06, // ensure sqaure container
 
-                  decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                          image: NetworkImage(userrating.image),
-                          fit: BoxFit.cover)
-
-
-                  ),
-                ),
-
- */
                 SizedBox(
                   width: size.width * 0.02,
                 ),
