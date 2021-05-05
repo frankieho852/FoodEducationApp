@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as math;
 
 class DailyTargetGraph extends StatefulWidget {
+  const DailyTargetGraph({
+    Key key,
+    @required this.dailycalorie,
+  }) : super(key: key);
+  final double dailycalorie;
   @override
   _DailyTargetGraphState createState() => _DailyTargetGraphState();
 }
 
 class _DailyTargetGraphState extends State<DailyTargetGraph>
     with SingleTickerProviderStateMixin {
+  double dailycalorie;
   AnimationController _donutAnimationController;
   Animation<double> _donutAnimation;
 
@@ -27,8 +33,8 @@ class _DailyTargetGraphState extends State<DailyTargetGraph>
         Tween(begin: 0.0, end: 360.0).animate(_donutAnimationController)
           ..addListener(() {
             setState(() {
-              carbDegree = 0.45 * _donutAnimation.value;
-              proteinDegree = 0.3 * _donutAnimation.value;
+              carbDegree = 0.65 * _donutAnimation.value;
+              proteinDegree = 0.10 * _donutAnimation.value;
               fatDegree = 0.25 * _donutAnimation.value;
             });
           });
@@ -50,7 +56,7 @@ class _DailyTargetGraphState extends State<DailyTargetGraph>
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "2384",
+              widget.dailycalorie.toInt().toString(),
               style: TextStyle(fontSize: size.width*0.04, fontWeight: FontWeight.bold),
             ),
             Text("kcal", style: TextStyle(fontSize: size.width*0.04, color: Colors.grey)),
