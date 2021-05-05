@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,7 +13,25 @@ class ProfilePic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String userImage="https://firebasestorage.googleapis.com/v0/b/food-education-383e1.appspot.com/o/userIcon%2FgCkxuSBuHATMXn8Zks3VfuEtSs03?alt=media&token=c55a121b-1666-44c0-b516-c945364e3adf";
+    String userImage;//="https://firebasestorage.googleapis.com/v0/b/food-education-383e1.appspot.com/o/userIcon%2FgCkxuSBuHATMXn8Zks3VfuEtSs03?alt=media&token=c55a121b-1666-44c0-b516-c945364e3adf";
+
+    final User _user = FirebaseAuth.instance.currentUser;
+    var userRef =
+    FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
+
+    return StreamBuilder<DocumentSnapshot>(
+        stream: userRef.snapshots(),
+    builder: (context, snapshot) {
+    if (snapshot.hasError) {
+    return Container(
+    alignment: Alignment.center,
+    child: Text('Error'),
+    );
+    }
+    if (snapshot.connectionState == ConnectionState.waiting) {
+
+    }
+    userImage = snapshot.data.data()['iconURL'];
     return SizedBox(
       height: 115,
       width: 115,
@@ -74,5 +94,6 @@ class ProfilePic extends StatelessWidget {
         ],
       ),
     );
+    });
   }
 }
