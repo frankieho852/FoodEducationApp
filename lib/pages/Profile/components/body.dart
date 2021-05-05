@@ -3,6 +3,11 @@ import 'profile_menu.dart';
 import 'profile_pic.dart';
 
 class Body extends StatelessWidget {
+
+  final VoidCallback shouldLogOut;
+
+  const Body({Key key, this.shouldLogOut}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,7 +39,7 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Log Out",
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () {shouldLogOut();},
           ),
         ],
       ),

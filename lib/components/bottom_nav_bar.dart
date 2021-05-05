@@ -7,6 +7,11 @@ import 'package:food_education_app/pages/Search/searchpage.dart';
 import 'package:food_education_app/pages/Profile/profile_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
+  final VoidCallback shouldLogOut;
+
+  BottomNavBar({Key key, this.shouldLogOut})
+      : super(key: key);
+
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
 }
@@ -42,7 +47,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               HomeScreen(),
               Searchpage(),
               Searchpage(),
-              ProfileScreen(),
+              ProfileScreen(shouldLogOut: widget.shouldLogOut),
             ],
           ),
           bottomNavigationBar: SSBottomNav(

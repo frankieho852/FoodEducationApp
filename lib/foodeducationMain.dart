@@ -7,8 +7,9 @@ import 'components/bottom_nav_bar.dart';
 // todo: is the pages.home file structure correct?
 class FoodEducationMain extends StatefulWidget {
   //final AuthService authService;
+  final VoidCallback shouldLogOut;
 
-  const FoodEducationMain({Key key}) : super(key: key);
+  const FoodEducationMain({Key key,this.shouldLogOut}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _FoodEducationMainState();
@@ -29,7 +30,7 @@ class _FoodEducationMainState extends State<FoodEducationMain> {
       initialRoute: 'bottom_nav_bar',
       routes: {
         'home': (context) => HomeScreen(),
-        'bottom_nav_bar': (context) => BottomNavBar(),
+        'bottom_nav_bar': (context) => BottomNavBar(shouldLogOut: widget.shouldLogOut),
       },
     );
   }
