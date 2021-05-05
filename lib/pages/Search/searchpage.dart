@@ -92,6 +92,20 @@ class _SearchpageState extends State<Searchpage> {
         return new ListTile(
           title: Text(filteredNames[index]),
           onTap: () {
+            final User user = FirebaseAuth.instance.currentUser;
+
+            double couponPoint;
+            var userProfileRef =  FirebaseFirestore.instance.collection('userProfile');
+            userProfileRef.doc(user.uid).get().then((value) {
+              couponPoint = value.data()['coupon'].toDouble();
+              print("current coupon="+couponPoint.toString());
+              userProfileRef.doc(user.uid).update({
+                'coupon': couponPoint+50,
+              }).then((value) => print("coupon added"))
+                  .catchError((error) => print(
+                  "Failed to add coupon: $error"));
+            });
+
             print("filteredNames: "+filteredNames[index]);
             Navigator.push(
                 context,
@@ -116,7 +130,6 @@ class _SearchpageState extends State<Searchpage> {
         var ref =
         FirebaseFirestore.instance.collection('foodProduct').where(
             'barcode', isEqualTo: barcodeScanRes);
-        
         await ref.get().then((value) {
           productName = value.docs.first.data()['name'];
           
