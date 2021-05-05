@@ -18,8 +18,10 @@ class DetailResultScreenLogic {
   FoodProduct product;
   List<DailyIntake> tempDaily = [];
   List<AlternativeProduct> alt2product = [];
+  List<double> dailyintake=[];
 
   String foodProductCategory;
+
 
   CollectionReference foodProductCollection =
   FirebaseFirestore.instance.collection('foodProduct');
@@ -29,12 +31,13 @@ class DetailResultScreenLogic {
 
     loadingNotifier.value = true;
     bool a = await getProductData(searchname).then((value) => true);
-    bool b = await getUserInfo().then((value) => true);
+    bool b = await getUserDailyIntake().then((value) => true);
     bool c = await findMaxMin().then((value) => true);
     bool d = await findAlt2product().then((value) => true);
     print("checkbool");
     print(a); print(b);
     print("checkmaxmin");
+    print(dailyintake[0]);
     print(c); print(d);
     loadingNotifier.value = false;
 
@@ -80,25 +83,47 @@ class DetailResultScreenLogic {
     }
   }
 
-  Future<void> getUserInfo() async {
+  Future<void> getUserDailyIntake() async {
     // 5
     final User _user = FirebaseAuth.instance.currentUser;
     print("uid: "+_user.uid);
     DocumentReference userInfo =
     FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
-
-    double height, weight;
+    double height,weight,age;
     String sex;
+
     try {
       await userInfo.get().then((snapshot) {
         print("Userinfo");
 
         height = snapshot.get('height').toDouble();
         weight = snapshot.get('weight').toDouble();
+        age= snapshot.get('age').toDouble();
         sex = snapshot.get('sex');
       });
+      //the following daily recommend calories intake follows Mifflin-St Jeor Equation:
+      // BMR = 10Weight + 6.25Height - 5Age + 5(for male)
+      // BMR = 10Weight + 6.25Height - 5Age -161(for female)
+      double maxCalories = -1;
+      if(sex=="Female"){maxCalories=10*weight+6.25*height-5*age+5;}
+      if(sex=="Male"){maxCalories=10*weight+6.25*height-5*age-161;}
+      double maxProtein =
+          maxCalories * 0.15 / 4; //One gram of protein provides 4 kcal.
+      double maxCarbohydrate =
+          maxCalories * 0.75 / 4; //One gram of carbohydrate provides 4 kcal.
+      double maxFat =
+          maxCalories * 0.3 / 9; //Fat provides 9 kcal for each gram of fat.
+      //these 3 values should added up to be 100% of max calories per day, but the percentage can varies,
+      //For example, 100% calories = 15% Proteins+ 55% Carbohydrate +30% Fat
+      //or 100% calories = 10% Proteins+ 70% Carbohydrate +20% Fat are also fine
+      double maxSugars =
+          maxCalories * 0.1 / 4; // One gram of sugar provides 4 kcal.
+      double maxSaturatedfat = maxCalories * 0.1 / 9;
+      double maxTransfat = maxCalories * 0.01 / 9;
+      double maxSodium = 5000;
+      dailyintake=[maxCalories,maxProtein,maxFat,maxSaturatedfat,maxTransfat,maxCarbohydrate,maxSugars,maxSodium];
     } on StateError catch (e) {
-      print("Error: UserInfo");
+      print("Error: getUserDailyIntake");
       // return false;
     }
     //  return true;
@@ -130,6 +155,7 @@ class DetailResultScreenLogic {
       });
 
       if (dataSize == 1 || dataSize == 0) {
+        int i=0;
         for (String tempLabel in labelTag) {
           await categoryResult.get().then((value) {
 
@@ -139,11 +165,12 @@ class DetailResultScreenLogic {
                 nutrient: tempLabel,
                 maxSametype: value.docs.first.data()[tempLabel].toDouble(),
                 minSametype: value.docs.first.data()[tempLabel].toDouble(),
-                recDaily: 100));
+                recDaily: dailyintake[i]));
           });
-
+          i++;
         }
       } else {
+        int i=0;
         for (String tempLabel in labelTag) {
           Query maxQ = categoryResult
               .orderBy(tempLabel, descending: true)
@@ -176,7 +203,8 @@ class DetailResultScreenLogic {
               nutrient: tempLabel,
               maxSametype: max,
               minSametype: min,
-              recDaily: 100));
+              recDaily: dailyintake[i]));
+          i++;
         }
       }
       //return tempDaily;
