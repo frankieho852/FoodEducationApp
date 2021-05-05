@@ -33,9 +33,9 @@ class HomeScreen extends StatelessWidget {
           }
           double height,weight,age;
           String sex;
-          height = snapshot.data.data()['height'].toDouble();
-          weight = snapshot.data.data()['weight'].toDouble();
-          age = snapshot.data.data()['age'].toDouble();
+          height = double.parse(snapshot.data.data()['height']);
+          weight = double.parse(snapshot.data.data()['weight']);
+          age = double.parse(snapshot.data.data()['age']);
           sex = snapshot.data.data()['sex'];
           double maxCalories = -1;
           if(sex=="Female"){maxCalories=10*weight+6.25*height-5*age+5;}
