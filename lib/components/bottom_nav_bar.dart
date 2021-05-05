@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_education_app/foodproduct.dart';
-import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
+
 import 'package:food_education_app/pages/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_bottom_navbar/ss_bottom_navbar.dart';
 import 'package:food_education_app/pages/Search/searchpage.dart';
+import 'package:food_education_app/pages/Profile/profile_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -32,33 +32,32 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (_) => _state,
-        builder: (context, child) {
-          context.watch<SSBottomBarState>();
-          return Scaffold(
-            body: IndexedStack(
-              index: _state.selected,
-              children: <Widget>[
-                HomeScreen(),
-                Searchpage(),
-                Searchpage(),
-                Searchpage(),
-              ],
-            ),
-            bottomNavigationBar: SSBottomNav(
-              items: items,
-              state: _state,
-              color: Color(0xFF00A299),
-              selectedColor: Colors.white,
-              unselectedColor: Colors.grey[700],
-              visible: _isVisible,
-              bottomSheetWidget: _bottomSheet(),
-              showBottomSheetAt: 5,
-            ),
-          );
-        },
+      create: (_) => _state,
+      builder: (context, child) {
+        context.watch<SSBottomBarState>();
+        return Scaffold(
+          body: IndexedStack(
+            index: _state.selected,
+            children: <Widget>[
+              HomeScreen(),
+              Searchpage(),
+              Searchpage(),
+              ProfileScreen(),
+            ],
+          ),
+          bottomNavigationBar: SSBottomNav(
+            items: items,
+            state: _state,
+            color: Color(0xFF00A299),
+            selectedColor: Colors.white,
+            unselectedColor: Colors.grey[700],
+            visible: _isVisible,
+            bottomSheetWidget: _bottomSheet(),
+            showBottomSheetAt: 5,
+          ),
+        );
+      },
     );
-
   }
 
   Widget _bottomSheet() {
@@ -99,7 +98,5 @@ class _BottomNavBarState extends State<BottomNavBar> {
       //   ],
       // ),
     );
-
-
   }
 }
