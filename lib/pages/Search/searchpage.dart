@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -117,6 +118,7 @@ class _SearchpageState extends State<Searchpage> {
             'barcode', isEqualTo: barcodeScanRes);
         await ref.get().then((value) {
           productName = value.docs.first.data()['name'];
+          final User user = FirebaseAuth.instance.currentUser;
           Navigator.push(
               context,
               MaterialPageRoute(
