@@ -41,6 +41,10 @@ class _DailyTargetGraphState extends State<DailyTargetGraph>
 
     _donutAnimationController.forward();
   }
+  dispose() {
+    _donutAnimationController.dispose(); // you need this
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
