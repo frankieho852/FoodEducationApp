@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/foodproduct.dart';
 import 'package:food_education_app/pages/DetailAlternative/components/body.dart';
 import 'package:food_education_app/alternativeproduct.dart';
@@ -55,9 +56,11 @@ class _DetailAlternativeState extends State<DetailAlternative> {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(backgroundColor: Colors.white),
+          return Scaffold(
+            body: Center(
+                child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
+            ,
           );
         }
 

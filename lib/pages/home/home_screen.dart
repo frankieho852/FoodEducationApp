@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/pages/home/components/body.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class HomeScreen extends StatelessWidget {
   // double height, weight, age = -1;
   // String sex = 'error';
-  List<double> dailyintake=[];
+  List<double> dailyintake = [];
   @override
   Widget build(BuildContext context) {
     // double height, weight, age = -1;
@@ -24,9 +25,11 @@ class HomeScreen extends StatelessWidget {
           );
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
+          return Scaffold(
+            body: Center(
+                child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
+            ,
           );
           //Text("Loading");
         }

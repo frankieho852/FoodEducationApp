@@ -111,23 +111,28 @@ class _SearchpageState extends State<Searchpage> {
           "#ff6666", "Cancel", true, ScanMode.BARCODE);
       print(barcodeScanRes);
       //todo:use barcodeScanRes to find the specific product and them
-      var ref =
-      FirebaseFirestore.instance.collection('foodProduct').where('barcode', isEqualTo: barcodeScanRes);
-      await ref.get().then((value) {
-        productName = value.docs.first.data()['name'];
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailResult(
-                  searchname: productName,
-                )));
-      });
+      try {
+        var ref =
+        FirebaseFirestore.instance.collection('foodProduct').where(
+            'barcode', isEqualTo: barcodeScanRes);
+        await ref.get().then((value) {
+          productName = value.docs.first.data()['name'];
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DetailResult(
+                        searchname: productName,
+                      )));
+        });
+      } on StateError catch (e) {
+        _showErrorDialog("No result","Cannot find product in database");
+        print("Error-barcode:" + e.toString());
+      }
 
 
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
-    } on StateError catch (e) {
-      print("Error-barcode:" + e.toString());
     }
 
     if (!mounted) return;
@@ -173,5 +178,25 @@ class _SearchpageState extends State<Searchpage> {
         filteredNames = [];// not showing any result when initstate
       });
     });
+  }
+
+  void _showErrorDialog(String title, String content) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Retry'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }
