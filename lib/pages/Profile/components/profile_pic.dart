@@ -11,7 +11,7 @@ class ProfilePic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String userImage="https://firebasestorage.googleapis.com/v0/b/food-education-383e1.appspot.com/o/Usericon%2Fdefault_user_icon.jpg?alt=media&token=b864d2b9-368f-413d-8e31-8729c5e33d91";
+    String userImage="https://firebasestorage.googleapis.com/v0/b/food-education-383e1.appspot.com/o/userIcon%2FgCkxuSBuHATMXn8Zks3VfuEtSs03?alt=media&token=c55a121b-1666-44c0-b516-c945364e3adf";
     return SizedBox(
       height: 115,
       width: 115,

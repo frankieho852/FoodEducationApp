@@ -3,8 +3,9 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_education_app/constants.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UploadPic extends StatefulWidget {
   @override
@@ -36,7 +37,8 @@ class _UploadPicState extends State<UploadPic> {
   Future<String> uploadIcon() async {
     var  byteData = await images[0].requestOriginal();
     List<int> imageData = byteData.buffer.asUint8List();
-    String name="";//todo:get current uid
+    final User _user = FirebaseAuth.instance.currentUser;
+    String name= _user.uid;
     Reference firebaseStorageRef =
     FirebaseStorage.instance.ref().child('userIcon/' + name);
     UploadTask uploadTask = firebaseStorageRef.putData(imageData);
@@ -47,12 +49,14 @@ class _UploadPicState extends State<UploadPic> {
     print(downloadURL);
     FirebaseFirestore.instance
         .collection('userProfile')
-        .doc("temp")
-        .set({
-      'iconUrl': downloadURL,
+        .doc(name)
+        .update({
+
+      'iconURL': downloadURL,
     })
         .then((value) => print("Uploaded"))
         .catchError((onError) => print("Failed:" + onError));
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
   Future<void> loadAssets() async {
     List<Asset> resultList = <Asset>[];
@@ -90,13 +94,12 @@ class _UploadPicState extends State<UploadPic> {
   Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Choose an image'),
         ),
         body: Column(
           children: <Widget>[
-            Center(child: Text('Error: $_error')),
             ElevatedButton(
-              child: Text("Pick images"),
+              child: Text("Pick an image"),
               onPressed: loadAssets,
             ),
             Expanded(
