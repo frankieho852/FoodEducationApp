@@ -40,7 +40,7 @@ class _UploadPicState extends State<UploadPic> {
     final User _user = FirebaseAuth.instance.currentUser;
     String name= _user.uid;
     Reference firebaseStorageRef =
-    FirebaseStorage.instance.ref().child('userIcon/' + name);
+    FirebaseStorage.instance.ref().child('Usericon/' + name);
     UploadTask uploadTask = firebaseStorageRef.putData(imageData);
     //UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
     TaskSnapshot taskSnapshot = await uploadTask;
