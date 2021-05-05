@@ -5,16 +5,17 @@ import 'package:food_education_app/pages/RewardItem/reward_item_screen.dart';
 
 import 'category_list.dart';
 import 'reward_card.dart';
-import 'search_box.dart';
+import 'coupon_box.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String coupon="1800000";
     return SafeArea(
       bottom: false,
       child: Column(
         children: <Widget>[
-          SearchBox(onChanged: (value) {}),
+          CouponBox(coupon:coupon),
           CategoryList(),
           SizedBox(height: kDefaultPadding / 2),
           Expanded(
