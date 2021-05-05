@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_education_app/auth/signup/signup_page_logic.dart';
 import 'package:food_education_app/auth/auth_service.dart';
@@ -32,7 +31,6 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final signupLogic = getIt<SignUpPageLogic>();
   void initState() {
-
     super.initState();
 
     signupLogic.setup(widget.authService, _showErrorDialog, _setLoading);
@@ -46,20 +44,29 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     //Scaffold SingleChildScrollView
     return Scaffold(
       body: _loading
-          ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
+          ? Center(
+              child: CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(kPrimaryColor)))
           : SafeArea(
               minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
               child: SingleChildScrollView(
-                  child: Column(children: [
-                    Image.asset("assets/images/foodcheck_app_logo_auth.png"),
-                    Text("Be Our Member",
-                      style: TextStyle(
-                        fontSize: 30.0
-                      ),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
                     ),
+                    Image.asset(
+                      "assets/images/signup_illustration.png",
+                      width: size.width * 0.8,
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+
                     // Sign Up Form
                     _signUpForm(),
                     // Goto login Button
@@ -72,9 +79,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             primary: Colors.grey[800],
                           )),
                     )
-                  ])
-              )
-      ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 
@@ -193,13 +201,14 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextButton(
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                  backgroundColor: Colors.red,
+                  backgroundColor: kPrimaryColor,
                 ),
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     //_signUp();
                     //final signupLogic = getIt<SignUpPageLogic>();
-                    signupLogic.signUp(_emailController.text.trim(), _passwordController.text.trim()); //
+                    signupLogic.signUp(_emailController.text.trim(),
+                        _passwordController.text.trim()); //
                   }
                 },
                 child: Text(
@@ -274,5 +283,4 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return regExp.hasMatch(password);
   }
-
 }

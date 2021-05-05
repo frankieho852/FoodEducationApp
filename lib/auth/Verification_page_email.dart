@@ -3,20 +3,18 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_education_app/constants.dart';
 
 class VerificationPageEmail extends StatefulWidget {
-
   final VoidCallback backButton;
   final VoidCallback shouldShowLogin;
 
-  VerificationPageEmail(
-      {Key key,  this.backButton, this.shouldShowLogin})
+  VerificationPageEmail({Key key, this.backButton, this.shouldShowLogin})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _VerificationPageState();
 }
-
 
 class _VerificationPageState extends State<VerificationPageEmail> {
   Timer _timer;
@@ -25,7 +23,7 @@ class _VerificationPageState extends State<VerificationPageEmail> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _isButtonDisabled = true;
     _startTimer();
@@ -39,7 +37,10 @@ class _VerificationPageState extends State<VerificationPageEmail> {
         shadowColor: Colors.transparent,
         leading: new IconButton(
           color: Colors.grey[700],
-          icon: new Icon(Icons.arrow_back),
+          icon: new Icon(
+            Icons.arrow_back,
+            color: kPrimaryColor,
+          ),
           splashRadius: 24,
           onPressed: widget.backButton,
         ),
@@ -52,34 +53,77 @@ class _VerificationPageState extends State<VerificationPageEmail> {
   }
 
   Widget _verificationForm() {
+    Size size = MediaQuery.of(context).size;
     return Form(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Verification email sent!"),
-            Text("Please check your inbox and follow the instructions."),
-            Text("Email sent to:"),
-            Text(_getEmailAddress()),
-            Text("$_timerStart" + " seconds"),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          "assets/images/email_verification_illustration.png",
+          width: size.width * 0.8,
+        ),
 
-            _buildResendButton(),
+        SizedBox(
+          height: 20,
+        ),
 
-            // Verify Button
-            FlatButton(
-                onPressed: () {
-                  widget.shouldShowLogin();
-                },
-                child: Text("I'm Ready"),
-                color: Theme.of(context).accentColor),
-          ],
-        ));
+        Text(
+          "Verification email sent!",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        Text(
+          "Please check your inbox and follow the instructions.",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        Text(
+          "Email sent to:",
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        Text(_getEmailAddress()),
+        Text(
+          "$_timerStart" + " seconds",
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+
+        _buildResendButton(),
+
+        // Verify Button
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          width: size.width * 0.9,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(29),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                backgroundColor: kPrimaryColor,
+              ),
+              onPressed: () {
+                widget.shouldShowLogin();
+              },
+              child: Text(
+                "I'm Ready",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 
-  String _getEmailAddress(){
+  String _getEmailAddress() {
     return _auth.currentUser.email;
   }
 
-  void _startTimer(){
+  void _startTimer() {
     if (_timer != null) {
       _timer.cancel();
       _timer = null;
@@ -89,8 +133,8 @@ class _VerificationPageState extends State<VerificationPageEmail> {
       _timerStart = 60;
       _timer = new Timer.periodic(
         const Duration(seconds: 1),
-            (Timer timer) => setState(
-              () {
+        (Timer timer) => setState(
+          () {
             if (_timerStart < 1) {
               timer.cancel();
               _timer = null;
@@ -114,28 +158,19 @@ class _VerificationPageState extends State<VerificationPageEmail> {
         child: TextButton(
           style: TextButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-            backgroundColor: Colors.red,
+            backgroundColor: kPrimaryColor,
           ),
-          onPressed:_isButtonDisabled ? null : _resendCode,
+          onPressed: _isButtonDisabled ? null : _resendCode,
           child: Text(
-          'Resend',
-          style: TextStyle(color: Colors.white),
+            'Resend',
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
     );
-
-    /*
-    return new FlatButton(
-      textColor: _isButtonDisabled ? Colors.grey:Colors.black,
-      child: Text('Resend'),
-      onPressed: _isButtonDisabled ? null : _resendCode,
-      );
-
-     */
   }
 
-  void _resendCode() async{
+  void _resendCode() async {
     User user = FirebaseAuth.instance.currentUser;
     setState(() {
       _isButtonDisabled = true;
@@ -143,7 +178,6 @@ class _VerificationPageState extends State<VerificationPageEmail> {
     });
 
     if (!user.emailVerified) {
-
       try {
         String emailAuth = user.email;
 
@@ -163,11 +197,9 @@ class _VerificationPageState extends State<VerificationPageEmail> {
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.TOP,
             // also possible "TOP" and "CENTER"
-            backgroundColor: Colors.green,
+            backgroundColor: kPrimaryColor,
             textColor: Colors.white);
-
-      } catch(e){
-
+      } catch (e) {
         showDialog<void>(
             context: context,
             barrierDismissible: false, // user must tap button!
@@ -186,25 +218,22 @@ class _VerificationPageState extends State<VerificationPageEmail> {
               );
             });
       }
-
-    } else{
+    } else {
       final snackbar = SnackBar(
         content: Text('Your email address is verified'),
         action: SnackBarAction(
-          label: 'Login',
-          onPressed:() {
-            widget.shouldShowLogin();
-          }
-        ),
+            label: 'Login',
+            onPressed: () {
+              widget.shouldShowLogin();
+            }),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     _timer.cancel();
   }
 }
-

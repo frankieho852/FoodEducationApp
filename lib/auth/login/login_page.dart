@@ -87,17 +87,29 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
-            child: SingleChildScrollView(
-                child: Column(children: [
-              Image.asset("assets/images/foodcheck_app_logo_auth.png"),
-
+      body: SafeArea(
+        minimum: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Image.asset(
+                "assets/images/foodcheck_app_logo_auth.png",
+              ),
+              SizedBox(
+                height: 70,
+              ),
               // Login Form
               _loginForm(),
               // Sign Up Button
               GoToSignUpButton(),
-            ]))));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _loginForm() {
