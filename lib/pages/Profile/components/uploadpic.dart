@@ -88,8 +88,7 @@ class _UploadPicState extends State<UploadPic> {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+      return Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
@@ -109,7 +108,6 @@ class _UploadPicState extends State<UploadPic> {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
