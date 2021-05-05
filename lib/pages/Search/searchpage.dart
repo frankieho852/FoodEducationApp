@@ -116,9 +116,23 @@ class _SearchpageState extends State<Searchpage> {
         var ref =
         FirebaseFirestore.instance.collection('foodProduct').where(
             'barcode', isEqualTo: barcodeScanRes);
+        
         await ref.get().then((value) {
           productName = value.docs.first.data()['name'];
+          
           final User user = FirebaseAuth.instance.currentUser;
+
+          double couponPoint;
+          var userProfileRef =  FirebaseFirestore.instance.collection('userProfile');
+          userProfileRef.doc(user.uid).get().then((value) {
+            couponPoint = value.data()['coupon'].toDouble();
+            userProfileRef.doc(user.uid).update({
+              'coupon': couponPoint+100,
+            }).then((value) => print("coupon added"))
+                .catchError((error) => print(
+                "Failed to add coupon: $error"));
+          });
+
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -131,8 +145,7 @@ class _SearchpageState extends State<Searchpage> {
         _showErrorDialog("No result","Cannot find product in database");
         print("Error-barcode:" + e.toString());
       }
-
-
+      
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
