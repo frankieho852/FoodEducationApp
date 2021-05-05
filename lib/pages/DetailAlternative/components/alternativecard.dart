@@ -4,7 +4,8 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/alternativeproduct.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 class AlternativeCard extends StatelessWidget {
   const AlternativeCard({
     Key key,
@@ -14,6 +15,22 @@ class AlternativeCard extends StatelessWidget {
 
   final AlternativeProduct product;
   final Function press;
+  String getGradeImage(String grade){
+    String gradeimage;
+    if (grade == "A") {
+      gradeimage = "assets/icons/A-1.svg";
+    }
+    if (grade == "B") {
+      gradeimage = "assets/icons/B-2.svg";
+    }
+    if (grade == "C") {
+      gradeimage = "assets/icons/C-3.svg";
+    }
+    if (grade == "D") {
+      gradeimage = "assets/icons/D-4.svg";
+    }
+    return gradeimage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +59,30 @@ class AlternativeCard extends StatelessWidget {
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.withOpacity(0.3)),
                               borderRadius: BorderRadius.circular(14),
-                            image: DecorationImage(
-                                image: AssetImage(
-                                    product.image),
-                                fit: BoxFit.fitHeight)
                           ),
-                          // child: ClipRRect(
-                          //   borderRadius: BorderRadius.circular(18.0),
-                          //   child: Image.asset(
-                          //     product.image,
-                          //     fit: BoxFit.fitHeight,
-                          //   ),
-                          // ),
+                          child: CachedNetworkImage(
+                            imageUrl: product.image,
+                            imageBuilder: (context, imageProvider) => Container(
+                              //color: Colors.green,
+                              decoration: new BoxDecoration(
+                                color: Colors.transparent,
+                                // border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                                borderRadius: BorderRadius.circular(14),
+                                image: DecorationImage(
+                                  image: NetworkImage(product.image),
+                                  //imageProvider
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ),
+                            placeholder: (context, url) => Container(
+                                alignment: Alignment.center,
+                                child: CircularProgressIndicator(
+                                    valueColor: new AlwaysStoppedAnimation<Color>(
+                                        kPrimaryColor))),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
                         ),
                         Align(
                             alignment: Alignment.bottomRight,
@@ -61,7 +90,7 @@ class AlternativeCard extends StatelessWidget {
                               height: size.height * 0.05,
                               width: size.height * 0.05,// ensure the circle is in a squared box
                               color: Colors.transparent,
-                              child: SvgPicture.asset(product.grade),
+                              child: SvgPicture.asset(getGradeImage(product.grade)),
                               // decoration: new BoxDecoration(
                               //    shape: BoxShape.circle,
                               //    color: Colors.green,
@@ -166,4 +195,5 @@ class AlternativeCard extends StatelessWidget {
       ),
     );
   }
+
 }
