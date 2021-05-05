@@ -15,9 +15,9 @@ class HomeScreen extends StatelessWidget {
 
     var userRef = FirebaseFirestore.instance.collection('userProfile').doc(_user.uid);
 
-    return StreamBuilder<DocumentSnapshot>(
-        stream: userRef.snapshots(),
-        builder: (context, snapshot) {
+    return FutureBuilder<DocumentSnapshot>(
+        future: userRef.get(),
+        builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
             return Container(
               alignment: Alignment.center,
@@ -27,6 +27,7 @@ class HomeScreen extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
 
           }
+
           double height,weight,age;
           String sex;
           height = snapshot.data.data()['height'].toDouble();
