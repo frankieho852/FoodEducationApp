@@ -9,7 +9,7 @@ import 'package:food_education_app/pages/DetailUserrating/components/body.dart';
 
 class DetailUserrating extends StatelessWidget {
 
-  final FoodProduct product;
+  FoodProduct product;
   DetailUserrating({Key key,@required this.product}) : super(key:key);
 
 
