@@ -4,8 +4,8 @@ import 'package:food_education_app/constants.dart';
 import 'package:food_education_app/alternativeproduct.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_education_app/pages/DetailScore/detail_score_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:food_education_app/pages/DetailResult/detail_result_screen.dart';
 class AlternativeCard extends StatelessWidget {
   const AlternativeCard({
     Key key,
@@ -43,7 +43,14 @@ class AlternativeCard extends StatelessWidget {
         elevation: 0,
         //color: Colors.blue,
         child: InkWell(
-            onTap: () {},//todo: when ontap, build Detailresult(searchname:product.name)
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailResult(
+                        searchname: this.product.name,
+                      )));
+            },
             child: Row(
               children: [
                 Container(
