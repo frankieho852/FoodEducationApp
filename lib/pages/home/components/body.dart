@@ -6,6 +6,11 @@ import 'header.dart';
 import 'package:food_education_app/constants.dart';
 
 class Body extends StatelessWidget {
+  double test;
+  Body({
+    Key key,
+    @required this.test,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
