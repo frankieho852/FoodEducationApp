@@ -148,7 +148,7 @@ class _CommentboxState extends State<Commentbox> {
                                 log(currentProductStar.toString());
                                 log(totalNumOfStar.toString());
                                 log(uploadstar2.toString());
-                                if(totalNumOfStar ==0 ){
+                                if(totalNumOfStar <=1 ){
                                   updatestar =uploadstar2;
                                 } else{
                                   updatestar =
@@ -210,7 +210,7 @@ class _CommentboxState extends State<Commentbox> {
                                 log(currentProductStar.toString());
                                 log(totalNumOfStar.toString());
                                 log(uploadstar2.toString());
-                                if(totalNumOfStar ==0){
+                                if(totalNumOfStar <=1){
                                   updatestar =uploadstar2;
                                 } else{
                                   updatestar =
