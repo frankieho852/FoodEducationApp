@@ -61,7 +61,6 @@ class _BodyState extends State<Body> {
         ProfilePic(),
         SizedBox(height: 20),
 
-
         ProfileMenu(
           text: "Log Out",
           icon: "assets/icons/Log out.svg",

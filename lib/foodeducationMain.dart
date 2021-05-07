@@ -16,9 +16,9 @@ class FoodEducationMain extends StatefulWidget {
 }
 
 class _FoodEducationMainState extends State<FoodEducationMain> {
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "FoodEdu App",
@@ -33,5 +33,6 @@ class _FoodEducationMainState extends State<FoodEducationMain> {
         'bottom_nav_bar': (context) => BottomNavBar(shouldLogOut: widget.shouldLogOut),
       },
     );
+
   }
 }
