@@ -1,6 +1,6 @@
-# food_education_app
+# food_education_app in HKUST CSE FYP 2021
 
-A Flutter application that promotes food education
+A Flutter application that promotes food education. The application can provide the nutrition information of product to user, recommendation about which product is good for user and add the prodcut by OCR and barcode scanner. Also the application is use firebase for backend development.
 
 ## Getting Started
 
