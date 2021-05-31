@@ -2,6 +2,8 @@
 
 A Flutter application that promotes food education. The application can provide the nutrition information of product to user, recommendation about which product is good for user and add the prodcut by OCR and barcode scanner. Also the application is use firebase for backend development.
 
+The introduction video is below: https://www.cse.ust.hk/ug/fyp/posters/gallery/2020-2021/BL1.mp4
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
